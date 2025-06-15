@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <h1>👋 Welcome, {{ user.username }}!</h1>
+  <p>This is your FitZone Pro dashboard.</p>
+
+  <div class="dashboard-links">
+    <a href="#">🏋️ Workouts</a><br>
+    <a href="#">🥗 Nutrition Plans</a><br>
+    <a href="#">🛍 Store</a><br>
+    <a href="#">📈 Track Progress</a><br>
+    <a href="{% url 'account_logout' %}">🚪 Logout</a>
+  </div>
+{% endblock %}
