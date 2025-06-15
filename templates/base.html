@@ -11,14 +11,14 @@
     <header>
         <nav>
             <a href="{% url 'home' %}">Home</a> |
-            <a href="{% url 'workouts' %}">Workouts</a> |
-            <a href="{% url 'nutrition' %}">Nutrition</a> |
-            <a href="{% url 'store' %}">Store</a> |
-            {% if user.is_authenticated %}
-                <a href="{% url 'account_logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'account_login' %}">Login</a>
-            {% endif %}
+            {# <a href="{% url 'workouts' %}">Workouts</a> | #}
+            {# <a href="{% url 'nutrition' %}">Nutrition</a> | #}
+            {# <a href="{% url 'store' %}">Store</a> | #}
+            {# {% if user.is_authenticated %} #}
+                {# <a href="{% url 'account_logout' %}">Logout</a> #}
+            {# {% else %} #}
+                {# <a href="{% url 'account_login' %}">Login</a> #}
+            {# {% endif %} #}
         </nav>
     </header>
 
@@ -32,3 +32,4 @@
     </footer>
 </body>
 </html>
+
