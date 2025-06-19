@@ -1,5 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h1>Nutrition - Meal Plans</h1>
-<p>This is the meal plans page.</p>
+  <div class="text-center py-4">
+    <h1 class="text-primary fw-bold">🍲 Recipes</h1>
+    <p>Browse healthy and delicious recipes to support your goals.</p>
+  </div>
+  <div class="row">
+    {% for recipe in recipes %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text">{{ recipe.description }}</p>
+            <p class="text-muted">Prep Time: {{ recipe.prep_time }} mins</p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No recipes available.</p>
+    {% endfor %}
+  </div>
 {% endblock %}
+
