@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Meal Plans{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+  <h1 class="display-5 fw-bold text-primary">🍽️ Meal Plans</h1>
+  <p class="text-muted">Explore structured nutrition plans tailored to your health goals.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for plan in plans %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ plan.title }}</h5>
+          <p class="card-text">{{ plan.description }}</p>
+          <p class="text-muted small">Calories: {{ plan.calories }} | Duration: {{ plan.duration_days }} days</p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-center text-muted">No meal plans found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+

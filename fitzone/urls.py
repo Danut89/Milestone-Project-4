@@ -27,6 +27,7 @@ urlpatterns = [
     path('dashboard/', home_views.dashboard, name='dashboard'),
     path('workouts/', include('workouts.urls')),
     path('profile/', include('profiles.urls')),
+    path('nutrition/', include('nutrition.urls')),
 ]
 
 
