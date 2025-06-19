@@ -19,12 +19,14 @@ from django.urls import path, include
 from home import views as home_views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_views.home, name='home'),
     path('accounts/', include('allauth.urls')),
     path('dashboard/', home_views.dashboard, name='dashboard'),
     path('workouts/', include('workouts.urls')),
+    path('profile/', include('profiles.urls')),
 ]
 
 
