@@ -1,0 +1,71 @@
+/* style.css */
+
+
+/* Root Variables */
+:root {
+  --primary-color: #2563eb;   /* Bootstrap blue */
+  --accent-red: #dc3545;
+  --accent-green: #198754;
+  --accent-purple: #6f42c1;
+}
+
+/* Global Reset */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.navbar-brand:hover {
+  color: #d8811d;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero-box {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Featured Plans */
+.plan-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.plan-title-red {
+  color: var(--accent-red);
+}
+
+.plan-title-green {
+  color: var(--accent-green);
+}
+
+.plan-title-purple {
+  color: var(--accent-purple);
+}
+
+.footer {
+  background: #f1f3f5;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+}

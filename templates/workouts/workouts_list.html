@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- 🏋️ Header -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h1 class="display-5 fw-bold text-danger">🏋️ Workouts Page</h1>
+      <p class="text-secondary fs-5 mt-3">
+        Explore our free and premium workout programs to reach your fitness goals.
+      </p>
+    </div>
+  </section>
+
+  <!-- 🧱 Workout Cards -->
+  <section class="py-4">
+    <div class="container">
+      {% if workouts %}
+        <div class="row g-4">
+          {% for workout in workouts %}
+            <div class="col-md-4">
+              <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                  <h5 class="card-title text-danger fw-semibold">{{ workout.title }}</h5>
+                  <p class="card-text text-secondary small">{{ workout.description }}</p>
+                  <a href="#" class="text-danger text-decoration-none small fw-semibold">View Workout →</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-center text-muted">No workouts available.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
+
+
+
+
