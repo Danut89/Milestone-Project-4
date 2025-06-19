@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'workouts',
     'profiles',
     'nutrition',
+    'shop',
 ]
 
 MIDDLEWARE = [
