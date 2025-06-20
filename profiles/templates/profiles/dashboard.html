@@ -6,11 +6,39 @@
   <h1>👋 Welcome, {{ user.username }}!</h1>
   <p>This is your FitZone Pro dashboard.</p>
 
-  <div class="dashboard-links">
-    <a href="#">🏋️ Workouts</a><br>
-    <a href="#">🥗 Nutrition Plans</a><br>
-    <a href="#">🛍 Store</a><br>
-    <a href="#">📈 Track Progress</a><br>
-    <a href="{% url 'account_logout' %}">🚪 Logout</a>
+  <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+  <!-- Nutrition Plans Card -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">🥗 Nutrition Plans</h5>
+        <p class="card-text">Access your personalized meal plans and dietary tips.</p>
+        <a href="{% url 'nutrition' %}" class="btn btn-primary">Go to Nutrition</a>
+      </div>
+    </div>
   </div>
+
+  <!-- Store Card -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">🛒 Store</h5>
+        <p class="card-text">Browse and manage equipment and supplements.</p>
+        <a href="{% url 'all_products' %}" class="btn btn-primary">Go to Store</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Track Progress Card -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">📈 Track Progress</h5>
+        <p class="card-text">Visualize your journey and progress over time.</p>
+        <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

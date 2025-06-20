@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Nutrition Overview{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4 text-primary">🥗 Nutrition Center</h1>
+  <ul>
+    <li><a href="{% url 'meal_plans' %}">📋 Meal Plans</a></li>
+    <li><a href="{% url 'recipes' %}">🍲 Recipes</a></li>
+    <li><a href="{% url 'supplements' %}">💊 Supplements</a></li>
+  </ul>
+{% endblock %}
