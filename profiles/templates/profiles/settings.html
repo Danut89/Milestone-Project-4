@@ -1,6 +1,58 @@
 {% extends "base.html" %}
 {% block title %}Profile Settings{% endblock %}
+
 {% block content %}
-<h2 class="mb-4">Account Settings</h2>
-<p>This is where users can update their email, name, or password.</p>
+<div class="container py-4">
+  <h2 class="mb-4">⚙️ Account Settings</h2>
+  <p class="text-muted">Manage your personal information, account security, and preferences.</p>
+
+  <div class="row g-4 mt-4">
+
+    <!-- 👤 Personal Info -->
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">👤 Personal Information</h5>
+          <p class="card-text">View and update your name and email address.</p>
+          <a href="#" class="btn btn-outline-primary disabled">Edit Info (Coming Soon)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 Password -->
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">🔒 Change Password</h5>
+          <p class="card-text">Update your account password securely.</p>
+          <a href="#" class="btn btn-outline-primary disabled">Change Password</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 💬 Preferences -->
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">💬 Preferences</h5>
+          <p class="card-text">Set your preferred language, theme or notifications.</p>
+          <a href="#" class="btn btn-outline-secondary disabled">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ❌ Account Deletion -->
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm border-danger">
+        <div class="card-body">
+          <h5 class="card-title text-danger">❌ Delete Account</h5>
+          <p class="card-text">Permanently remove your account and data.</p>
+          <a href="#" class="btn btn-danger disabled">Request Deletion</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 {% endblock %}
+

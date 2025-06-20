@@ -3,11 +3,12 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <h1>👋 Welcome, {{ user.username }}!</h1>
-  <p>This is your FitZone Pro dashboard.</p>
+<h1>👋 Welcome, {{ user.username }}!</h1>
+<p>This is your FitZone Pro dashboard.</p>
 
-  <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
-  <!-- Nutrition Plans Card -->
+<div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+
+  <!-- 🥗 Nutrition Plans -->
   <div class="col">
     <div class="card shadow-sm h-100">
       <div class="card-body">
@@ -18,7 +19,7 @@
     </div>
   </div>
 
-  <!-- Store Card -->
+  <!-- 🛒 Store -->
   <div class="col">
     <div class="card shadow-sm h-100">
       <div class="card-body">
@@ -29,16 +30,56 @@
     </div>
   </div>
 
-  <!-- Track Progress Card -->
+  <!-- 🧑‍💼 Account Summary -->
   <div class="col">
     <div class="card shadow-sm h-100">
       <div class="card-body">
-        <h5 class="card-title">📈 Track Progress</h5>
-        <p class="card-text">Visualize your journey and progress over time.</p>
-        <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+        <h5 class="card-title">🧑‍💼 Account Summary</h5>
+        <ul class="list-unstyled">
+          <li><strong>Username:</strong> {{ user.username }}</li>
+          <li><strong>Email:</strong> {{ user.email }}</li>
+          <li><strong>Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</li>
+        </ul>
+        <a href="{% url 'settings' %}" class="btn btn-outline-primary">Manage Account</a>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- 📝 Recent Activity -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">📝 Recent Activity</h5>
+        <p class="card-text">You recently edited 2 products and added 1 recipe.</p>
+        <a href="#" class="btn btn-outline-secondary disabled">View Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 💖 Liked / Saved Products -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">💖 Your Saved Products</h5>
+        <p class="card-text">You haven't saved any products yet.</p>
+        <a href="{% url 'all_products' %}" class="btn btn-outline-primary">Browse Products</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🧭 Quick Actions -->
+  <div class="col">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">⚡ Quick Actions</h5>
+        <div class="d-grid gap-2">
+          <a href="{% url 'all_products' %}" class="btn btn-sm btn-outline-primary">🛍️ View All Products</a>
+          <a href="{% url 'nutrition' %}" class="btn btn-sm btn-outline-primary">🍎 View Meal Plans</a>
+          <a href="{% url 'settings' %}" class="btn btn-sm btn-outline-secondary">⚙️ Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
