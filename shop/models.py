@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class Product(models.Model):
     CATEGORY_CHOICES = [
         ('equipment', 'Equipment'),
@@ -15,5 +13,11 @@ class Product(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
 
+    sku = models.CharField(max_length=20, blank=True, null=True)
+    available = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.name
+
