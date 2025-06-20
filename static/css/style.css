@@ -1,22 +1,39 @@
 /* style.css */
 
-
-/* Root Variables */
+/* ============================
+   🌈 Root Variables
+   ============================ */
 :root {
-  --primary-color: #2563eb;   /* Bootstrap blue */
-  --accent-red: #dc3545;
-  --accent-green: #198754;
-  --accent-purple: #6f42c1;
+  --primary-color: #10B981;         /* Emerald Green */
+  --secondary-color: #0EA5E9;       /* Sky Blue */
+  --accent-purple: #8B5CF6;         /* Violet Purple */
+  --bg-light: #F9FAFB;              /* Light background */
+  --bg-muted: #E5E7EB;              /* Soft section bg */
+  --text-dark: #1F2937;             /* Heading text */
+  --text-muted: #6B7280;            /* Paragraph text */
 }
 
-/* Global Reset */
+
+/* ============================
+   🔄 Reset & Base
+   ============================ */
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
-/* Navbar */
+h1, h2, h3, h4, h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ============================
+   🧭 Navbar
+   ============================ */
 .navbar-brand {
   font-weight: 700;
   color: var(--primary-color);
@@ -30,7 +47,9 @@ body {
   color: var(--primary-color);
 }
 
-/* Hero Section */
+/* ============================
+   🏋️ Hero Section
+   ============================ */
 .hero-box {
   background: #fff;
   border-radius: 1rem;
@@ -38,7 +57,9 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
-/* Featured Plans */
+/* ============================
+   📦 Featured Plans
+   ============================ */
 .plan-card {
   background: #fff;
   border-radius: 1rem;
@@ -64,8 +85,47 @@ body {
   color: var(--accent-purple);
 }
 
+/* ============================
+   🎯 Buttons
+   ============================ */
+.btn {
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary,
+.btn-success,
+.btn-danger {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ============================
+   🧩 Section Helpers
+   ============================ */
+.section-light {
+  background-color: var(--bg-light);
+}
+
+.section-muted {
+  background-color: var(--bg-muted);
+}
+
+.section-divider {
+  border-top: 1px solid #dee2e6;
+  margin: 3rem 0;
+}
+
+/* ============================
+   🔚 Footer
+   ============================ */
 .footer {
   background: #f1f3f5;
   padding: 2rem 1rem;
   font-size: 0.9rem;
+  color: var(--text-muted);
 }

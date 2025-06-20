@@ -5,41 +5,54 @@
 {% block content %}
 
 <!-- 🏋️ Hero Section -->
-<section class="py-5 text-center">
-  <div class="container text-center py-5">
-  <div class="hero-box mx-auto">
-    <h1 class="text-primary fw-bold display-5">Welcome to FitZone Pro 🏋️</h1>
-    <p class="mt-3 text-muted">Your all-in-one online fitness platform for workouts, nutrition, and expert guidance.</p>
-  </div>
-</div>
-
-<div class="container py-5">
-  <h2 class="text-center fw-bold mb-4">🔥 Featured Plans</h2>
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="plan-card text-start">
-        <h4 class="plan-title-red fw-semibold">Full Body Burn</h4>
-        <p class="small text-muted">A 4-week workout program to increase strength and burn fat.</p>
-        <a href="#" class="small text-danger">View Plan →</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="plan-card text-start">
-        <h4 class="plan-title-green fw-semibold">Lean & Clean</h4>
-        <p class="small text-muted">Nutrition plan to detox your system and energize your day.</p>
-        <a href="#" class="small text-success">View Plan →</a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="plan-card text-start">
-        <h4 class="plan-title-purple fw-semibold">Core Crusher</h4>
-        <p class="small text-muted">Targeted ab workout program to sculpt and define your midsection.</p>
-        <a href="#" class="small text-purple">View Plan →</a>
-      </div>
+<section class="py-5 text-center" style="background-color: #F9FAFB;">
+  <div class="container py-5">
+    <div class="mx-auto" style="max-width: 700px;">
+      <h1 class="fw-bold display-4 text-primary">Welcome to FitZone Pro 🏋️</h1>
+      <p class="mt-3 text-muted lead">
+        Your all-in-one online fitness platform for workouts, nutrition, and expert guidance.
+      </p>
+      <a href="{% url 'product_list' %}" class="btn btn-success px-4 py-2 mt-4">Explore Shop</a>
     </div>
   </div>
-</div>
+</section>
 
+<!-- 🔥 Featured Plans Section -->
+<section class="py-5" style="background-color: #E5E7EB;">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5 text-dark">🔥 Featured Plans</h2>
+    
+    <div class="row g-4">
+
+      <!-- 💪 Plan 1 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded shadow-sm p-4 h-100">
+          <h4 class="fw-semibold text-danger">Full Body Burn</h4>
+          <p class="text-muted small mb-3">A 4-week workout program to increase strength and burn fat.</p>
+          <a href="#" class="text-danger small fw-semibold">View Plan →</a>
+        </div>
+      </div>
+
+      <!-- 🥗 Plan 2 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded shadow-sm p-4 h-100">
+          <h4 class="fw-semibold text-success">Lean & Clean</h4>
+          <p class="text-muted small mb-3">Nutrition plan to detox your system and energize your day.</p>
+          <a href="#" class="text-success small fw-semibold">View Plan →</a>
+        </div>
+      </div>
+
+      <!-- 🧱 Plan 3 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded shadow-sm p-4 h-100">
+          <h4 class="fw-semibold" style="color: #8b5cf6;">Core Crusher</h4>
+          <p class="text-muted small mb-3">Targeted ab workout program to sculpt and define your midsection.</p>
+          <a href="#" class="small fw-semibold" style="color: #8b5cf6;">View Plan →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 {% endblock %}
