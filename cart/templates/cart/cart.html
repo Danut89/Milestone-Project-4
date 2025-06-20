@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+  <h1 class="mb-4">🛒 Your Cart</h1>
+
+  {% if cart %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% with total=0 %}
+          {% for item_id, item in cart.items %}
+            {% with subtotal=item.quantity|floatformat:2|add:"0"|floatformat:2 %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>£{{ item.price }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>£{{ item.quantity|floatformat:2|add:"0"|floatformat:2|floatformat:2 }}</td>
+              <td>
+                <form method="post" action="{% url 'remove_from_cart' item_id %}">
+                  {% csrf_token %}
+                  <button class="btn btn-danger btn-sm">Remove</button>
+                </form>
+              </td>
+            </tr>
+            {% endwith %}
+          {% endfor %}
+        {% endwith %}
+      </tbody>
+    </table>
+
+    <p class="mt-4"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
+    <a href="#" class="btn btn-success mt-3">Proceed to Checkout</a>
+
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+</section>
+{% endblock %}
