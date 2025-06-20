@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<section class="container py-5 text-center">
+  <h1>🎉 Thank you for your purchase!</h1>
+  <p>Your order has been received and is being processed.</p>
+  <a href="{% url 'product_list' %}" class="btn btn-primary mt-4">Continue Shopping</a>
+</section>
+{% endblock %}
