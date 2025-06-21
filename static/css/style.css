@@ -1,71 +1,256 @@
-/* style.css */
-
 /* ============================
    🌈 Root Variables
    ============================ */
 :root {
-  --primary-color: #10B981;         /* Emerald Green */
-  --secondary-color: #0EA5E9;       /* Sky Blue */
-  --accent-purple: #8B5CF6;         /* Violet Purple */
-  --bg-light: #F9FAFB;              /* Light background */
-  --bg-muted: #E5E7EB;              /* Soft section bg */
-  --text-dark: #1F2937;             /* Heading text */
-  --text-muted: #6B7280;            /* Paragraph text */
+  --primary-color: #111111;
+  --secondary-color: #F5F2EC;    /* Background base */
+  --accent-color: #BBF3C1;       /* CTAs, badges, buttons */
+  --bg-light: #F9F8F6;
+  --bg-muted: #E5E7EB;
+  --text-dark: #111111;
+  --text-muted: #6B7280;
+  --highlight-soft: #E6FBEA;     /* New light green highlight */
 }
 
 
 /* ============================
-   🔄 Reset & Base
+   🔄 Base Reset
    ============================ */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: var(--text-dark);
   line-height: 1.6;
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-dark);
+}
+
+.section-highlight .hero-title {
+  font-size: 2.25rem; /* slightly smaller than default hero-title */
 }
 
 /* ============================
    🧭 Navbar
    ============================ */
+.navbar {
+  background-color: var(--bg-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+/* Brand Logo */
 .navbar-brand {
-  font-weight: 700;
-  color: var(--primary-color);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary-color) !important;
+  letter-spacing: 0.2px;
+  padding-left: 1rem; /* Adds spacing from the left edge */
 }
 
 .navbar-brand:hover {
-  color: #d8811d;
+  color: var(--accent-color) !important;
 }
 
-.nav-link:hover {
+/* Toggler */
+.navbar-toggler {
+  border: none;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Nav Links */
+.navbar-nav .nav-link {
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--text-dark);
+  padding: 0.6rem 1rem;
+  transition: color 0.2s ease;
+}
+
+
+
+/* Dropdown Menu */
+.nav-item.dropdown .dropdown-menu {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+  border: none;
+  margin-top: 0.4rem;
+  padding: 0.5rem 0;
+  min-width: 200px;
+}
+
+.dropdown-item {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: var(--text-dark);
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--highlight-soft);
   color: var(--primary-color);
 }
+
+/* Cart Button */
+.navbar .btn.hero-btn-outline {
+  padding: 0.45rem 1.25rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+}
+
+
+
 
 /* ============================
    🏋️ Hero Section
    ============================ */
-.hero-box {
-  background: #fff;
-  border-radius: 1rem;
-  padding: 3rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+.hero-section {
+  background: var(--bg-light) url('/static/images/hero-background.png') no-repeat center center;
+  background-size: cover;
+  padding: 6rem 5vw; /* use responsive padding */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 100vw;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+ /* background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));   decide later if needed */
+  z-index: 1;
+}
+
+.hero-text-col {
+  max-width: 550px;
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🎖️ Hero Badge */
+.hero-badge {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px; /* pill shape */
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-btn-black {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.hero-btn-black:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-btn-outline {
+  background-color: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.hero-btn-outline:hover {
+  background-color: var(--highlight-soft); /* Soft peach hover */
+  border-color: var(--accent-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.hero-img-col {
+  flex: 1;
+  min-width: 280px;
+  max-width: 540px;
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-radius: 1.5rem;
+}
+
+
+
+
 /* ============================
-   📦 Featured Plans
+   🔥 Featured Plans Section
    ============================ */
+.featured-section {
+  background-color: var(--bg-muted);
+  padding: 5rem 0;
+}
+
+.section-heading {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+}
+
 .plan-card {
-  background: #fff;
+  background: white;
   border-radius: 1rem;
   padding: 2rem;
+  text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease;
+  height: 100%;
 }
 
 .plan-card:hover {
@@ -73,39 +258,46 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.plan-title-red {
-  color: var(--accent-red);
+.plan-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-.plan-title-green {
-  color: var(--accent-green);
+.plan-description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
 }
 
-.plan-title-purple {
-  color: var(--accent-purple);
-}
-
-/* ============================
-   🎯 Buttons
-   ============================ */
-.btn {
+.plan-link {
+  color: var(--accent-color);
   font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
+  font-size: 0.9rem;
+  text-decoration: none;
 }
 
-.btn-primary,
-.btn-success,
-.btn-danger {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+.plan-link:hover {
+  text-decoration: underline;
 }
 
 /* ============================
-   🧩 Section Helpers
+   💡 Why FitZone Pro Section
+   ============================ */
+.benefit-box {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.benefit-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================
+   🧩 Utility Classes
    ============================ */
 .section-light {
   background-color: var(--bg-light);
@@ -115,17 +307,38 @@ h1, h2, h3, h4, h5 {
   background-color: var(--bg-muted);
 }
 
+.section-highlight {
+  background-color: var(--highlight-soft);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+/* ============================
+   Dividers
+   ============================ */
 .section-divider {
-  border-top: 1px solid #dee2e6;
-  margin: 3rem 0;
+  text-align: center;
+  margin: 3rem auto 1rem;
+}
+.section-label {
+  display: inline-block;
+  background-color: var(--highlight-soft);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 0.95rem;
 }
 
 /* ============================
    🔚 Footer
    ============================ */
 .footer {
-  background: #f1f3f5;
-  padding: 2rem 1rem;
+  background-color: var(--bg-muted);
+  padding: 2rem 0;
   font-size: 0.9rem;
   color: var(--text-muted);
+  text-align: center;
 }
