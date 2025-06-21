@@ -6,7 +6,7 @@
   --secondary-color: #F5F2EC;    /* Background base */
   --accent-color: #BBF3C1;       /* CTAs, badges, buttons */
   --bg-light: #F9F8F6;
-  --bg-muted: #E5E7EB;
+  --bg-muted: #f5f2ec;
   --text-dark: #111111;
   --text-muted: #6B7280;
   --highlight-soft: #E6FBEA;     /* New light green highlight */
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5 {
    🧭 Navbar
    ============================ */
 .navbar {
-  background-color: var(--bg-white);
+  background-color: #fcfcfa ;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid #f0f0f0;
   transition: all 0.3s ease;
@@ -55,10 +55,6 @@ h1, h2, h3, h4, h5 {
   padding-left: 1rem; /* Adds spacing from the left edge */
 }
 
-.navbar-brand:hover {
-  color: var(--accent-color) !important;
-}
-
 /* Toggler */
 .navbar-toggler {
   border: none;
@@ -69,12 +65,20 @@ h1, h2, h3, h4, h5 {
 
 /* Nav Links */
 .navbar-nav .nav-link {
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
   color: var(--text-dark);
   padding: 0.6rem 1rem;
-  transition: color 0.2s ease;
+  position: relative;
+  display: inline-block;
+  
 }
+
+.navbar-nav .nav-link:hover {
+  font-weight: 700;
+   color: #1f2937;
+}
+
 
 
 
@@ -111,36 +115,25 @@ h1, h2, h3, h4, h5 {
 
 
 
+
+
 /* ============================
    🏋️ Hero Section
    ============================ */
 .hero-section {
-  background: var(--bg-light) url('/static/images/hero-background.png') no-repeat center center;
-  background-size: cover;
-  padding: 6rem 5vw; /* use responsive padding */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  width: 100vw;
-  max-width: 100%;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-light);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
-.hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
- /* background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));   decide later if needed */
-  z-index: 1;
+.hero-section p.lead {
+  max-width: 550px;
 }
 
 .hero-text-col {
-  max-width: 550px;
-  flex: 1;
-  min-width: 280px;
-  position: relative;
+  max-width: 500px;
   z-index: 2;
 }
 
@@ -182,15 +175,15 @@ h1, h2, h3, h4, h5 {
   color: white;
   padding: 0.75rem 1.75rem;
   border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .hero-btn-black:hover {
-  background-color: #000;
-  transform: translateY(-2px);
+  background-color: var(--accent-color) !important;
+ 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: var(--primary-color) !important;
 }
 
 .hero-btn-outline {
@@ -199,33 +192,52 @@ h1, h2, h3, h4, h5 {
   color: var(--primary-color);
   padding: 0.75rem 1.75rem;
   border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .hero-btn-outline:hover {
-  background-color: var(--highlight-soft); /* Soft peach hover */
+  background-color: var(--accent-color) !important; 
   border-color: var(--accent-color);
-  color: var(--primary-color);
-  transform: translateY(-2px);
+  color: var(--primary-color) !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .hero-img-col {
+  max-width: 500px;
   flex: 1;
-  min-width: 280px;
-  max-width: 540px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
+
 
 .hero-img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
   border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
+.hero-product-img {
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
 
+.hero-product-img:hover {
+  transform: scale(1.05);
+}
+
+/*Mobile Hero Section */
+@media (max-width: 767px) {
+  .hero-product-img {
+    margin-top: 2rem;
+    max-width: 280px;
+  }
+}
 
 
 /* ============================
