@@ -19,6 +19,8 @@ from django.urls import path, include
 from home import views as home_views
 from django.conf import settings
 from django.conf.urls.static import static
+from nutrition.views import meal_plan_detail
+
 
 
 

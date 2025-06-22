@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ plan.title }}{% endblock %}
+
+{% block content %}
+<section class="meal-detail-section container py-5">
+  <!-- 🥗 Meal Plan Heading -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-primary">{{ plan.title }}</h1>
+    <p class="text-muted lead">{{ plan.description }}</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- 🔢 Summary Card -->
+    <div class="col-md-4">
+      <div class="summary-card bg-light p-4 rounded-4 shadow-sm">
+        <h5 class="mb-3 text-secondary">Plan Summary</h5>
+        <p><strong>Calories:</strong> {{ plan.calories }}</p>
+        <p><strong>Duration:</strong> {{ plan.duration_days }} days</p>
+        <button class="btn btn-success w-100 mt-3">❤️ Save to Wishlist</button>
+      </div>
+    </div>
+
+    <!-- 🗓️ Daily Breakdown Placeholder -->
+    <div class="col-md-8">
+      <div class="bg-white p-4 rounded-4 shadow-sm">
+        <h5 class="mb-3 text-secondary">Daily Meal Breakdown</h5>
+        <p class="text-muted">Coming soon: List of daily meals for this plan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for plan in plans %}
+    <div class="col">
+      <a href="{% url 'meal_plan_detail' plan.id %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ plan.title }}</h5>
+            <p class="card-text">{{ plan.description }}</p>
+            <p class="text-muted small">Calories: {{ plan.calories }} | Duration: {{ plan.duration_days }} days</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% empty %}
+    <p class="text-center text-muted">No meal plans found.</p>
+  {% endfor %}
+</div>
