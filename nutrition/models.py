@@ -10,7 +10,6 @@ class MealPlan(models.Model):
     duration_days = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # Fixed: added comma after default=1
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

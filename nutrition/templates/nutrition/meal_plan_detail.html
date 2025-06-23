@@ -32,19 +32,21 @@
 
           <!-- Collapsible Days -->
           <div class="accordion" id="mealPlanAccordion">
-            {% for day in "1234567" %}
+            {% for day in days %}
               <div class="accordion-item border-0 mb-2">
-                <h2 class="accordion-header" id="heading{{ day }}">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day }}">
-                    Day {{ day }}
+                <h2 class="accordion-header" id="heading{{ day.day_number }}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}">
+                    Day {{ day.day_number }}
                   </button>
                 </h2>
-                <div id="collapse{{ day }}" class="accordion-collapse collapse" data-bs-parent="#mealPlanAccordion">
+                <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" data-bs-parent="#mealPlanAccordion">
                   <div class="accordion-body">
-                    Example meals for Day {{ day }} go here. Breakfast, lunch, snacks, and dinner mock content.
+                    {{ day.description|default:"No description available for this day." }}
                   </div>
                 </div>
               </div>
+            {% empty %}
+              <p>No days added yet to this meal plan.</p>
             {% endfor %}
           </div>
         </div>
