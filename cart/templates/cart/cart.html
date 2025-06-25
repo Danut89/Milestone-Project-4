@@ -20,8 +20,8 @@
 
   {% if cart %}
     <div class="table-wrap shadow-sm rounded-4 p-3 bg-white">
-      <table class="table cart-table w-100">
-        <thead>
+      <table class="table align-middle cart-table w-100">
+        <thead class="table-light">
           <tr>
             <th scope="col">Product</th>
             <th scope="col">Price</th>
@@ -33,16 +33,19 @@
         <tbody>
           {% for item_id, item in cart.items %}
             <tr>
-              <td>{{ item.name }}</td>
+              <td class="d-flex align-items-center gap-3">
+                {% if item.image_url %}
+                  <img src="{{ item.image_url }}" alt="{{ item.name }}" class="img-thumbnail rounded-3" style="width: 60px; height: auto;">
+                {% endif %}
+                <strong>{{ item.name }}</strong>
+              </td>
               <td>£{{ item.price }}</td>
-              <td>{{ item.quantity }}</td>
+              <td><span class="badge bg-secondary">{{ item.quantity }}</span></td>
               <td>£{{ item.quantity|floatformat:0|floatformat:2|add:"0"|floatformat:2 }}</td>
               <td class="text-end">
                 <form method="post" action="{% url 'remove_from_cart' item_id %}">
                   {% csrf_token %}
-                  <button class="btn btn-sm" style="background-color: var(--accent-color);">
-                    Remove
-                  </button>
+                  <button class="btn btn-outline-danger btn-sm">Remove</button>
                 </form>
               </td>
             </tr>
@@ -51,17 +54,18 @@
       </table>
     </div>
 
-    <div class="mt-4">
-      <p class="fs-5"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
-      <a href="{% url 'checkout' %}" class="btn btn-lg mt-3"
-         style="background-color: var(--accent-color); color: var(--primary-color);">
+    <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <p class="fs-5 mb-0"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
+      <a href="{% url 'checkout' %}" class="btn btn-lg shop-btn">
         Proceed to Checkout
       </a>
     </div>
+
   {% else %}
     <div class="alert alert-info bg-white shadow-sm rounded-3 p-3 mt-3" role="alert">
       Your cart is currently empty.
     </div>
+    <a href="{% url 'all_products' %}" class="btn btn-primary mt-3">Browse Products</a>
   {% endif %}
 </section>
 {% endblock %}
