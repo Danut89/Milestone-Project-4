@@ -1,34 +1,38 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Shop{% endblock %}
+{% block title %}All Products{% endblock %}
 
 {% block content %}
-  <h1 class="mb-4 text-primary">🛒 Shop Products</h1>
-  <div class="row">
-    {% for product in products %}
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          
-          {% if product.image %}
-            <a href="{% url 'product_detail' product.pk %}">
-              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-            </a>
-          {% endif %}
-          
-          <div class="card-body">
-            <h5 class="card-title">
-              <a href="{% url 'product_detail' product.pk %}" class="text-decoration-none text-dark">
-                {{ product.name }}
+<section class="container py-5 section-highlight">
+  <h1 class="hero-title text-center mb-5">🛍 All Shop Products</h1>
+
+  {% if products %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for product in products %}
+        <div class="col">
+          <div class="card h-100 shadow-sm rounded-4">
+            {% if product.image %}
+              <a href="{% url 'product_detail' product.pk %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
               </a>
-            </h5>
-            <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-            <p class="text-primary fw-bold">£{{ product.price }}</p>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text text-muted mb-2">{{ product.description|truncatechars:100 }}</p>
+              <p class="text-primary fw-bold">£{{ product.price }}</p>
+              <div class="mt-auto">
+                <a href="{% url 'product_detail' product.pk %}" class="btn w-100" style="background-color: var(--accent-color);">
+                  View Product
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    {% empty %}
-      <p>No products found.</p>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">No products available.</div>
+  {% endif %}
+</section>
 {% endblock %}
-

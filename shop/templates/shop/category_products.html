@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category_name }}{% endblock %}
+
+{% block content %}
+<section class="container py-5 section-highlight">
+  <h1 class="hero-title text-center mb-4">{{ category_name }}</h1>
+
+  {% if messages %}
+    <div class="mb-4" aria-live="polite">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} shadow-sm rounded-3">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if products %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for product in products %}
+        <div class="col">
+          <div class="card h-100 shadow-sm rounded-4">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text text-muted">£{{ product.price }}</p>
+              <a href="{% url 'product_detail' product.pk %}" class="btn w-100 mt-2" style="background-color: var(--accent-color);">
+                View Product
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center mt-4">
+      No products found in this category.
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

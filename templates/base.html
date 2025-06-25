@@ -54,18 +54,19 @@
           </ul>
         </li>
 
-        <!-- 🛍 Shop Dropdown -->
+     <!-- 🛍 Shop Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle px-3" href="#" data-bs-toggle="dropdown" role="button">
             Shop
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'all_products' %}">All Products</a></li>
-            <li><a class="dropdown-item" href="{% url 'equipment' %}">Equipment</a></li>
-            <li><a class="dropdown-item" href="{% url 'clothing' %}">Clothing</a></li>
-            <li><a class="dropdown-item" href="{% url 'supplements' %}">Supplements</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'equipment' %}">Equipment</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'clothing' %}">Clothing</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'supplements' %}">Supplements</a></li>
           </ul>
         </li>
+
 
         <!-- 👤 Profile -->
         {% if user.is_authenticated %}
