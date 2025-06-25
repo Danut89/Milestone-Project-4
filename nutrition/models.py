@@ -9,6 +9,7 @@ class MealPlan(models.Model):
     calories = models.IntegerField()
     duration_days = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='mealplan_images/', blank=True, null=True)
 
     created_by = models.ForeignKey(
         User,
@@ -20,14 +21,23 @@ class MealPlan(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def get_days(self):
+        return self.days.all()
+
 
 class MealPlanDay(models.Model):
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE, related_name="days")
     day_number = models.PositiveIntegerField()
     description = models.TextField(blank=True, null=True)
+    meals = models.TextField(blank=True, null=True)  # Optional: simple text for meals
+
+    class Meta:
+        ordering = ['day_number']
 
     def __str__(self):
         return f"{self.meal_plan.title} - Day {self.day_number}"
+
 
 
 class Recipe(models.Model):

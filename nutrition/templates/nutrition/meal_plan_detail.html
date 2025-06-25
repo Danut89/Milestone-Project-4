@@ -1,36 +1,38 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ plan.title }}{% endblock %}
+{% block title %}{{ meal_plan.title }}{% endblock %}
 
 {% block content %}
 <section class="section-light py-5">
   <div class="container">
-    
+
     <!-- 🥗 Plan Header -->
     <div class="text-center mb-5">
-      <h1 class="hero-title">{{ plan.title }}</h1>
-      <p class="hero-subtitle">{{ plan.description }}</p>
+      <h1 class="hero-title">{{ meal_plan.title }}</h1>
+      <p class="hero-subtitle">{{ meal_plan.description }}</p>
     </div>
 
     <!-- 📊 Summary + Breakdown -->
     <div class="row g-4 mb-5">
-      <!-- Summary -->
+      
+      <!-- 🖼 Image + Summary -->
       <div class="col-md-4">
         <div class="bg-white p-4 rounded-4 shadow-sm text-center">
-          <p class="mb-2"><strong>🔥 Calories:</strong> {{ plan.calories }}</p>
-          <p class="mb-2"><strong>⏱️ Duration:</strong> {{ plan.duration_days }} days</p>
+          {% if meal_plan.image %}
+            <img src="{{ meal_plan.image.url }}" alt="{{ meal_plan.title }}" class="img-fluid rounded-3 mb-3">
+          {% endif %}
+          <p class="mb-2"><strong>🔥 Calories:</strong> {{ meal_plan.calories }}</p>
+          <p class="mb-2"><strong>⏱️ Duration:</strong> {{ meal_plan.duration_days }} days</p>
           <p><strong>🍽️ Goal:</strong> Weight Loss</p>
           <button class="hero-btn-black w-100 mt-4">❤️ Save to Wishlist</button>
         </div>
       </div>
 
-      <!-- Breakdown -->
+      <!-- 📅 Breakdown -->
       <div class="col-md-8">
         <div class="section-muted p-4 rounded-4">
-          <h5 class="mb-4"><span role="img" aria-label="meals">📅</span> Daily Meal Breakdown</h5>
-
-          <!-- Collapsible Days -->
+          <h5 class="mb-4">📅 Daily Meal Breakdown</h5>
           <div class="accordion" id="mealPlanAccordion">
             {% for day in days %}
               <div class="accordion-item border-0 mb-2">
@@ -51,26 +53,26 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- 🛒 Shopping Preview -->
     <div class="bg-white p-4 rounded-4 shadow-sm mb-5">
-      <h5><span role="img" aria-label="cart">🛒</span> Shopping List Preview</h5>
+      <h5>🛒 Shopping List Preview</h5>
       <p class="mt-2 mb-3 text-muted small">🥚 Eggs &nbsp; 🍗 Chicken Breast &nbsp; 🥬 Spinach &nbsp; 🥑 Avocados &nbsp; 🍅 Cherry Tomatoes &nbsp; 🫐 Greek Yogurt</p>
       <a href="#" class="btn btn-sm btn-outline-secondary">View Full Shopping List</a>
     </div>
 
     <!-- 📘 About This Plan -->
     <div class="section-highlight p-4 rounded-4 mb-5">
-      <h5><span role="img" aria-label="info">📘</span> About This Plan</h5>
+      <h5>📘 About This Plan</h5>
       <p class="mt-2 text-muted">This meal plan is designed to help users achieve their weight loss goals while maintaining energy and satisfaction. Each day provides a mix of proteins, healthy fats, and complex carbs. Ideal for beginners or those restarting their journey!</p>
     </div>
 
-    <!-- ✨ Recommendations -->
+    <!-- 💬 Recommendations -->
     <div class="section-light pt-4">
-      <h5 class="mb-4"><span role="img" aria-label="recommend">💬</span> You Might Also Like</h5>
+      <h5 class="mb-4">💬 You Might Also Like</h5>
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        <!-- Recommendation Card 1 -->
         <div class="col">
           <div class="product-card p-4 rounded-4">
             <h6 class="mb-1">🥗 Vegan Reset (3-Day)</h6>
@@ -78,7 +80,6 @@
             <a href="#" class="btn-featured btn-sm">View</a>
           </div>
         </div>
-        <!-- Recommendation Card 2 -->
         <div class="col">
           <div class="product-card p-4 rounded-4">
             <h6 class="mb-1">💪 High Protein Plan</h6>
@@ -86,7 +87,6 @@
             <a href="#" class="btn-featured btn-sm">View</a>
           </div>
         </div>
-        <!-- Recommendation Card 3 -->
         <div class="col">
           <div class="product-card p-4 rounded-4">
             <h6 class="mb-1">🧘 Balanced Energy Plan</h6>
