@@ -14,7 +14,7 @@
       <div class="card-body">
         <h5 class="card-title">🥗 Nutrition Plans</h5>
         <p class="card-text">Access your personalized meal plans and dietary tips.</p>
-        <a href="{% url 'nutrition' %}" class="btn btn-primary">Go to Nutrition</a>
+        <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-primary">Go to Nutrition</a>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@
         <h5 class="card-title">⚡ Quick Actions</h5>
         <div class="d-grid gap-2">
           <a href="{% url 'all_products' %}" class="btn btn-sm btn-outline-primary">🛍️ View All Products</a>
-          <a href="{% url 'nutrition' %}" class="btn btn-sm btn-outline-primary">🍎 View Meal Plans</a>
+          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-sm btn-outline-primary">🍎 View Meal Plans</a>
           <a href="{% url 'settings' %}" class="btn btn-sm btn-outline-secondary">⚙️ Settings</a>
         </div>
       </div>

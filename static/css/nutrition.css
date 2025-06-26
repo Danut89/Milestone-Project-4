@@ -1,6 +1,6 @@
 /* ============================
-   🌈 Root Variables
-   ============================ */
+   🌈 Root Variables (reused from index.css)
+============================ */
 :root {
   --primary-color: #111111;
   --secondary-color: #F5F2EC;
@@ -13,32 +13,31 @@
 }
 
 /* ===============================
-   Meal Plan Detail Page Styling
-================================== */
+   🥗 Meal Plan Detail Page Styling
+=============================== */
 
-/* General Page Section */
 .meal-detail-page {
   font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-light);
 }
 
 /* Header */
 .meal-plan-header h1 {
   font-size: 2.5rem;
-  color: #1d4ed8; /* Tailwind blue-700 */
+  color: var(--primary-color);
 }
 
 .meal-plan-header p {
   font-size: 1.1rem;
-  color: #6b7280; /* Tailwind gray-500 */
+  color: var(--text-muted);
 }
 
 /* Plan Summary Card */
 .plan-summary {
-  background-color: #f8f9fa;
-  border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  background-color: #fff;
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s ease;
 }
 
@@ -49,23 +48,26 @@
 .plan-summary p {
   margin: 0.5rem 0;
   font-size: 1rem;
-  color: #374151; /* Tailwind gray-700 */
+  color: var(--text-dark);
 }
 
 .btn-save {
-  background-color: #0d6efd;
+  background-color: var(--primary-color);
   color: #fff;
   border-radius: 0.5rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .btn-save:hover {
-  background-color: #0b5ed7;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
 }
 
-/* Accordion (Day Sections) */
+/* Accordion (Day Breakdown) */
 .accordion-item {
   border-radius: 0.75rem;
   border: 1px solid #e5e7eb;
@@ -74,46 +76,114 @@
 }
 
 .accordion-button {
-  font-weight: 500;
-  color: #111827; /* Tailwind gray-900 */
-  background-color: #f1f5f9; /* Tailwind gray-100 */
+  font-weight: 600;
+  color: var(--text-dark);
+  background-color: #f1f5f9;
+  padding: 1rem 1.25rem;
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #e0f2fe; /* Tailwind blue-100 */
-  color: #0c4a6e; /* Tailwind blue-900 */
+  background-color: #e0f2fe;
+  color: #0c4a6e;
 }
 
 .accordion-body {
   background-color: #ffffff;
   font-size: 0.95rem;
-  color: #374151;
+  color: var(--text-muted);
 }
 
 /* Shopping List */
+.daily-breakdown ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
 .daily-breakdown ul li {
   margin-bottom: 0.5rem;
 }
 
-/* About Plan & Related Plans */
-.bg-light {
-  background-color: #f8fafc !important; /* Tailwind gray-50 */
+/* ============================
+   📦 Meal Plans Grid (meal_plans.html)
+============================ */
+
+.meal-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+/* ============================
+   🥗 Meal Plans Grid Styling
+============================= */
+.meal-plan-card {
+  background-color: var(--bg-light);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.card-text {
+.meal-plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.meal-plan-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.meal-plan-card .card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.meal-plan-card h5 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.meal-plan-card p {
   font-size: 0.95rem;
-  color: #6b7280;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
 }
 
-.btn-outline-primary {
-  border-radius: 0.5rem;
+.meal-plan-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-top: auto;
 }
 
 
 
 
+/* Page Header Styling */
+.meal-plans-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.meal-plans-title h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.meal-plans-title p {
+  font-size: 1rem;
+  color: var(--text-muted);
+}

@@ -1,37 +1,49 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Meal Plans{% endblock %}
 
 {% block content %}
-<div class="text-center mb-5">
-  <h1 class="display-5 fw-bold text-primary">🍽️ Meal Plans</h1>
-  <p class="text-muted">Explore structured nutrition plans tailored to your health goals.</p>
-</div>
+<section class="section-light py-5">
+  <div class="container">
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for plan in plans %}
-    <div class="col">
-      <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="text-decoration-none text-dark">
-        <div class="card meal-plan-card h-100 shadow-sm">
-          
-          {% if plan.image %}
-            <img src="{{ plan.image.url }}" class="card-img-top" alt="{{ plan.title }}">
-          {% endif %}
-
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <h5 class="card-title">{{ plan.title }}</h5>
-              <p class="card-text">{{ plan.description }}</p>
-            </div>
-            <p class="text-muted small mt-3">Calories: {{ plan.calories }} | Duration: {{ plan.duration_days }} days</p>
-          </div>
-        </div>
-      </a>
+    <!-- 🌟 Page Heading -->
+    <div class="text-center mb-5">
+      <h1 class="hero-title">🥗 Meal Plans</h1>
+      <p class="hero-subtitle">Explore structured nutrition plans tailored to your health goals.</p>
     </div>
-  {% empty %}
-    <p class="text-center text-muted">No meal plans found.</p>
-  {% endfor %}
-</div>
+
+    <!-- 🧩 Meal Plans Grid -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for plan in plans %}
+        <div class="col">
+          <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="text-decoration-none text-dark">
+            <div class="meal-plan-card section-highlight">
+
+              <!-- 📸 Plan Image -->
+              {% if plan.image %}
+                <img src="{{ plan.image.url }}" alt="{{ plan.title }}" class="img-fluid">
+              {% else %}
+                <img src="{% static 'images/default-meal-plan.jpg' %}" alt="Meal Plan" class="img-fluid">
+              {% endif %}
+
+              <!-- 📋 Card Content -->
+              <div class="card-body">
+                <h5>{{ plan.title }}</h5>
+                <p>{{ plan.description|truncatewords:20 }}</p>
+                <p class="meal-plan-meta">
+                  <span>🔥 {{ plan.calories }} Calories</span>
+                  <span>⏱️ {{ plan.duration_days }} days</span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <p class="text-center">No meal plans available.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
 {% endblock %}
-
-
