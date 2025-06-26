@@ -25,29 +25,27 @@
 <body class="text-dark">
 
 <!-- 🔝 Navbar -->
-<nav class="navbar navbar-expand-lg border-bottom py-3 shadow-sm sticky-top">
-  <div class="container-fluid px-4"> <!-- changed from container to container-fluid -->
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}" style="color: var(--primary-color);">
+<!-- 🔝 Responsive Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top py-3 shadow-sm border-bottom bg-white">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="{% url 'home' %}" class="navbar-brand fw-bold" style="color: var(--primary-color);">
       FitZone Pro
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+    <!-- 🟡 Toggle only visible on mobile -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+    <!-- 🔵 Nav links -->
+    <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+      <ul class="navbar-nav align-items-lg-center gap-lg-3">
 
-        <!-- 🌐 Main Links -->
-        <li class="nav-item">
-          <a class="nav-link px-3" href="{% url 'home' %}">Home</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
 
-        <!-- 🥗 Nutrition Dropdown -->
+        <!-- 🥗 Nutrition -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-3" href="#" data-bs-toggle="dropdown" role="button">
-            Nutrition
-          </a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Nutrition</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
             <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
@@ -55,11 +53,9 @@
           </ul>
         </li>
 
-     <!-- 🛍 Shop Dropdown -->
+        <!-- 🛒 Shop -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-3" href="#" data-bs-toggle="dropdown" role="button">
-            Shop
-          </a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'all_products' %}">All Products</a></li>
             <li><a class="dropdown-item" href="{% url 'products_by_category' 'equipment' %}">Equipment</a></li>
@@ -68,35 +64,37 @@
           </ul>
         </li>
 
-
         <!-- 👤 Profile -->
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-3" href="#" data-bs-toggle="dropdown">Profile</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Profile</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
             <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
           </ul>
         </li>
         {% else %}
-        <li class="nav-item"><a class="nav-link px-3" href="{% url 'account_login' %}">Login</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="{% url 'account_signup' %}">Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a></li>
         {% endif %}
 
-        <!-- Cart Icon with Label -->
-        <li class="nav-item ms-3">
-          <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1 position-relative">
-            <i class="fas fa-shopping-cart fa-lg"></i>
+        <!-- 🛍️ Cart -->
+        <li class="nav-item">
+          <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1">
+            <i class="fas fa-shopping-cart"></i>
             <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
           </a>
         </li>
+
       </ul>
     </div>
   </div>
 </nav>
+
+
 
 <div class="announcement-bar promo-banner overflow-hidden py-2">
   <div class="marquee d-flex">
@@ -129,13 +127,13 @@
 </main>
 
 <!-- 🖚 Footer -->
-<footer class="footer border-top text-muted text-center mt-5">
+<footer class="footer py-4 border-top mt-5 bg-light">
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <p class="mb-2 mb-md-0">&copy; 2025 FitZone Pro. All rights reserved.</p>
+    <p class="mb-2 mb-md-0 text-muted small">© 2025 FitZone Pro. All rights reserved.</p>
     <div class="d-flex gap-3">
-      <a href="#" class="text-decoration-none text-muted">Privacy</a>
-      <a href="#" class="text-decoration-none text-muted">Terms</a>
-      <a href="#" class="text-decoration-none text-muted">Contact</a>
+      <a href="#" class="text-muted small text-decoration-none">Privacy</a>
+      <a href="#" class="text-muted small text-decoration-none">Terms</a>
+      <a href="#" class="text-muted small text-decoration-none">Contact</a>
     </div>
   </div>
 </footer>

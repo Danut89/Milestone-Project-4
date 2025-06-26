@@ -1,6 +1,7 @@
-/* ============================
-   🌈 Root Variables
-   ============================ */
+
+/* ===============================
+   🌈 Design Tokens & Base Styles
+================================== */
 :root {
   --primary-color: #111111;
   --secondary-color: #F5F2EC;
@@ -10,13 +11,23 @@
   --text-dark: #111111;
   --text-muted: #6B7280;
   --highlight-soft: #E6FBEA;
+
+  --font-main: 'Roboto', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --box-shadow-hover: 0 6px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* ============================
-   🔄 Base Reset
-   ============================ */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-main);
   background-color: var(--secondary-color);
   color: var(--text-dark);
   line-height: 1.6;
@@ -25,91 +36,255 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: 'Montserrat', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   font-weight: 700;
   color: var(--text-dark);
 }
 
-.section-highlight .hero-title {
-  font-size: 2.25rem;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-
-/* ============================
+/* ===============================
    🧭 Navbar
-   ============================ */
+================================== */
 .navbar {
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+  border-bottom: 1px solid #eee;
 }
 
-/* Brand Logo */
 .navbar-brand {
   font-size: 1.3rem;
   font-weight: 800;
   color: var(--primary-color) !important;
-  letter-spacing: 0.2px;
-  padding-left: 1rem; /* Adds spacing from the left edge */
 }
 
-/* Toggler */
-.navbar-toggler {
-  border: none;
-}
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-/* Nav Links */
 .navbar-nav .nav-link {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
-  padding: 0.6rem 1rem;
-  position: relative;
-  display: inline-block;
-  
 }
 
 .navbar-nav .nav-link:hover {
-  font-weight: 600;
-   color: var(--primary-color);
-}
-
-
-
-
-/* Dropdown Menu */
-.nav-item.dropdown .dropdown-menu {
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-  border: none;
-  margin-top: 0.4rem;
-  padding: 0.5rem 0;
-  min-width: 200px;
-}
-
-.dropdown-item {
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  color: var(--text-dark);
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-item:hover {
-  background-color: var(--highlight-soft);
   color: var(--primary-color);
 }
 
-/* Cart Button */
-.navbar .btn.hero-btn-outline {
-  padding: 0.45rem 1.25rem;
+/* ===============================
+   🏋️ Hero Section
+================================== */
+.hero-section {
+  background-color: var(--bg-light);
+  padding: 5rem 0;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.hero-buttons .btn {
+  padding: 0.75rem 1.75rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+/* ===============================
+   🔥 Featured Section (Updated)
+================================== */
+.featured-section {
+  background-color: var(--bg-muted);
+  padding: 5rem 0;
+}
+
+.card {
+  border: none;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.card-img {
+  object-fit: cover;
+  height: 100%;
+  filter: brightness(70%);
+}
+
+.card-img-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-md);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.card small {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #eee;
+  opacity: 0.85;
+}
+
+.card .btn {
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  margin-top: 1rem;
+  background-color: #ffffff;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.card .btn:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* ===============================
+   💬 Testimonials
+================================== */
+.testimonials {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 4rem 0;
+}
+
+.testimonial-box {
+  background-color: white;
+  color: var(--text-dark);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.testimonial-name {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.testimonial-card {
+  background-color: white;
+  border-left: 5px solid var(--accent-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: "“";
+  font-size: 5rem;
+  color: var(--accent-color);
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  line-height: 1;
+  opacity: 0.15;
+  font-family: Georgia, serif;
+}
+
+.testimonial-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.testimonial-card p {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
+}
+
+.testimonial-card h6 {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0;
+  text-align: right;
+}
+
+/* ===============================
+   💡 Why Choose Us
+================================== */
+.feature-card {
+  background-color: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-color);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+}
+
+.feature-card h5 {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.feature-card p {
   font-size: 0.9rem;
-  border-radius: 0.5rem;
-  white-space: nowrap;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+
+
+/* ===============================
+   ✨ Utility & Section Styles
+================================== */
+.section-light { background-color: var(--bg-light); }
+.section-muted { background-color: var(--bg-muted); }
+.section-dark { background-color: var(--primary-color); color: white; }
+.section-heading {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
 }
 
 /* ============================
@@ -153,343 +328,4 @@ h1, h2, h3, h4, h5 {
   100% {
     transform: translateX(-50%);
   }
-}
-
-
-
-
-
-
-
-/* ============================
-   🏋️ Hero Section
-   ============================ */
-.hero-section {
-  position: relative;
-  z-index: 1;
-  background-color: var(--bg-light);
-  padding-bottom: 5rem;
-}
-
-.hero-section p.lead {
-  max-width: 550px;
-}
-
-.hero-text-col {
-  max-width: 500px;
-  z-index: 2;
-}
-
-.hero-title {
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.hero-subtitle {
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.hero-cta-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.hero-btn-black {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0.75rem 1.75rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.hero-btn-black:hover {
-  background-color: var(--accent-color) !important;
-  font-weight: 700;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  color: #111 !important;
-}
-
-.hero-btn-outline {
-  background-color: white;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 0.75rem 1.75rem;
-  border-radius: 0.5rem;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.hero-btn-outline:hover {
-  background-color: var(--accent-color) !important; 
-  color: var(--primary-color) !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  
-}
-
-.hero-img-col {
-  max-width: 500px;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-
-.hero-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.hero-product-img {
-  max-width: 380px;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-
-
-/*Mobile Hero Section */
-@media (max-width: 767px) {
-  .hero-product-img {
-    margin-top: 2rem;
-    max-width: 280px;
-  }
-}
-
-/* ============================
-      Card Styles
-   ============================ */
-.product-card {
-  background-color: var(--bg-muted);
-  min-height: 300px;
-  overflow: hidden;
-  position: relative;
-}
-
-.product-img {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  width: 50%;
-  max-height: 180px;
-  object-fit: contain;
-}
-
-.product-card:hover .product-img {
-  transform: scale(1.05);
-}
-
-.arrow-btn {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.arrow-btn:hover {
-  background-color: var(--accent-color) !important;
-  color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.arrow-btn i {
-  transition: transform 0.3s ease;
-}
-
-.arrow-btn:hover i {
-  transform: translateX(4px); /* or 6px for more movement */
-}
-
-
-
-
-/* ============================
-   Testimonials Section
-   ============================ */
-.testimonials {
-  background-color: var(--primary-color);
-  padding: 3rem 0;
-}
-
-.carousel-item {
-  transition: opacity 0.8s ease-in-out;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
-}
-
-
-
-/* ============================
-   🔥 Featured Plans Section
-   ============================ */
-.featured-section {
-  background-color: var(--bg-muted);
-  padding: 5rem 0;
-}
-
-.section-heading {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--primary-color);
-  margin-bottom: 3rem;
-}
-
-.featured-img-card, .plan-card {
-  position: relative;
-  height: 500px;
-  border-radius: 1rem;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  color: white;
-}
-
-.featured-img-card::before, .plan-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  z-index: 1;
-}
-
-.featured-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem;
-}
-
-.featured-sub {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-  align-self: flex-start;
-  color: #fff;
-}
-
-.featured-title, .plan-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-}
-
-.btn-featured, .plan-link.btn {
-  background-color: var(--bg-light);
-  color: var(--primary-color);
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-featured:hover, .plan-link.btn:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-2px);
-}
-
-.plan-description {
-  color: rgba(255,255,255,0.85);
-  font-size: 1.1rem;
-  margin: 1rem 0;
-}
-
-
-
-
-
-/* ============================
-   💡 Why FitZone Pro Section
-   ============================ */
-.benefit-box {
-  background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-}
-
-.benefit-box:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* ============================
-   🧩 Utility Classes
-   ============================ */
-.section-light {
-  background-color: var(--bg-light);
-}
-
-.section-muted {
-  background-color: var(--bg-muted);
-}
-
-.section-highlight {
-  background-color: var(--accent-color);
-}
-
-.text-accent {
-  color: var(--accent-color);
-}
-
-/* ============================
-   Dividers
-   ============================ */
-.section-divider {
-  text-align: center;
-  margin: 3rem auto 1rem;
-}
-.section-label {
-  display: inline-block;
-  
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-weight: 600;
-  color: var(--primary-color);
-  font-size: 0.95rem;
-}
-
-/* ============================
-   🔚 Footer
-   ============================ */
-.footer {
-  background-color: var(--bg-muted);
-  padding: 2rem 0;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  text-align: center;
 }
