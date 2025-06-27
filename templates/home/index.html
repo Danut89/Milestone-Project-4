@@ -1,165 +1,131 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Welcome to FitZone Pro{% endblock %}
 
 {% block content %}
-<!-- 🏋️‍♀️ Hero Section -->
-<section class="hero-section container-fluid py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Left Text Column -->
-      <div class="col-md-6 text-center text-md-start">
-        <div class="rating-stars text-success fw-bold small mb-2">
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <span class="text-dark ms-2">5.0 based on 4,500+ reviews</span>
-        </div>
-        <h1 class="hero-title">Fuel Your Body with Clean Nutrition</h1>
-        <p class="hero-subtitle">Designed by experts to support your workouts, energy, and daily wellness routine.</p>
-        <div class="hero-buttons">
-          <a href="#" class="btn btn-primary">Shop FitZone</a>
-          <a href="#" class="btn btn-outline-primary">Take the Quiz</a>
-        </div>
-      </div>
 
-      <!-- Right Image Column -->
-      <div class="col-md-6 text-center mt-5 mt-md-0">
-        <img src="{% static 'images/hero-background2.png' %}" alt="Supplement Bottle" class="img-fluid hero-product-img">
-      </div>
-    </div>
+<!-- 🌿 Hero Section -->
+<section class="hero-section d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('{% static 'images/hero-banner1.jpg' %}') center/cover no-repeat;">
+  <div class="container text-center py-5">
+    <p class="text-uppercase small mb-2">Wellness For Life</p>
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Your Wellness, Your Way</h1>
+    <p class="subtitle lead animate__animated animate__fadeInUp">Empowering healthier lives with personalized plans and mindful living.</p>
+    <a href="{% url 'account_signup' %}" class="btn btn-lg btn-success px-4 mt-3 animate__animated animate__fadeInUp">Join FitZone</a>
   </div>
 </section>
 
-<!-- ✨ Featured Plans Section -->
-<section class="featured-section section-light py-5">
-  <div class="container">
-    <h2 class="section-heading text-center mb-5">🔥 Featured Plans</h2>
-    <div class="row g-4">
-
-      <!-- Card 1: Dashboard -->
-      <div class="col-md-4">
-        <div class="card text-white shadow-sm border-0 overflow-hidden h-100">
-          <img src="{% static 'images/hero-image.png' %}" class="card-img" alt="Track your Progress">
-          <div class="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-50 rounded-4 p-4">
-            <small class="text-uppercase">Supercharge your routine</small>
-            <h5 class="card-title mt-2">Track your Progress</h5>
-            <a href="#" class="btn btn-light btn-sm mt-3 w-auto">View Now →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: Meal Plans -->
-      <div class="col-md-4">
-        <div class="card text-white shadow-sm border-0 overflow-hidden h-100">
-          <img src="{% static 'images/hero-image2.png' %}" class="card-img" alt="Meal Plans">
-          <div class="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-50 rounded-4 p-4">
-            <small class="text-uppercase">Eat better and hit your goals</small>
-            <h5 class="card-title mt-2">🍽️ Meal Plans</h5>
-            <a href="#" class="btn btn-light btn-sm mt-3 w-auto">View Plan →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: Shop -->
-      <div class="col-md-4">
-        <div class="card text-white shadow-sm border-0 overflow-hidden h-100">
-          <img src="{% static 'images/hero-image3.png' %}" class="card-img" alt="Shop">
-          <div class="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-50 rounded-4 p-4">
-            <small class="text-uppercase">Supplements, equipment & more</small>
-            <h5 class="card-title mt-2">🛒 Shop</h5>
-            <a href="#" class="btn btn-light btn-sm mt-3 w-auto">Go to Shop →</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- 💬 Testimonials -->
-<section class="testimonials section-dark py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">💬 What Our Members Are Saying</h2>
-    <div class="row g-4">
-
-      <div class="col-md-4">
-        <div class="testimonial-card bg-white text-dark rounded-4 p-4 h-100 shadow-sm">
-          <i class="fas fa-quote-left text-accent fs-3 mb-3"></i>
-          <p class="mb-3">"FitZone makes healthy living accessible with expert-backed formulas."</p>
-          <h6 class="fw-bold text-end text-primary m-0">— Emily R.</h6>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="testimonial-card bg-white text-dark rounded-4 p-4 h-100 shadow-sm">
-          <i class="fas fa-quote-left text-accent fs-3 mb-3"></i>
-          <p class="mb-3">"I’ve never felt better. The energy and community is very real!"</p>
-          <h6 class="fw-bold text-end text-primary m-0">— Marcus B.</h6>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="testimonial-card bg-white text-dark rounded-4 p-4 h-100 shadow-sm">
-          <i class="fas fa-quote-left text-accent fs-3 mb-3"></i>
-          <p class="mb-3">"I lost 5kg in 3 weeks! Incredible tools and clean layout."</p>
-          <h6 class="fw-bold text-end text-primary m-0">— Julia W.</h6>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,100 C480,0 960,0 1440,100 L1440,0 L0,0 Z" fill="#121212"></path>
+  </svg>
+</div>
 
 
 <!-- 💡 Why Choose Us -->
-<!-- 💡 Why Choose FitZone Pro -->
-<section class="section-light py-5">
-  <div class="container">
-    <h2 class="section-heading text-center mb-5">💡 Why Choose FitZone Pro?</h2>
+<section class="features-section py-5 bg-dark text-white">
+  <div class="container text-center">
+    <h2 class="mb-5 fw-bold">Why Choose FitZone Pro?</h2>
     <div class="row g-4">
-
-      <!-- Feature Card -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card text-center p-4 h-100">
-          <div class="feature-icon mb-3">📊</div>
-          <h5 class="fw-bold mb-2">Dashboard</h5>
-          <p class="text-muted small">Everything in one place to monitor your health journey.</p>
-        </div>
+      <div class="col-md-3">
+        <i class="fas fa-seedling fa-3x mb-3 text-success"></i>
+        <h5 class="fw-bold">Mindful Nutrition</h5>
+        <p>Delicious meal plans tailored to fuel your goals.</p>
       </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card text-center p-4 h-100">
-          <div class="feature-icon mb-3">🥗</div>
-          <h5 class="fw-bold mb-2">Meal Plans</h5>
-          <p class="text-muted small">Flexible, dietitian-approved, tailored to your goals.</p>
-        </div>
+      <div class="col-md-3">
+        <i class="fas fa-heartbeat fa-3x mb-3 text-success"></i>
+        <h5 class="fw-bold">Healthy Habits</h5>
+        <p>Empower your day with science-backed lifestyle tips.</p>
       </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card text-center p-4 h-100">
-          <div class="feature-icon mb-3">🧠</div>
-          <h5 class="fw-bold mb-2">Expert Advice</h5>
-          <p class="text-muted small">Get guidance from certified professionals & coaches.</p>
-        </div>
+      <div class="col-md-3">
+        <i class="fas fa-shopping-cart fa-3x mb-3 text-success"></i>
+        <h5 class="fw-bold">Wellness Shop</h5>
+        <p>Carefully curated supplements, gear & more.</p>
       </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card text-center p-4 h-100">
-          <div class="feature-icon mb-3">🖥️</div>
-          <h5 class="fw-bold mb-2">Modern UX</h5>
-          <p class="text-muted small">Slick interface that's clean, intuitive & user-centered.</p>
-        </div>
+      <div class="col-md-3">
+        <i class="fas fa-user-circle fa-3x mb-3 text-success"></i>
+        <h5 class="fw-bold">Personal Dashboard</h5>
+        <p>Track progress & access your favorite tools in one place.</p>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- 🌟 Testimonials -->
+<section class="testimonials-section py-5 bg-black text-white">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-5">What Our Users Say</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <blockquote class="blockquote p-4 bg-dark rounded shadow-sm">
+          <p>"FitZone helped me completely reset my lifestyle — I've never felt more balanced."</p>
+          <footer class="blockquote-footer text-muted">Anna T., Yoga Enthusiast</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-4 mb-4">
+        <blockquote class="blockquote p-4 bg-dark rounded shadow-sm">
+          <p>"Their plans are simple and inspiring. The dashboard keeps me on track."</p>
+          <footer class="blockquote-footer text-muted">Marcus L., Busy Parent</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🛍️ Popular Products -->
+<section class="popular-products-section py-5 bg-dark text-white">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-5">Popular in the Shop</h2>
+    <div class="row g-4">
+      <!-- Product Cards (placeholders for now) -->
+      <div class="col-md-4">
+        <div class="card bg-light text-dark h-100">
+          <img src="{% static 'images/product1.png' %}" class="card-img-top" alt="Protein">
+          <div class="card-body">
+            <h5 class="card-title">Organic Vegan Protein</h5>
+            <p class="card-text">Plant-powered performance blend.</p>
+            <a href="{% url 'all_products' %}" class="btn btn-outline-success btn-sm">View Product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-light text-dark h-100">
+          <img src="{% static 'images/product2.jpg' %}" class="card-img-top" alt="Greens">
+          <div class="card-body">
+            <h5 class="card-title">Daily Greens Powder</h5>
+            <p class="card-text">Detox + Energy in one scoop.</p>
+            <a href="{% url 'all_products' %}" class="btn btn-outline-success btn-sm">View Product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-light text-dark h-100">
+          <img src="{% static 'images/product3.jpg' %}" class="card-img-top" alt="Water Bottle">
+          <div class="card-body">
+            <h5 class="card-title">Hydration Bottle</h5>
+            <p class="card-text">BPA-free with time markers to keep you going.</p>
+            <a href="{% url 'all_products' %}" class="btn btn-outline-success btn-sm">View Product</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 📬 Subscribe Section -->
+<section class="subscribe-section py-5 bg-black text-white text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Stay in the Loop</h2>
+    <p class="mb-4">Sign up for health tips, product drops, and exclusive offers.</p>
+    <form class="row justify-content-center">
+      <div class="col-md-6">
+        <input type="email" class="form-control mb-2" placeholder="Enter your email">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">Subscribe</button>
+      </div>
+    </form>
+  </div>
+</section>
 
 {% endblock %}

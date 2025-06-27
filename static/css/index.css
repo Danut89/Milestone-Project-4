@@ -1,290 +1,396 @@
-
-/* ===============================
-   🌈 Design Tokens & Base Styles
-================================== */
 :root {
-  --primary-color: #111111;
-  --secondary-color: #F5F2EC;
-  --accent-color: #BBF3C1;
-  --bg-light: #F9F8F6;
-  --bg-muted: #f5f2ec;
-  --text-dark: #111111;
-  --text-muted: #6B7280;
-  --highlight-soft: #E6FBEA;
-
-  --font-main: 'Roboto', sans-serif;
-  --font-heading: 'Montserrat', sans-serif;
-
-  --radius-sm: 0.5rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.5rem;
-
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.08);
-  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-  --box-shadow-hover: 0 6px 30px rgba(0, 0, 0, 0.15);
+  --bg-dark: #000;
+  --bg-alt: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-muted: #b0b0b0;
+  --accent-green: #00ff88;
+  --accent-green-hover: #00c37e;
 }
 
-body {
-  font-family: var(--font-main);
-  background-color: var(--secondary-color);
-  color: var(--text-dark);
-  line-height: 1.6;
-  font-size: 1rem;
-  margin: 0;
-  padding: 0;
+/* ================================
+   ✨ Clean & Polished Navbar CSS
+================================= */
+
+/* 🔝 Top Bar: Logo, Search, Account/Cart */
+.navbar .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1.25rem 2rem 1rem;
+  background-color: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ===============================
-   🧭 Navbar
-================================== */
-.navbar {
-  background-color: #fff;
-  box-shadow: var(--shadow-soft);
-  border-bottom: 1px solid #eee;
-}
-
-.navbar-brand {
-  font-size: 1.3rem;
+/* 🔰 Brand */
+.navbar .navbar-brand {
+  font-size: 1.7rem;
   font-weight: 800;
-  color: var(--primary-color) !important;
-}
-
-.navbar-nav .nav-link {
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--text-muted);
-}
-
-.navbar-nav .nav-link:hover {
   color: var(--primary-color);
+  margin-right: 2rem;
+  letter-spacing: -0.5px;
 }
 
-/* ===============================
-   🏋️ Hero Section
-================================== */
+/* 🔍 Search Bar */
+.navbar form[role="search"] {
+  flex-grow: 1;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.navbar input[type="search"] {
+  border: none;
+  border-radius: 0.375rem 0 0 0.375rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.95rem;
+  width: 100%;
+  background-color: white;
+  color: black;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.navbar button[type="submit"] {
+  border: none;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+  background-color: var(--text-muted);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.navbar button[type="submit"]:hover {
+  background-color: var(--accent-green-hover);
+}
+
+/* 👤 Account & 🛒 Cart */
+.navbar .account-cart {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.navbar .account-cart a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar .account-cart a:hover {
+  color: var(--accent-green);
+}
+
+.navbar .dropdown-toggle,
+.navbar .nav-link i {
+  margin-right: 0.3rem;
+}
+
+/* 📎 Bottom Nav Link Bar */
+.navbar .link-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 2rem 1rem;
+  background-color: #000;
+}
+
+.navbar .navbar-nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.navbar .nav-link {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #f0f0f0;
+  padding: 0.6rem 0;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.navbar .nav-link:hover{
+  color: var(--accent-green);
+}
+
+/* Dropdown menu container */
+.navbar .dropdown-menu {
+  background-color: #111; /* dark bg */
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  min-width: 180px;
+}
+
+/* Dropdown items */
+.navbar .dropdown-item {
+  color: #f0f0f0;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 0.375rem;
+}
+
+/* Hover effect */
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  background-color: var(--text-muted);
+  color: #fff;
+}
+
+
+
+
+/* =============================
+   📱 Responsive Adjustments
+============================= */
+@media (max-width: 991px) {
+  .navbar .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .navbar form[role="search"] {
+    margin: 0.75rem 0;
+  }
+
+  .navbar .link-bar {
+    justify-content: center;
+    padding-bottom: 1rem;
+  }
+
+  .navbar .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .navbar .nav-link {
+    font-size: 1rem;
+  }
+}
+
+
+
+/* ===== Hero Section ===== */
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
+
 .hero-section {
-  background-color: var(--bg-light);
-  padding: 5rem 0;
+  min-height: 85vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
-.hero-title {
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-}
-
-.hero-buttons .btn {
-  padding: 0.75rem 1.75rem;
+.hero-section h1 {
+  font-size: 3rem;
+  color: var(--text-primary);
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0;
   font-weight: 700;
-  border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
-/* ===============================
-   🔥 Featured Section (Updated)
-================================== */
-.featured-section {
-  background-color: var(--bg-muted);
-  padding: 5rem 0;
-}
-
-.card {
-  border: none;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--box-shadow-hover);
-}
-
-.card-img {
-  object-fit: cover;
-  height: 100%;
-  filter: brightness(70%);
-}
-
-.card-img-overlay {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(2px);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  border-radius: var(--radius-md);
-}
-
-.card-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.75rem;
-}
-
-.card small {
+.hero h5 {
+  font-size: 0.95rem;
   text-transform: uppercase;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  color: #eee;
-  opacity: 0.85;
+  letter-spacing: 0.15rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
 }
 
-.card .btn {
-  padding: 0.5rem 1.25rem;
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: #ccc;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.hero-section p.small {
+  letter-spacing: 2px;
+  color: #ccc;
   font-weight: 600;
-  border-radius: var(--radius-sm);
-  margin-top: 1rem;
-  background-color: #ffffff;
-  color: var(--primary-color);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.hero-section .btn {
+  background-color: var(--accent-green);
+  color: black;
+  border: none;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0,255,100,0.2);
   transition: all 0.3s ease;
 }
 
-.card .btn:hover {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  transform: scale(1.05);
+.hero-section .btn:hover {
+  background-color: var(--accent-green-hover);
+  color: black;
+  box-shadow: 0 8px 20px rgba(0,255,100,0.3);
+  transform: translateY(-2px);
 }
 
-/* ===============================
-   💬 Testimonials
-================================== */
-.testimonials {
-  background-color: var(--primary-color);
-  color: white;
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 80px;
+  margin-top: -1px;
+}
+
+/* ===== Features Section ===== */
+.features-section {
+  background-color: var(--bg-dark);
   padding: 4rem 0;
 }
 
-.testimonial-box {
-  background-color: white;
-  color: var(--text-dark);
-  padding: 1.5rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-}
-
-.testimonial-name {
-  display: block;
-  margin-top: 1rem;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-.testimonial-card {
-  background-color: white;
-  border-left: 5px solid var(--accent-color);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  box-shadow: var(--shadow-md);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonial-card::before {
-  content: "“";
-  font-size: 5rem;
-  color: var(--accent-color);
-  position: absolute;
-  top: -10px;
-  left: 15px;
-  line-height: 1;
-  opacity: 0.15;
-  font-family: Georgia, serif;
-}
-
-.testimonial-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-5px);
-}
-
-.testimonial-card p {
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--text-dark);
-  margin-bottom: 1.25rem;
-}
-
-.testimonial-card h6 {
-  font-size: 0.95rem;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-bottom: 0;
-  text-align: right;
-}
-
-/* ===============================
-   💡 Why Choose Us
-================================== */
-.feature-card {
-  background-color: #fff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent-color);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-}
-
-.feature-card h5 {
-  font-size: 1.2rem;
-  color: var(--primary-color);
-}
-
-.feature-card p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-
-
-/* ===============================
-   ✨ Utility & Section Styles
-================================== */
-.section-light { background-color: var(--bg-light); }
-.section-muted { background-color: var(--bg-muted); }
-.section-dark { background-color: var(--primary-color); color: white; }
-.section-heading {
-  text-align: center;
+.features-section h2 {
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+.features-section i {
+  color: var(--accent-green);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.features-section .col-md-3:hover i {
+  transform: scale(1.2);
+  color: var(--accent-green-hover);
+}
+
+.features-section p {
+  color: var(--text-muted);
+}
+
+/* ===== Testimonials Section ===== */
+.testimonials-section {
+  background-color: black;
+  padding: 4rem 0;
+}
+
+.testimonials-section h2 {
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+}
+
+.blockquote {
+  background-color: #1f1f1f;
+  border-left: 4px solid var(--accent-green);
+  font-style: italic;
+}
+
+.blockquote-footer {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ===== Popular Products Section ===== */
+.popular-products-section {
+  background-color: var(--bg-alt);
+  padding: 4rem 0;
+}
+
+.popular-products-section h2 {
+  color: var(--text-primary);
+  margin-bottom: 2.5rem;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.card .btn {
+  color: var(--accent-green-hover);
+  border-color: var(--accent-green-hover);
+}
+
+.card .btn:hover {
+  background-color: var(--accent-green-hover);
+  color: black;
+}
+
+/* ===== Subscribe Section ===== */
+.subscribe-section {
+  background-color: black;
+  padding: 4rem 0;
+}
+
+.subscribe-section h2 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.subscribe-section p {
+  color: var(--text-muted);
   margin-bottom: 2rem;
+}
+
+.subscribe-section input {
+  height: 50px;
+  padding: 10px 15px;
+}
+
+.subscribe-section .btn {
+  background-color: var(--accent-green);
+  border: none;
+  height: 50px;
+}
+
+.subscribe-section .btn:hover {
+  background-color: var(--accent-green-hover);
+  color: black;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .features-section .col-md-3 {
+    margin-bottom: 2rem;
+  }
 }
 
 /* ============================
@@ -295,14 +401,12 @@ img {
   white-space: nowrap;
   background-color: var(--accent-color);
   color: var(--primary-color);
-  
 }
 
 .promo-banner span {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-
 }
 
 .announcement-bar:hover .marquee {
@@ -312,7 +416,6 @@ img {
 .marquee {
   animation: scroll-left 7s linear infinite;
   display: inline-flex;
-  
 }
 
 .marquee-text {

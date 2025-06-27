@@ -25,33 +25,53 @@
 <body class="text-dark">
 
 <!-- 🔝 Navbar -->
-<!-- 🔝 Responsive Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top py-3 shadow-sm border-bottom bg-white">
-  <div class="container d-flex justify-content-between align-items-center">
-    <a href="{% url 'home' %}" class="navbar-brand fw-bold" style="color: var(--primary-color);">
-      FitZone Pro
-    </a>
+<nav class="navbar navbar-expand-lg sticky-top py-2" style="background-color: var(--bg-dark);">
+  <div class="container d-flex flex-column">
 
-    <!-- 🟡 Toggle only visible on mobile -->
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- 🔝 Top Bar: Brand + Search + Profile/Cart -->
+    <div class="top-bar w-100 mb-2">
+      <!-- 🔰 Brand -->
+      <a href="{% url 'home' %}" class="navbar-brand fw-bold">
+        Fit<span style="color: var(--accent-color)">Zone</span> Pro
+      </a>
 
-    <!-- 🔵 Nav links -->
-    <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-      <ul class="navbar-nav align-items-lg-center gap-lg-3">
+      <!-- 🔍 Search Bar -->
+      <form class="d-flex mx-3 w-50" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search our site..." aria-label="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </form>
 
-        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-
-        <!-- 🥗 Nutrition -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Nutrition</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
-            <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
-            <li><a class="dropdown-item" href="{% url 'nutrition:supplements' %}">Supplements</a></li>
+      <!-- 👤 Profile + 🛒 Cart -->
+      <div class="d-flex align-items-center gap-3">
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="fas fa-user"></i> My Account
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
           </ul>
-        </li>
+        </div>
+        {% else %}
+        <a href="{% url 'account_login' %}" class="text-light text-decoration-none">Login</a>
+        <a href="{% url 'account_signup' %}" class="text-light text-decoration-none">Register</a>
+        {% endif %}
+
+        <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1 position-relative">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 📎 Second Row: Nav Links -->
+    <div class="collapse navbar-collapse w-100 justify-content-center" id="mainNavbar">
+      <ul class="navbar-nav gap-lg-4">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
 
         <!-- 🛒 Shop -->
         <li class="nav-item dropdown">
@@ -64,37 +84,37 @@
           </ul>
         </li>
 
-        <!-- 👤 Profile -->
-        {% if user.is_authenticated %}
+        <!-- 🍽️ Nutrition -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Profile</a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
-            <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Nutrition</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
+            <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
+            <li><a class="dropdown-item" href="{% url 'nutrition:supplements' %}">Supplements</a></li>
           </ul>
         </li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a></li>
-        {% endif %}
 
-        <!-- 🛍️ Cart -->
-        <li class="nav-item">
-          <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
-          </a>
-        </li>
-
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 
+
+
+
+
+
+
+
+
+<!-- 📦 Page Content -->
+<main class="page-content">
+  
+    {% block content %}{% endblock %}
+ 
+</main>
 
 <div class="announcement-bar promo-banner overflow-hidden py-2">
   <div class="marquee d-flex">
@@ -119,12 +139,6 @@
 
 
 
-<!-- 📦 Page Content -->
-<main class="page-content">
-  
-    {% block content %}{% endblock %}
- 
-</main>
 
 <!-- 🖚 Footer -->
 <footer class="footer py-4 border-top mt-5 bg-light">
