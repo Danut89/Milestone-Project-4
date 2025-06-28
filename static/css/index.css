@@ -217,11 +217,6 @@
 
 }
 
-
-
-
-
-
 /* ============================
    🦸 Hero Section
 ============================= */
@@ -271,6 +266,116 @@
   width: 100%;
   height: 80px;
 }
+
+
+/* ===========================
+   🌱 Wellness Journey Section
+=========================== */
+
+.wellness-journey {
+  background-color: #f8f6f1; /* light warm background */
+}
+
+.journey-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+}
+
+.journey-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.journey-card .icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: rgba(0, 128, 0, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.75rem;
+}
+
+.journey-card .icon.text-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.journey-card .icon.text-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.journey-card h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.journey-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.journey-card .btn {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ===========================
+    About Section
+=========================== */
+.about-section {
+  background-color: var(--bg-muted);
+  padding: 5rem 0;
+}
+
+.about-section h2 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.about-section p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+
+
+.about-section .btn {
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ===========================
+   🎫 Membership Section
+=========================== */
+#membership {
+  background-color: var(--bg-muted);
+}
+
+.benefit-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.benefit-card i {
+  color: var(--accent);
+}
+
+
+
 
 /* ===== Features Section ===== */
 .features-section {
@@ -527,4 +632,13 @@
   100% {
     transform: translateX(-50%);
   }
+}
+
+
+.section-divider {
+  height: 2px;
+  width: 60px;
+  margin: 2rem auto;
+  background-color: var(--accent);
+  opacity: 0.2;
 }
