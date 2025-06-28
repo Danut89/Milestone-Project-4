@@ -16,7 +16,6 @@
 
   <!-- ✅ Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
 
   <!-- ✅ Bootstrap 5 CDN (Loaded after custom styles for flexibility) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,28 +23,29 @@
 
 <body class="text-dark">
 
-<!-- 🔝 Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top py-2" style="background-color: var(--bg-dark);">
-  <div class="container d-flex flex-column">
 
-    <!-- 🔝 Top Bar: Brand + Search + Profile/Cart -->
-    <div class="top-bar w-100 mb-2">
+<!-- 🔝 Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top  shadow-sm p-2 px-md-4 mt-3 mx-auto">
+  <div class="container-fluid flex-column">
+
+    <!-- 🔝 Top Row: Brand + Search + Profile/Cart + Toggler -->
+    <div class="d-flex w-100 align-items-center justify-content-between flex-wrap">
       <!-- 🔰 Brand -->
-      <a href="{% url 'home' %}" class="navbar-brand fw-bold">
+      <a href="{% url 'home' %}" class="navbar-brand fw-bold text-white">
         Fit<span style="color: var(--accent-color)">Zone</span> Pro
       </a>
 
-      <!-- 🔍 Search Bar -->
-      <form class="d-flex mx-3 w-50" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search our site..." aria-label="Search" />
-        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      <!-- 🔍 Search -->
+      <form class="d-flex flex-grow-1 mx-4" role="search" style="max-width: 500px;">
+        <input class="form-control me-2" type="search" placeholder="Search our site..." aria-label="Search">
+        <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
       </form>
 
-      <!-- 👤 Profile + 🛒 Cart -->
-      <div class="d-flex align-items-center gap-3">
+      <!-- 👤 Account + Cart -->
+      <div class="account-cart-wrapper d-flex align-items-center gap-3 text-white">
         {% if user.is_authenticated %}
         <div class="dropdown">
-          <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">
+          <a class="text-white dropdown-toggle text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fas fa-user"></i> My Account
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -57,25 +57,29 @@
           </ul>
         </div>
         {% else %}
-        <a href="{% url 'account_login' %}" class="text-light text-decoration-none">Login</a>
-        <a href="{% url 'account_signup' %}" class="text-light text-decoration-none">Register</a>
+        <a href="{% url 'account_login' %}" class="text-white text-decoration-none">Login</a>
+        <a href="{% url 'account_signup' %}" class="text-white text-decoration-none">Register</a>
         {% endif %}
 
-        <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1 position-relative">
-            <i class="fas fa-shopping-cart fa-lg"></i>
-            <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
+        <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1 text-white">
+          <i class="fas fa-shopping-cart fa-lg"></i>
+          <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
         </a>
       </div>
+
+      <!-- 📱 Mobile Toggler -->
+      <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+      </button>
     </div>
 
-    <!-- 📎 Second Row: Nav Links -->
-    <div class="collapse navbar-collapse w-100 justify-content-center" id="mainNavbar">
+    <!-- 🔽 Bottom Row: Navigation Links -->
+    <div class="collapse navbar-collapse justify-content-center mt-2" id="mainNavbar">
       <ul class="navbar-nav gap-lg-4">
-        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
 
-        <!-- 🛒 Shop -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop</a>
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Shop</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'all_products' %}">All Products</a></li>
             <li><a class="dropdown-item" href="{% url 'products_by_category' 'equipment' %}">Equipment</a></li>
@@ -84,9 +88,8 @@
           </ul>
         </li>
 
-        <!-- 🍽️ Nutrition -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Nutrition</a>
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Nutrition</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
             <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
@@ -94,53 +97,33 @@
           </ul>
         </li>
 
-        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Contact</a></li>
       </ul>
     </div>
+
   </div>
 </nav>
 
 
 
-
-
-
-
-
-
-
 <!-- 📦 Page Content -->
 <main class="page-content">
-  
-    {% block content %}{% endblock %}
- 
+  {% block content %}{% endblock %}
 </main>
 
+<!-- 🎉 Promo Banner -->
 <div class="announcement-bar promo-banner overflow-hidden py-2">
   <div class="marquee d-flex">
     <span class="marquee-text me-5">💚 Free delivery on orders over £40</span>
     <span class="marquee-text me-5">💚 Get 10% off your first order</span>
     <span class="marquee-text me-5">💚 Try our new protein blend!</span>
-
-    <span class="marquee-text me-5">💚 Free delivery on orders over £40</span>
-    <span class="marquee-text me-5">💚 Get 10% off your first order</span>
-    <span class="marquee-text me-5">💚 Try our new protein blend!</span>
-
-    <span class="marquee-text me-5">💚 Free delivery on orders over £40</span>
-    <span class="marquee-text me-5">💚 Get 10% off your first order</span>
-    <span class="marquee-text me-5">💚 Try our new protein blend!</span>
-
     <span class="marquee-text me-5">💚 Free delivery on orders over £40</span>
     <span class="marquee-text me-5">💚 Get 10% off your first order</span>
     <span class="marquee-text me-5">💚 Try our new protein blend!</span>
   </div>
 </div>
 
-
-
-
-
-<!-- 🖚 Footer -->
+<!-- 🦶 Footer -->
 <footer class="footer py-4 border-top mt-5 bg-light">
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
     <p class="mb-2 mb-md-0 text-muted small">© 2025 FitZone Pro. All rights reserved.</p>
