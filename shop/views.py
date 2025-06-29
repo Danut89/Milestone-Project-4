@@ -2,13 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Product
 from .forms import ProductForm
+from django.core.paginator import Paginator
 
 
 # ✅ Show all available products
 def all_products(request):
     products = Product.objects.filter(available=True)
     return render(request, 'shop/product_list.html', {'products': products})
-
 
 # ✅ Dynamic category view (Step 1.2)
 def products_by_category(request, category):
