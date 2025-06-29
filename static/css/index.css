@@ -258,6 +258,68 @@
   color: black;
 }
 
+.hero-title {
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional glow */
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #2ecc71, #27ae60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 5px;
+  color: #e0e0e0;
+}
+
+
+.hero-section .btn-outline-light {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.hero-section .btn-outline-light:hover {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+  color: black;
+}
+
+.review-stars {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  gap: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .review-stars {
+    flex-direction: row;
+    text-align: center;
+    gap: 0.3rem;
+  }
+
+  .review-stars i {
+    font-size: 0.8rem;
+  }
+}
+
+
 /* ============================
    🌊 Wave Divider
 ============================= */
@@ -272,58 +334,132 @@
    🌱 Wellness Journey Section
 =========================== */
 
-.wellness-journey {
-  background-color: #f8f6f1; /* light warm background */
+.glass-card {
+  --grad: #28a745, #a3ffb3; /* FitZone Pro green tones */
+  padding: 2.5rem;
+  background-image: linear-gradient(to bottom left, #e0e4e5, #f2f6f9);
+  border-radius: 2rem;
+  display: grid;
+  grid-template: 'title icon' 'content content' 'bar bar' / 1fr auto;
+  gap: 1.5rem;
+  font-family: system-ui, sans-serif;
+  color: #444447;
+  box-shadow: 
+    inset -2px 2px hsl(0 0% 100% / 1),
+    -20px 20px 40px hsl(0 0% 0% / 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
-.journey-card {
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: 2rem 1.5rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+/* Heading Typography */
+.section-heading {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
 }
 
-.journey-card:hover {
+.section-heading::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 3px;
+  background: var(--accent, #2ecc71);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Gradient Text for “Wellness” */
+.text-gradient {
+  background: linear-gradient(to right, #2ecc71, #27ae60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hover effect for the whole card */
+.glass-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 }
 
-.journey-card .icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-color: rgba(0, 128, 0, 0.07);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-size: 1.75rem;
-}
-
-.journey-card .icon.text-warning {
-  background-color: rgba(255, 193, 7, 0.1);
-}
-
-.journey-card .icon.text-danger {
-  background-color: rgba(220, 53, 69, 0.1);
-}
-
-.journey-card h5 {
-  font-size: 1.1rem;
+/* Card Title */
+.glass-card .title {
+  font-size: 1.5rem;
+  grid-area: title;
+  align-self: end;
+  text-transform: uppercase;
   font-weight: 600;
 }
 
-.journey-card p {
-  font-size: 0.95rem;
-  color: #555;
+/* Card Icon with subtle background */
+.glass-card .icon {
+  grid-area: icon;
+  font-size: 2.5rem;
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+  border-radius: 50%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
 }
 
-.journey-card .btn {
-  margin-top: 1rem;
-  font-size: 0.9rem;
+.glass-card:hover .icon {
+  background-color: rgba(40, 167, 69, 0.2);
 }
+
+/* Card Content */
+.glass-card .content {
+  grid-area: content;
+  text-align: left;
+}
+
+.glass-card .content p {
+  line-height: 1.6;
+  padding: 0 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Bottom Decorative Bar */
+.glass-card::after {
+  content: "";
+  grid-area: bar;
+  background-image: linear-gradient(90deg, var(--grad));
+  border-radius: 1px;
+  height: 3px;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s;
+}
+
+.glass-card:hover::after {
+  background-size: 120% 3px;
+}
+
+/* Button glow on hover (optional) */
+.glass-card .btn-outline-success:hover {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .glass-card {
+    margin: 1rem;
+    padding: 2rem;
+  }
+
+  .glass-card .icon {
+    font-size: 2rem;
+  }
+
+  .glass-card .title {
+    font-size: 1.25rem;
+  }
+}
+
+
+
 
 /* ===========================
     About Section
@@ -642,3 +778,9 @@
   background-color: var(--accent);
   opacity: 0.2;
 }
+
+
+
+
+
+

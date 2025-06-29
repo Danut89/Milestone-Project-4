@@ -9,78 +9,89 @@
   <div class="container-fluid py-5">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center text-lg-start">
-        <div class="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3">
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <span class="text-white-50 small">5.0 based on 4,500+ real user reviews</span>
-        </div>
-        <h1 class="display-4 fw-bold mb-3 animate-fadeInUp">Fuel Your Body with <span class="text-success">Clean Nutrition</span></h1>
-        <p class="lead text-white-50 mb-4 animate-fadeInUp delay-1">Designed by experts to support your workouts, energy, and daily wellness routine.</p>
-        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-fadeInUp delay-2">
-          <a href="#" class="btn btn-success px-4 py-2 fw-bold rounded-3 shadow">Shop FitZone</a>
-          <a href="#" class="btn btn-outline-light px-4 py-2 fw-bold rounded-3">Take the Quiz</a>
-        </div>
-      </div>
+   <!-- Heading -->
+<h1 class="display-4 fw-bold mb-3 animate-fadeInUp text-center text-lg-start">
+  Fuel Your Body<br><span class="text-success">Clean Nutrition</span>
+</h1>
+
+<!-- Stars: moved below the heading on mobile -->
+<div class="review-stars d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 animate-fadeInUp">
+  <i class="fas fa-star text-warning"></i>
+  <i class="fas fa-star text-warning"></i>
+  <i class="fas fa-star text-warning"></i>
+  <i class="fas fa-star text-warning"></i>
+  <i class="fas fa-star text-warning"></i>
+  <span class="text-white-50 small">5.0 based on 4,500+ real user reviews</span>
+</div>
+
+  <!-- 📣 Subtitle -->
+  <p class="hero-subtitle lead text-white-50 mb-4 animate-fadeInUp delay-1">
+    Designed by experts to support your workouts, energy, and daily wellness routine.
+  </p>
+
+  <!-- 🚀 CTA Buttons -->
+  <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-fadeInUp delay-2">
+    <a href="#" class="btn btn-success px-4 py-2 fw-bold rounded-3 shadow">Shop FitZone</a>
+    <a href="#" class="btn btn-outline-light px-4 py-2 fw-bold rounded-3">Take the Quiz</a>
+  </div>
+</div>
+
     </div>
   </div>
   </div>
 </section>
 
-<div class="section-divider my-4"></div>
 
-<!-- 🌱 Wellness Journey Section -->
+
+<!-- 🌱 Wellness Journey Section (Updated with Glassmorphism Cards) -->
 <section class="wellness-journey section-light py-5">
   <div class="container text-center">
-    <h2 class="section-heading mb-3">
+    <h2 class="section-heading mb-1 display-5 fw-bold">
       <i class="fas fa-seedling text-success me-2"></i>
-      Your Journey to Wellness Starts Here
+      Your Journey to <span class="text-gradient">Wellness</span>
     </h2>
-    <p class="mb-5 text-muted">
-      Whether you're meal planning, training hard, or nourishing your body — we're here to guide you every step of the way.
-    </p>
+    <p class="lead text-muted mb-4">Let us guide you step by step toward a healthier lifestyle</p>
 
-    <div class="row g-4 justify-content-center">
-      <!-- Eat Smarter -->
-      <div class="col-md-4">
-        <div class="journey-card p-4 bg-white rounded-4 shadow-sm text-center h-100">
-          <div class="icon mb-3 text-success">
-            <i class="fas fa-bowl-food fa-2x"></i>
+    
+
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="glass-card">
+          <div class="title">Eat Smarter</div>
+          <div class="icon"><i class="fas fa-bowl-food"></i></div>
+          <div class="content">
+            <p>Discover healthy recipes and custom meal plans.</p>
+            <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success btn-sm mt-2">Explore Meals</a>
           </div>
-          <h5 class="fw-bold mb-2">Eat Smarter</h5>
-          <p class="text-muted">Discover healthy recipes and custom meal plans.</p>
-          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success btn-sm mt-2">Explore Meals</a>
         </div>
       </div>
 
-      <!-- Train Better -->
-      <div class="col-md-4">
-        <div class="journey-card p-4 bg-white rounded-4 shadow-sm text-center h-100">
-          <div class="icon mb-3 text-warning">
-            <i class="fas fa-dumbbell fa-2x"></i>
+      <div class="col-md-4 mb-4">
+        <div class="glass-card">
+          <div class="title">Train Better</div>
+          <div class="icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="content">
+            <p>Get gear that supports your workouts and recovery.</p>
+            <a href="{% url 'products_by_category' 'equipment' %}" class="btn btn-outline-success btn-sm mt-2">Browse Equipment</a>
           </div>
-          <h5 class="fw-bold mb-2">Train Better</h5>
-          <p class="text-muted">Get gear that supports your workouts and recovery.</p>
-          <a href="{% url 'products_by_category' 'equipment' %}" class="btn btn-outline-success btn-sm mt-2">Browse Equipment</a>
         </div>
       </div>
 
-      <!-- Fuel Your Body -->
-      <div class="col-md-4">
-        <div class="journey-card p-4 bg-white rounded-4 shadow-sm text-center h-100">
-          <div class="icon mb-3 text-danger">
-            <i class="fas fa-capsules fa-2x"></i>
+      <div class="col-md-4 mb-4">
+        <div class="glass-card">
+          <div class="title">Fuel Your Body</div>
+          <div class="icon"><i class="fas fa-capsules"></i></div>
+          <div class="content">
+            <p>Premium supplements to enhance your wellbeing.</p>
+            <a href="{% url 'products_by_category' 'supplements' %}" class="btn btn-outline-success btn-sm mt-2">View Supplements</a>
           </div>
-          <h5 class="fw-bold mb-2">Fuel Your Body</h5>
-          <p class="text-muted">Premium supplements to enhance your wellbeing.</p>
-          <a href="{% url 'products_by_category' 'supplements' %}" class="btn btn-outline-success btn-sm mt-2">View Supplements</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <div class="section-divider my-4"></div>
 
@@ -89,6 +100,9 @@
 <section class="section-light py-5 about-section">
   <div class="container text-center">
     <h2 class="section-heading mb-4">🌟 About FitZone Pro</h2>
+    <p class="mb-5 text-muted">
+      Whether you're meal planning, training hard, or nourishing your body — we're here to guide you every step of the way.
+    </p>
     <p class="lead mb-4">
       FitZone Pro is your ultimate wellness companion — combining expert-crafted meal plans, workout programs, and premium supplements to help you thrive.
     </p>
@@ -257,4 +271,12 @@
     </form>
   </div>
 </section>
+
+
+
+
+
+
+
+
 {% endblock %}
