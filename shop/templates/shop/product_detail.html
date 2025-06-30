@@ -20,7 +20,11 @@
     <!-- 🖼 Product Image in Card -->
     <div class="col-lg-6 mb-4">
       <div class="card border-0 shadow-sm rounded">
-        <img src="{{ product.image.url }}" class="card-img-top rounded product-img" alt="{{ product.name }}">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" class="card-img-top rounded product-img" alt="{{ product.name }}">
+        {% else %}
+          <img src="{% static 'img/no-image-available.png' %}" class="card-img-top rounded product-img" alt="No image available">
+        {% endif %}
       </div>
     </div>
 

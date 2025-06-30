@@ -7,18 +7,24 @@ from django.core.paginator import Paginator
 
 # ✅ Show all available products
 def all_products(request):
-    products = Product.objects.filter(available=True)
+    product_list = Product.objects.filter(available=True)
+    paginator = Paginator(product_list, 6)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
     return render(request, 'shop/product_list.html', {'products': products})
+
 
 # ✅ Dynamic category view (Step 1.2)
 def products_by_category(request, category):
-    """Dynamically filter products by category name (case-insensitive)"""
-    filtered_products = Product.objects.filter(category__iexact=category, available=True)
-    context = {
-        'products': filtered_products,
-        'category_name': category.capitalize()
-    }
-    return render(request, 'shop/category_products.html', context)
+    product_list = Product.objects.filter(category__iexact=category, available=True)
+    paginator = Paginator(product_list, 6)
+    page = request.GET.get('page')
+    products = paginator.get_page(page)
+    return render(request, 'shop/category_products.html', {
+        'products': products,
+        'category_name': category.capitalize(),
+    })
+
 
 
 # ✅ Product detail page

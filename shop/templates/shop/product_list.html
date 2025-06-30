@@ -7,18 +7,20 @@
 
 <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
-
+<!-- Title -->
 <section class="shop-header text-center">
   <h1>🛒 Explore <span class="text-success">All Products</span></h1>
+  <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
   <p>Discover premium supplements, workout gear, and more to support your wellness journey.</p>
 </section>
 
-<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+
 
 
 
 
 <section class="container py-4">
+  <!-- Breadcrumb -->
   <nav aria-label="breadcrumb" class="mb-4">
   <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -35,7 +37,7 @@
       {% endfor %}
     </div>
   {% endif %}
-
+  <!-- card -->
   {% if products %}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
       {% for product in products %}
@@ -43,7 +45,11 @@
           <div class="card product-modern-card">
             <div class="badge">HOT SALE</div>
             <div class="img">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              {% else %}
+                <img src="{% static 'img/no-image-available.png' %}" alt="No image available">
+              {% endif %}
             </div>
             <div class="info">
               <div class="cat">Premium Product</div>
