@@ -4,46 +4,78 @@
 {% block title %}Meal Plans{% endblock %}
 
 {% block content %}
-<section class="section-light py-5">
-  <div class="container">
+<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
-    <!-- 🌟 Page Heading -->
-    <div class="text-center mb-5">
-      <h1 class="hero-title">🥗 Meal Plans</h1>
-      <p class="hero-subtitle">Explore structured nutrition plans tailored to your health goals.</p>
-    </div>
+<!-- 🥗 Page Heading -->
+<section class="shop-header text-center container py-4">
+  <h1 class="mb-2">
+    <i class="fa-solid fa-bowl-food me-2 text-success"></i>
+    <span class="text-dark">Meal</span> <span class="text-success">Plans</span>
+  </h1>
+  <p class="text-muted fs-5">Explore structured nutrition plans tailored to your health goals.</p>
 
-    <!-- 🧩 Meal Plans Grid -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      {% for plan in plans %}
-        <div class="col">
-          <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="text-decoration-none text-dark">
-            <div class="meal-plan-card section-highlight">
+  <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
-              <!-- 📸 Plan Image -->
-              {% if plan.image %}
-                <img src="{{ plan.image.url }}" alt="{{ plan.title }}" class="img-fluid">
-              {% else %}
-                <img src="{% static 'images/default-meal-plan.jpg' %}" alt="Meal Plan" class="img-fluid">
-              {% endif %}
 
-              <!-- 📋 Card Content -->
-              <div class="card-body">
-                <h5>{{ plan.title }}</h5>
-                <p>{{ plan.description|truncatewords:20 }}</p>
-                <p class="meal-plan-meta">
-                  <span>🔥 {{ plan.calories }} Calories</span>
-                  <span>⏱️ {{ plan.duration_days }} days</span>
-                </p>
-              </div>
+  <!-- 🧭 Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+  <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'nutrition:meal_plans' %}">Nutrition</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Meal Plans</li>
+  </ol>
+</nav>
+
+  <!-- 🧩 Meal Plan Grid -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for plan in plans %}
+      <div class="col h-100">
+        <div class="product-modern-card h-100">
+
+          <!-- 📸 Image -->
+          <div class="img">
+            {% if plan.image %}
+              <img src="{{ plan.image.url }}" alt="{{ plan.title }}">
+            {% else %}
+              <img src="{% static 'images/default-meal-plan.jpg' %}" alt="Meal Plan">
+            {% endif %}
+          </div>
+
+          <!-- 📋 Info -->
+          <div class="info">
+            <p class="cat">Meal Plan</p>
+            <h5 class="title">{{ plan.title }}</h5>
+            <p class="desc">{{ plan.description|truncatewords:18 }}</p>
+
+            <!-- 🔹 Meta Features -->
+            <div class="feats">
+              <span class="feat">
+                <i class="fa-solid fa-fire text-danger me-1"></i> {{ plan.calories }} kcal
+              </span>
+              <span class="feat">
+                <i class="fa-regular fa-clock text-success me-1"></i> {{ plan.duration_days }} days
+              </span>
             </div>
-          </a>
-        </div>
-      {% empty %}
-        <p class="text-center">No meal plans available.</p>
-      {% endfor %}
-    </div>
 
+            <!-- ➡️ Button -->
+            <div class="bottom">
+              <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="btn">
+                View Plan
+                <i class="fa-solid fa-arrow-right icon"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          No meal plans available.
+        </div>
+      </div>
+    {% endfor %}
   </div>
+
 </section>
 {% endblock %}

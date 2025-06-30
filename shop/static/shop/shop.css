@@ -65,7 +65,7 @@
 
 /* 🖼️ Image */
 .product-modern-card .img {
-  height: 200px;
+  height: 250px;
   overflow: hidden;
 }
 
@@ -98,6 +98,7 @@
   font-weight: 700;
   color: #18181B;
   margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .product-modern-card .desc {
@@ -350,15 +351,15 @@
 .shop-btn {
   background-color: var(--text-dark);
   color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
   border: none;
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
   transition: background 0.3s ease;
 }
 

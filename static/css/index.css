@@ -3,6 +3,7 @@
   --secondary-color: #28a745;
   --bg-dark: #121212;
   --bg-alt: #f9fafb;
+  --bg-muted: #f2f5ec;
   --text-primary: #ffffff;
   --text-dark: #222;
   --text-muted: #666;
@@ -743,7 +744,6 @@
   position: relative;
   white-space: nowrap;
   background-color: var(--bg-alt);
-  color: var(--primary-color);
 }
 
 .promo-banner span {
