@@ -62,22 +62,26 @@
               </h2>
               <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" data-bs-parent="#mealPlanAccordion">
                 <div class="accordion-body">
-                  <ul class="meal-day-list list-unstyled">
+                  <ul class="meal-day-list list-unstyled meal-item-group">
                     {% for line in day.description.splitlines %}
                       {% if line.strip %}
                         <li class="meal-item mb-2">
                           {% if "Breakfast" in line %}
                             <i class="fas fa-coffee text-warning me-1"></i>
+                            <strong>{{ line }}</strong>
                           {% elif "Lunch" in line %}
                             <i class="fas fa-hamburger text-primary me-1"></i>
+                            <strong>{{ line }}</strong>
                           {% elif "Dinner" in line %}
                             <i class="fas fa-utensils text-danger me-1"></i>
+                            <strong>{{ line }}</strong>
                           {% elif "Total" in line or "Daily Totals" in line %}
                             <i class="fas fa-chart-pie text-success me-1"></i>
+                            <span class="meal-total">{{ line }}</span>
                           {% else %}
-                            <i class="fas fa-seedling text-muted me-1"></i>
+                            <span class="text-muted me-1">–</span>
+                            {{ line }}
                           {% endif %}
-                          {{ line }}
                         </li>
                       {% endif %}
                     {% endfor %}
@@ -108,24 +112,7 @@
       
 
 
-    <!-- 🛒 Shopping List -->
-    <div class="bg-white p-4 rounded-4 shadow-sm mb-5">
-      <h5><i class="fas fa-shopping-basket me-2 text-secondary"></i>Shopping List Preview</h5>
-      <p class="mt-2 mb-3 text-muted small">
-        🥚 Eggs &nbsp; 🍗 Chicken Breast &nbsp; 🥬 Spinach &nbsp; 🥑 Avocados &nbsp; 🍅 Cherry Tomatoes &nbsp; 🫐 Greek Yogurt
-      </p>
-      <a href="#" class="btn btn-sm btn-outline-secondary">View Full Shopping List</a>
-    </div>
-
-
-    <!-- 📘 About This Plan -->
-    <div class="section-highlight p-4 rounded-4 mb-5">
-      <h5><i class="fas fa-info-circle me-2 text-primary"></i>About This Plan</h5>
-      <p class="mt-2 text-muted">
-        This meal plan is designed to help users achieve their weight loss goals while maintaining energy and satisfaction.
-        Each day provides a mix of proteins, healthy fats, and complex carbs. Ideal for beginners or those restarting their journey!
-      </p>
-    </div>
+    
 
     <!-- 💬 Recommendations -->
     <div class="section-light pt-4">

@@ -77,5 +77,61 @@
     {% endfor %}
   </div>
 
+
+
+  <!-- Pagination -->
+{% if plans.has_other_pages %}
+  <nav aria-label="Meal plan navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+    {% if plans.has_previous %}
+      <li class="page-item">
+        <a class="page-link text-muted" href="?page={{ plans.previous_page_number }}">&laquo; Prev</a>
+      </li>
+    {% endif %}
+
+    {% if plans.number > 1 %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">1</a>
+      </li>
+      {% if plans.number > 3 %}
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+      {% endif %}
+    {% endif %}
+
+    {% for num in plans.paginator.page_range %}
+      {% if num == plans.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% elif num > plans.number|add:'-2' and num < plans.number|add:'2' and num != 1 and num != plans.paginator.num_pages %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if plans.number < plans.paginator.num_pages|add:'-2' %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+    {% endif %}
+
+    {% if plans.number < plans.paginator.num_pages %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ plans.paginator.num_pages }}">{{ plans.paginator.num_pages }}</a>
+      </li>
+    {% endif %}
+
+    {% if plans.has_next %}
+      <li class="page-item">
+        <a class="page-link text-muted" href="?page={{ plans.next_page_number }}">Next &raquo;</a>
+      </li>
+    {% endif %}
+  </ul>
+
+  </nav>
+{% endif %}
+
+
+
+  
+
 </section>
+ <strong><p class="text-muted text-center small">
+    Showing {{ plans.start_index }}–{{ plans.end_index }} of {{ plans.paginator.count }} meal plans
+  </p></strong>
 {% endblock %}

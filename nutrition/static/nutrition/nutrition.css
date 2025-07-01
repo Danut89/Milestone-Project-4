@@ -72,12 +72,6 @@
   color: var(--text-muted);
 }
 
-
-
-
-
-
-
 /* Plan Summary Card */
 .plan-summary {
   background-color: #fff;
@@ -124,7 +118,7 @@
 .accordion-button {
   font-weight: 600;
   color: var(--text-dark);
-  background-color: #f1f5f9;
+  background-color: var(--text-dark);
   padding: 1rem 1.25rem;
 }
 
@@ -137,6 +131,65 @@
   background-color: #ffffff;
   font-size: 0.95rem;
   color: var(--text-muted);
+}
+
+/* Meal Day List Styling */
+.meal-day-list {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.meal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  transition: background-color 0.2s ease;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.meal-item:hover {
+  background-color: #eef6f9;
+}
+
+.meal-item-group {
+  background-color: var(--bg-muted);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* Adjust icon size and spacing */
+.meal-item i {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  margin-top: 2px;
+}
+
+/* Color tweaks based on content */
+.meal-item i.text-warning {
+  color: #f59e0b;
+}
+
+.meal-item i.text-primary {
+  color: var(--text-dark);
+}
+
+.meal-item i.text-danger {
+  color: #ef4444;
+}
+
+.meal-item i.text-success {
+  color: #10b981;
+}
+
+.meal-item i.text-muted {
+  color: #6b7280;
 }
 
 /* Shopping List */
@@ -215,7 +268,7 @@
   font-size: 0.95rem;
   color: var(--text-muted);
   margin-bottom: 1rem;
-  flex-grow: 1; /* makes all buttons align bottom */
+  flex-grow: 1;
 }
 
 .product-modern-card .feats {
