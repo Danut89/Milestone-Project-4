@@ -4,99 +4,154 @@
 {% block title %}{{ meal_plan.title }}{% endblock %}
 
 {% block content %}
-<section class="section-light py-5">
-  <div class="container">
 
-    <!-- 🥗 Plan Header -->
-    <div class="text-center mb-5">
-      <h1 class="hero-title">{{ meal_plan.title }}</h1>
-      <p class="hero-subtitle">{{ meal_plan.description }}</p>
-    </div>
+<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+<section class="meal-detail-page shop-header text-center container py-4">
+  
+    <!-- 🌿 Header -->
+      <h1 class="mb-2">
+        <i class="fas fa-seedling text-success me-2"></i>{{ meal_plan.title }}
+      </h1>
+      <hr class="mt-4" style="width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
-    <!-- 📊 Summary + Breakdown -->
-    <div class="row g-4 mb-5">
+       <!-- 🧭 Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'nutrition:meal_plans' %}">Nutrition</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Meal Plans</li>
+      </ol>
+      </nav>
+
       
-      <!-- 🖼 Image + Summary -->
+
+
+      
+    
+
+    <!-- 🔍 Plan Summary + Breakdown -->
+    <div class="row g-4 mb-5">
+      <!-- 📊 Summary Left -->
       <div class="col-md-4">
-        <div class="bg-white p-4 rounded-4 shadow-sm text-center">
+        <div class="plan-summary text-center h-100">
           {% if meal_plan.image %}
-            <img src="{{ meal_plan.image.url }}" alt="{{ meal_plan.title }}" class="img-fluid rounded-3 mb-3">
+            <img src="{{ meal_plan.image.url }}" alt="{{ meal_plan.title }}" class="img-fluid rounded-3 mb-3 shadow-sm">
           {% endif %}
-          <p class="mb-2"><strong>🔥 Calories:</strong> {{ meal_plan.calories }}</p>
-          <p class="mb-2"><strong>⏱️ Duration:</strong> {{ meal_plan.duration_days }} days</p>
-          <p><strong>🍽️ Goal:</strong> Weight Loss</p>
-          <button class="hero-btn-black w-100 mt-4">❤️ Save to Wishlist</button>
+          <p><i class="fas fa-fire text-danger me-1"></i><strong>Calories:</strong> {{ meal_plan.calories }}</p>
+          <p><i class="fas fa-clock text-warning me-1"></i><strong>Duration:</strong> {{ meal_plan.duration_days }} days</p>
+          <p><i class="fas fa-bullseye text-info me-1"></i><strong>Goal:</strong> Weight Loss</p>
+          <button class="btn btn-success w-100 mt-4">
+            <i class="fas fa-heart me-1"></i> Save to Wishlist
+          </button>
         </div>
       </div>
 
-      <!-- 📅 Breakdown -->
+      <!-- 📅 Daily Breakdown Right -->
       <div class="col-md-8">
-        <div class="section-muted p-4 rounded-4">
-          <h5 class="mb-4">📅 Daily Meal Breakdown</h5>
-          <div class="accordion" id="mealPlanAccordion">
-            {% for day in days %}
-              <div class="accordion-item border-0 mb-2">
-                <h2 class="accordion-header" id="heading{{ day.day_number }}">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}">
-                    Day {{ day.day_number }}
-                  </button>
-                </h2>
-                <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" data-bs-parent="#mealPlanAccordion">
-                  <div class="accordion-body">
-                    {{ day.description|default:"No description available for this day." }}
-                  </div>
+        <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
+        <h5 class="mb-4">
+          <i class="fas fa-calendar-alt me-2 text-success"></i>Daily Meal Breakdown
+        </h5>
+        <div class="accordion" id="mealPlanAccordion">
+          {% for day in days %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading{{ day.day_number }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}">
+                  Day {{ day.day_number }}
+                </button>
+              </h2>
+              <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" data-bs-parent="#mealPlanAccordion">
+                <div class="accordion-body">
+                  <ul class="meal-day-list list-unstyled">
+                    {% for line in day.description.splitlines %}
+                      {% if line.strip %}
+                        <li class="meal-item mb-2">
+                          {% if "Breakfast" in line %}
+                            <i class="fas fa-coffee text-warning me-1"></i>
+                          {% elif "Lunch" in line %}
+                            <i class="fas fa-hamburger text-primary me-1"></i>
+                          {% elif "Dinner" in line %}
+                            <i class="fas fa-utensils text-danger me-1"></i>
+                          {% elif "Total" in line or "Daily Totals" in line %}
+                            <i class="fas fa-chart-pie text-success me-1"></i>
+                          {% else %}
+                            <i class="fas fa-seedling text-muted me-1"></i>
+                          {% endif %}
+                          {{ line }}
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
                 </div>
               </div>
-            {% empty %}
-              <p>No days added yet to this meal plan.</p>
-            {% endfor %}
-          </div>
+            </div>
+          {% empty %}
+            <p>No days added yet to this meal plan.</p>
+          {% endfor %}
         </div>
       </div>
 
+      </div>
+      <div class="plan-description-box mx-auto mb-5 shadow-sm" data-aos="fade-up">
+        <h6 class="desc-title text-uppercase mb-3 text-center"><i class="fas fa-info-circle text-success me-2"></i>About This Plan</h6>
+        <ul class="desc-content">
+          {% for line in meal_plan.description.splitlines %}
+            {% if line.strip %}  {# skip empty lines #}
+              <li>{{ line }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
     </div>
 
-    <!-- 🛒 Shopping Preview -->
+
+      
+
+
+    <!-- 🛒 Shopping List -->
     <div class="bg-white p-4 rounded-4 shadow-sm mb-5">
-      <h5>🛒 Shopping List Preview</h5>
-      <p class="mt-2 mb-3 text-muted small">🥚 Eggs &nbsp; 🍗 Chicken Breast &nbsp; 🥬 Spinach &nbsp; 🥑 Avocados &nbsp; 🍅 Cherry Tomatoes &nbsp; 🫐 Greek Yogurt</p>
+      <h5><i class="fas fa-shopping-basket me-2 text-secondary"></i>Shopping List Preview</h5>
+      <p class="mt-2 mb-3 text-muted small">
+        🥚 Eggs &nbsp; 🍗 Chicken Breast &nbsp; 🥬 Spinach &nbsp; 🥑 Avocados &nbsp; 🍅 Cherry Tomatoes &nbsp; 🫐 Greek Yogurt
+      </p>
       <a href="#" class="btn btn-sm btn-outline-secondary">View Full Shopping List</a>
     </div>
 
+
     <!-- 📘 About This Plan -->
     <div class="section-highlight p-4 rounded-4 mb-5">
-      <h5>📘 About This Plan</h5>
-      <p class="mt-2 text-muted">This meal plan is designed to help users achieve their weight loss goals while maintaining energy and satisfaction. Each day provides a mix of proteins, healthy fats, and complex carbs. Ideal for beginners or those restarting their journey!</p>
+      <h5><i class="fas fa-info-circle me-2 text-primary"></i>About This Plan</h5>
+      <p class="mt-2 text-muted">
+        This meal plan is designed to help users achieve their weight loss goals while maintaining energy and satisfaction.
+        Each day provides a mix of proteins, healthy fats, and complex carbs. Ideal for beginners or those restarting their journey!
+      </p>
     </div>
 
     <!-- 💬 Recommendations -->
     <div class="section-light pt-4">
-      <h5 class="mb-4">💬 You Might Also Like</h5>
+      <h5 class="mb-4"><i class="fas fa-comments me-2 text-success"></i>You Might Also Like</h5>
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
-          <div class="product-card p-4 rounded-4">
+          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
             <h6 class="mb-1">🥗 Vegan Reset (3-Day)</h6>
             <p class="text-muted small">Light & refreshing plant-based meals.</p>
             <a href="#" class="btn-featured btn-sm">View</a>
           </div>
         </div>
         <div class="col">
-          <div class="product-card p-4 rounded-4">
+          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
             <h6 class="mb-1">💪 High Protein Plan</h6>
             <p class="text-muted small">Perfect for muscle gain or gym-goers.</p>
             <a href="#" class="btn-featured btn-sm">View</a>
           </div>
         </div>
         <div class="col">
-          <div class="product-card p-4 rounded-4">
+          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
             <h6 class="mb-1">🧘 Balanced Energy Plan</h6>
             <p class="text-muted small">Ideal for busy professionals or students.</p>
             <a href="#" class="btn-featured btn-sm">View</a>
           </div>
         </div>
       </div>
-    </div>
-
-  </div>
 </section>
 {% endblock %}
