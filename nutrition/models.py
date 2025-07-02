@@ -45,6 +45,7 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
     prep_time_minutes = models.IntegerField()
+    image = models.ImageField(upload_to='recipe_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="recipes")
 

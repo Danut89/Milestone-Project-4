@@ -1,23 +1,85 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Recipes{% endblock %}
+
 {% block content %}
-  <div class="text-center py-4">
-    <h1 class="text-primary fw-bold">🍲 Recipes</h1>
-    <p>Browse healthy and delicious recipes to support your goals.</p>
+<!-- 💚 Accent Divider -->
+<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+
+<section class="container shop-header text-center py-4">
+  <!-- 🍲 Page Heading -->
+  <div class="text-center">
+    <h1 class="fw-bold  mb-2">Recipes</h1>
+    <p class="lead text-muted fs-5">Browse our collection of healthy and delicious recipes to support your goals.</p>
   </div>
-  <div class="row">
+
+  <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+
+  <!-- 🧭 Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'nutrition:meal_plans' %}">Nutrition</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Recipes</li>
+    </ol>
+  </nav>
+
+  <!-- 🍽️ Recipe Cards -->
+  <div class="row g-4 mb-5">
     {% for recipe in recipes %}
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 recipe-card bg-white rounded-4 overflow-hidden">
+          {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+          {% else %}
+            <img src="{% static 'img/placeholder-recipe.jpg' %}" class="card-img-top" alt="No image">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ recipe.title }}</h5>
-            <p class="card-text">{{ recipe.description }}</p>
-            <p class="text-muted">Prep Time: {{ recipe.prep_time }} mins</p>
+            <p class="card-text small text-muted">Prep Time: {{ recipe.prep_time_minutes }} mins</p>
+            <p class="card-text">{{ recipe.ingredients|truncatewords:20 }}</p>
+            <div class="mt-auto">
+              <a href="#" class="btn btn-success w-100 mt-3">View Recipe</a>
+            </div>
           </div>
         </div>
       </div>
     {% empty %}
-      <p>No recipes available.</p>
+      <div class="col-12 text-center">
+        <p class="text-muted">No recipes available yet. Come back later!</p>
+      </div>
     {% endfor %}
   </div>
+
+  <!-- 💬 Suggestions (Optional Future Section) -->
+  <div class="section-light pt-4">
+    <h5 class="mb-4"><i class="fas fa-comments me-2 text-success"></i>You Might Also Like</h5>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">🌱 Green Smoothies</h6>
+          <p class="text-muted small">Energy-boosting and quick to make.</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">🔥 Spicy Meals</h6>
+          <p class="text-muted small">Great for metabolism & taste buds!</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">🍫 Guilt-Free Desserts</h6>
+          <p class="text-muted small">Sweet treats that fit your macros.</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
+
 

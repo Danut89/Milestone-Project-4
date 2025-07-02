@@ -309,3 +309,108 @@
 .product-modern-card .bottom {
   margin-top: auto;
 }
+
+/* ===============================
+    Recipe Page Styling
+=============================== */
+
+/* Card Image */
+.recipe-card img {
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* Card Container */
+.recipe-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1rem;
+  background-color: white;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Title */
+.recipe-card .card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Card Texts */
+.recipe-card .card-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  min-height: 50px;
+}
+
+/* View Button */
+.recipe-card .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+/* Optional: Placeholder Image Styling */
+.recipe-card img[alt="No image"] {
+  filter: grayscale(0.2) brightness(0.95);
+  background-color: #f5f5f5;
+}
+
+/* Section Header */
+.shop-header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.shop-header p {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Breadcrumb Style Match */
+.breadcrumb {
+  font-size: 0.9rem;
+}
+
+/* Accent Divider */
+hr.my-4 {
+  border-width: 2px;
+}
+
+/* Suggestions Section */
+.section-light {
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.section-light .product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-light .product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Suggestion Buttons */
+.btn-featured {
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  background-color: var(--accent-green);
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-featured:hover {
+  background-color: #219653;
+  color: white;
+}
+
