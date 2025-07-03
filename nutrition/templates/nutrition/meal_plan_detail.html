@@ -94,8 +94,8 @@
           {% endfor %}
         </div>
       </div>
-
       </div>
+      
       <div class="plan-description-box mx-auto mb-5 shadow-sm" data-aos="fade-up">
         <h6 class="desc-title text-uppercase mb-3 text-center"><i class="fas fa-info-circle text-success me-2"></i>About This Plan</h6>
         <ul class="desc-content">
@@ -140,5 +140,12 @@
           </div>
         </div>
       </div>
+
+       <!-- 🔙 Back Button -->
+  <div class="text-center mt-4">
+    <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-secondary">Back to Meal Plans</a>
+  </div>
+
+
 </section>
 {% endblock %}

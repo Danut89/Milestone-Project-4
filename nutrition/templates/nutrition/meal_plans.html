@@ -128,12 +128,18 @@
   </nav>
 {% endif %}
 
+<strong><p class="text-muted text-center small">
+    Showing {{ plans.start_index }}–{{ plans.end_index }} of {{ plans.paginator.count }} meal plans
+  </p></strong>
 
+   <!-- 🔙 Back Button -->
+  <div class="text-center mt-4">
+    <a class="btn btn-outline-secondary text-muted" href="#">Back</a>
+  </div>
+
+</section>
+ 
 
   
 
-</section>
- <strong><p class="text-muted text-center small">
-    Showing {{ plans.start_index }}–{{ plans.end_index }} of {{ plans.paginator.count }} meal plans
-  </p></strong>
 {% endblock %}
