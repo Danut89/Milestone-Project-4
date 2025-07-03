@@ -1,6 +1,6 @@
 
 /* ===============================
-   🥗 Meal Plan Detail Page Styling
+   🥗 Meal Plan Detail Page 
 =============================== */
 
 .meal-detail-page {
@@ -21,7 +21,6 @@
 /* Plan Description */
 .plan-description-box {
   background-color: #fff;
-
   color: var(--text-dark);
   line-height: 1.6;
   text-align: left;
@@ -204,7 +203,7 @@
 
 
 /* =============================
-   🥗 Meal Plan Modern Cards
+   🥗 Meal Plan Page
 ============================= */
 
 .product-modern-card {
@@ -311,7 +310,7 @@
 }
 
 /* ===============================
-    Recipe Page Styling
+    Recipe Page 
 =============================== */
 
 /* Card Image */
@@ -414,3 +413,53 @@ hr.my-4 {
   color: white;
 }
 
+/* ===============================
+    Recipe Detail Page 
+=============================== */
+.recipe-detail h1 {
+  font-size: 2.3rem;
+}
+
+.recipe-detail .fs-5 {
+  font-weight: 500;
+}
+
+.recipe-image {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.recipe-box {
+  background-color: var(--bg-muted);
+  border-left: 5px solid var(--accent-green);
+  transition: box-shadow 0.3s ease;
+}
+
+.recipe-box:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.recipe-box h4 i {
+  color: var(--accent-green);
+}
+
+.recipe-box p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.accordion-button {
+  font-weight: 600;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--accent-green);
+  color: white;
+}
+
+.accordion-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}

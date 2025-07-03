@@ -25,6 +25,11 @@ def recipes_list(request):
     recipes = Recipe.objects.all()
     return render(request, 'nutrition/recipes.html', {'recipes': recipes})
 
+def recipe_detail(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    return render(request, 'nutrition/recipe_detail.html', {'recipe': recipe})
+
+
 def supplements_list(request):
     supplements = Supplement.objects.all()
     return render(request, 'nutrition/supplements.html', {'supplements': supplements})

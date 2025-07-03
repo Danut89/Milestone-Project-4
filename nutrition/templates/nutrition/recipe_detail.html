@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block content %}
+
+
+<section class="container text-center py-4 recipe-detail shop-header">
+  <!-- 🔹 Title -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold  mb-2">{{ recipe.title }}</h1>
+    
+  </div>
+
+
+  <!-- 🔹 Image + Ingredients -->
+  <div class="row g-4 align-items-start mb-5">
+    <!-- Image -->
+    <div class="col-md-5 text-center">
+      {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded-4 shadow-sm recipe-image">
+      {% endif %}
+    </div>
+
+    <!-- 🔽 Accordion Sections -->
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="accordion rounded-4 shadow-sm" id="recipeAccordion">
+
+      <!-- Ingredients -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingIngredients">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIngredients" aria-expanded="true" aria-controls="collapseIngredients">
+            🧾 Ingredients
+          </button>
+        </h2>
+        <div id="collapseIngredients" class="accordion-collapse collapse show" aria-labelledby="headingIngredients" data-bs-parent="#recipeAccordion">
+          <div class="accordion-body">
+            {{ recipe.ingredients|linebreaks }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingInstructions">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
+            🍳 Instructions
+          </button>
+        </h2>
+        <div id="collapseInstructions" class="accordion-collapse collapse" aria-labelledby="headingInstructions" data-bs-parent="#recipeAccordion">
+          <div class="accordion-body">
+            {{ recipe.instructions|linebreaks }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional: Nutritional Info -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingNutrition">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNutrition" aria-expanded="false" aria-controls="collapseNutrition">
+            🍽 Nutritional Info
+          </button>
+        </h2>
+        <div id="collapseNutrition" class="accordion-collapse collapse" aria-labelledby="headingNutrition" data-bs-parent="#recipeAccordion">
+          <div class="accordion-body">
+            <p>This could include estimated calories, carbs, protein, etc.</p>
+            <ul>
+              <li>Calories: ~320</li>
+              <li>Protein: ~12g</li>
+              <li>Carbs: ~18g</li>
+              <li>Fat: ~22g</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <!-- 🔙 Back Button -->
+  <div class="text-center mt-4">
+    <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-secondary">
+      ← Back to Recipes
+    </a>
+  </div>
+</section>
+{% endblock %}

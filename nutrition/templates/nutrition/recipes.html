@@ -4,8 +4,8 @@
 {% block title %}Recipes{% endblock %}
 
 {% block content %}
-<!-- 💚 Accent Divider -->
-<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+
+
 
 <section class="container shop-header text-center py-4">
   <!-- 🍲 Page Heading -->
@@ -40,7 +40,7 @@
             <p class="card-text small text-muted">Prep Time: {{ recipe.prep_time_minutes }} mins</p>
             <p class="card-text">{{ recipe.ingredients|truncatewords:20 }}</p>
             <div class="mt-auto">
-              <a href="#" class="btn btn-success w-100 mt-3">View Recipe</a>
+              <a href="{% url 'nutrition:recipe_detail' recipe.id %}" class="btn btn-success w-100 mt-3">View Recipe</a>
             </div>
           </div>
         </div>
