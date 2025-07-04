@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import MealPlan, MealPlanDay, Recipe, Supplement
+from .models import MealPlan, MealPlanDay, Recipe, Supplement, Wishlist
 
 # Register your models here.
 
 
 admin.site.register(Recipe)
 admin.site.register(Supplement)
+admin.site.register(Wishlist)
 
 
 # Inline model for MealPlanDay

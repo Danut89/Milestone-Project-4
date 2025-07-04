@@ -33,9 +33,25 @@
     
     <!-- 🖼 Image -->
     <div class="col-md-5 text-center">
+      <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
       {% if recipe.image %}
         <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded-4 shadow-sm recipe-image">
       {% endif %}
+      <!-- ❤️ Wishlist Button -->
+      {% if user.is_authenticated %}
+        <button id="wishlist-btn"
+                class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-100 mt-4"
+                data-id="{{ recipe.id }}"
+                data-type="recipe">
+          <i class="fas fa-heart me-2"></i>
+          {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
+        </button>
+      {% else %}
+        <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100 mt-4">
+          <i class="fas fa-heart me-2"></i> Login to Save
+        </a>
+      {% endif %}
+      </div>
     </div>
 
    <!-- 🔽 Accordion with custom styles to match Meal Plan Detail -->
@@ -107,21 +123,7 @@
 </div>
 
 
-      <!-- ❤️ Wishlist Button -->
-      {% if user.is_authenticated %}
-        <form action="#" method="post" class="mt-4">
-          {% csrf_token %}
-          <button class="btn btn-success w-100">
-            <i class="fas fa-heart me-2"></i> Save to Wishlist
-          </button>
-        </form>
-      {% else %}
-        <div class="mt-4">
-          <a href="{% url 'account_login' %}" class="btn btn-outline-primary w-100">
-            <i class="fas fa-sign-in-alt me-1"></i> Log in to Save Recipe
-          </a>
-        </div>
-      {% endif %}
+      
     </div>
   </div>
 
@@ -131,5 +133,8 @@
   </div>
 
 </div>
+
+
+
 
 {% endblock %}

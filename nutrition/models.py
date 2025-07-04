@@ -63,3 +63,22 @@ class Supplement(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlist')
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, null=True, blank=True, related_name='wishlisted_by')
+    meal_plan = models.ForeignKey('MealPlan', on_delete=models.CASCADE, null=True, blank=True, related_name='wishlisted_by')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'recipe'], name='unique_user_recipe_wishlist'),
+            models.UniqueConstraint(fields=['user', 'meal_plan'], name='unique_user_mealplan_wishlist'),
+        ]
+
+    def __str__(self):
+        if self.recipe:
+            return f"{self.user.username} → Recipe: {self.recipe.title}"
+        elif self.meal_plan:
+            return f"{self.user.username} → Meal Plan: {self.meal_plan.title}"
+        return f"{self.user.username} → Wishlist item"
