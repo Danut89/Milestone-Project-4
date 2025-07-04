@@ -56,16 +56,29 @@
     </div>
   </div>
 
-  <!-- 💖 Liked / Saved Products -->
-  <div class="col">
-    <div class="card shadow-sm h-100">
-      <div class="card-body">
-        <h5 class="card-title">💖 Your Saved Products</h5>
-        <p class="card-text">You haven't saved any products yet.</p>
-        <a href="{% url 'all_products' %}" class="btn btn-outline-primary">Browse Products</a>
-      </div>
+ <section class="my-5">
+  <h3 class="mb-3">📚 Your Saved Recipes</h3>
+  {% if saved_recipes %}
+    <div class="row g-4">
+      {% for entry in saved_recipes %}
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            {% if entry.recipe.image %}
+              <img src="{{ entry.recipe.image.url }}" class="card-img-top" alt="{{ entry.recipe.title }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ entry.recipe.title }}</h5>
+              <a href="{% url 'nutrition:recipe_detail' pk=entry.recipe.id %}" class="btn btn-primary btn-sm">View Recipe</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-  </div>
+  {% else %}
+    <p>You haven’t saved any recipes yet. Start exploring!</p>
+  {% endif %}
+</section>
+
 
   <!-- 🧭 Quick Actions -->
   <div class="col">

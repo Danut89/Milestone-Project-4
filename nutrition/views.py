@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import MealPlan, Recipe, Supplement
+from .models import MealPlan, Recipe, Supplement, Wishlist
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 def nutrition_home(request):
     return render(request, 'nutrition/home.html')
@@ -27,7 +28,15 @@ def recipes_list(request):
 
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'nutrition/recipe_detail.html', {'recipe': recipe})
+    is_saved = False
+
+    if request.user.is_authenticated:
+        is_saved = Wishlist.objects.filter(user=request.user, recipe=recipe).exists()
+
+    return render(request, 'nutrition/recipe_detail.html', {
+        'recipe': recipe,
+        'is_saved': is_saved
+    })
 
 
 def supplements_list(request):
@@ -35,3 +44,8 @@ def supplements_list(request):
     return render(request, 'nutrition/supplements.html', {'supplements': supplements})
 
 
+@login_required
+def add_to_wishlist(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    Wishlist.objects.get_or_create(user=request.user, recipe=recipe)
+    return redirect('nutrition:recipe_detail', recipe_id=recipe.id)
