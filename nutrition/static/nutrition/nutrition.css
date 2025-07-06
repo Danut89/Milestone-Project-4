@@ -27,9 +27,6 @@
   list-style-position: inside;
   max-width: 800px;
   width: 100%;
- 
-
-
   border-left: 4px solid var(--accent-green-hover);
   border-radius: 0.75rem;
   padding: 2rem;
@@ -51,13 +48,11 @@
   line-height: 1.6;
 }
 
-
 .desc-title {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  
   display: inline-block;
   padding-bottom: 0.25rem;
   margin-bottom: 1rem;
@@ -90,6 +85,7 @@
   color: var(--text-dark);
 }
 
+/* Save Button */
 .btn-save {
   background-color: var(--primary-color);
   color: #fff;
@@ -106,7 +102,7 @@
   color: var(--primary-color);
 }
 
-/* Accordion (Day Breakdown) */
+/* Accordion */
 .accordion-item {
   border-radius: 0.75rem;
   border: 1px solid #e5e7eb;
@@ -116,26 +112,34 @@
 
 .accordion-button {
   font-weight: 600;
-  color: var(--text-dark);
-  background-color: var(--text-dark);
+  background-color: #f8f9fa;
+  color: #333;
   padding: 1rem 1.25rem;
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #e0f2fe;
-  color: #0c4a6e;
+  background-color: var(--accent-green);
+  color: white;
 }
 
 .accordion-body {
   background-color: #ffffff;
   font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
-/* Meal Day List Styling */
+/* Meal Item Group */
 .meal-day-list {
   padding-left: 0;
   margin-bottom: 0;
+}
+
+.meal-item-group {
+  background-color: var(--bg-muted);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .meal-item {
@@ -155,43 +159,19 @@
   background-color: #eef6f9;
 }
 
-.meal-item-group {
-  background-color: var(--bg-muted);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-}
-
-
-/* Adjust icon size and spacing */
 .meal-item i {
   flex-shrink: 0;
   font-size: 1.1rem;
   margin-top: 2px;
 }
 
-/* Color tweaks based on content */
-.meal-item i.text-warning {
-  color: #f59e0b;
-}
+.meal-item i.text-warning { color: #f59e0b; }
+.meal-item i.text-primary { color: var(--text-dark); }
+.meal-item i.text-danger  { color: #ef4444; }
+.meal-item i.text-success { color: #10b981; }
+.meal-item i.text-muted   { color: #6b7280; }
 
-.meal-item i.text-primary {
-  color: var(--text-dark);
-}
-
-.meal-item i.text-danger {
-  color: #ef4444;
-}
-
-.meal-item i.text-success {
-  color: #10b981;
-}
-
-.meal-item i.text-muted {
-  color: #6b7280;
-}
-
-/* Shopping List */
+/* Daily Shopping List */
 .daily-breakdown ul {
   list-style: disc;
   padding-left: 1.5rem;
@@ -199,267 +179,4 @@
 
 .daily-breakdown ul li {
   margin-bottom: 0.5rem;
-}
-
-
-/* =============================
-   🥗 Meal Plan Page
-============================= */
-
-.product-modern-card {
-  width: 100%;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.8);
-  transition: 0.3s ease;
-  overflow: hidden;
-  
-  display: flex;
-  flex-direction: column;
-}
-
-.product-modern-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.product-modern-card .img {
-  height: 300px;
-  overflow: hidden;
-}
-
-.product-modern-card .img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.product-modern-card:hover .img img {
-  transform: scale(1.05);
-}
-
-.product-modern-card .info {
-  padding: 1.25rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.product-modern-card .cat {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 0.25rem;
-}
-
-.product-modern-card .title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
-  text-transform: capitalize;
-}
-
-.product-modern-card .desc {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-  flex-grow: 1;
-}
-
-.product-modern-card .feats {
-  display: flex;
-  gap: 0.75rem;
-   margin-bottom: 1.5rem;
-}
-
-.product-modern-card .feat {
-  font-size: 0.9rem;
-  background-color: var(--bg-muted);
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  color: var(--text-dark);
-  font-weight: 600;
-}
-
-.product-modern-card .bottom .btn {
-  background-color: var(--text-dark);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.product-modern-card .bottom .btn:hover {
-  background-color: var(--accent-green-hover);
-  color: white;
-}
-
-.product-modern-card .bottom {
-  margin-top: auto;
-}
-
-/* ===============================
-    Recipe Page 
-=============================== */
-
-/* Card Image */
-.recipe-card img {
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  border-bottom: 1px solid #f1f1f1;
-}
-
-/* Card Container */
-.recipe-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 1rem;
-  background-color: white;
-}
-
-.recipe-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* Card Title */
-.recipe-card .card-title {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
-}
-
-/* Card Texts */
-.recipe-card .card-text {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  min-height: 50px;
-}
-
-/* View Button */
-.recipe-card .btn {
-  border-radius: 8px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-/* Optional: Placeholder Image Styling */
-.recipe-card img[alt="No image"] {
-  filter: grayscale(0.2) brightness(0.95);
-  background-color: #f5f5f5;
-}
-
-/* Section Header */
-.shop-header h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-}
-
-.shop-header p {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Breadcrumb Style Match */
-.breadcrumb {
-  font-size: 0.9rem;
-}
-
-/* Accent Divider */
-hr.my-4 {
-  border-width: 2px;
-}
-
-/* Suggestions Section */
-.section-light {
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
-}
-
-.section-light .product-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.section-light .product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-}
-
-/* Suggestion Buttons */
-.btn-featured {
-  padding: 0.375rem 0.75rem;
-  border-radius: 6px;
-  background-color: var(--accent-green);
-  color: white;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-}
-
-.btn-featured:hover {
-  background-color: #219653;
-  color: white;
-}
-
-/* ===============================
-    Recipe Detail Page 
-=============================== */
-.recipe-detail h1 {
-  font-size: 2.3rem;
-}
-
-.recipe-detail .fs-5 {
-  font-weight: 500;
-}
-
-.recipe-image {
-  max-height: 400px;
-  object-fit: cover;
-}
-
-.recipe-box {
-  background-color: var(--bg-muted);
-  border-left: 5px solid var(--accent-green);
-  transition: box-shadow 0.3s ease;
-}
-
-.recipe-box:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.recipe-box h4 i {
-  color: var(--accent-green);
-}
-
-.recipe-box p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.accordion-button {
-  font-weight: 600;
-  background-color: #f8f9fa;
-  color: #333;
-}
-
-.accordion-button:not(.collapsed) {
-  background-color: var(--accent-green);
-  color: white;
-}
-
-.accordion-body {
-  font-size: 1rem;
-  line-height: 1.6;
 }

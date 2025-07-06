@@ -1,26 +1,21 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}{{ recipe.title }}{% endblock %}
 
 {% block content %}
+<section class="container py-4 recipe-detail shop-header">
 
-<!-- 🔹 Container wrapping all content -->
-<div class="container py-4 recipe-detail shop-header">
-
-  <!-- 🔹 Title & Metadata -->
-  <div class="text-center mb-4">
+  <!-- 🔹 Title and Metadata -->
+  <header class="text-center mb-4">
     <h1 class="fw-bold mb-2">{{ recipe.title }}</h1>
-    <p class="text-muted mb-2">
-      <i class="fas fa-user me-1"></i> <strong>{{ recipe.author.username }}</strong><br>
+    <p class="text-muted">
+      <i class="fas fa-user me-1"></i><strong>{{ recipe.author.username }}</strong><br>
       <small><i class="fas fa-calendar-alt me-1"></i>{{ recipe.created_at|date:"F j, Y" }}</small>
     </p>
-  </div>
+  </header>
 
-
-
-  <!-- 🧭 Breadcrumbs -->
+  <!-- 🧭 Breadcrumb Navigation -->
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -30,131 +25,115 @@
     </ol>
   </nav>
 
-
-
-
-  <!-- 📷 Image + Accordion Side by Side -->
+  <!-- 📷 Recipe Image + Content Accordion -->
   <div class="row g-4 align-items-start mb-5">
-    
-    <!-- 🖼 Image -->
-    <div class="col-md-5 text-center">
-      <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
-      {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded-4 shadow-sm recipe-image">
-      {% endif %}
-      {% if request.user == recipe.author %}
-        <div class="d-flex justify-content-end gap-2 mt-4">
-
-          <!-- ✏️ Edit Button -->
-          <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">
-            ✏️ Edit
-          </a>
-
-          <!-- 🗑️ Delete Button (Triggers Modal) -->
-          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            🗑️ Delete
-          </button>
-
-        </div>
-      {% endif %}
-
-      </div>
+    <!-- Image Section -->
+    <div class="col-md-5">
+      <figure class="bg-white p-4 rounded-4 shadow-sm text-center">
+        {% if recipe.image %}
+          <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded-4 shadow-sm recipe-image">
+        {% endif %}
+        {% if request.user == recipe.author %}
+          <figcaption class="d-flex justify-content-center gap-3 mt-4">
+            <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">✏️ Edit</a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">🗑️ Delete</button>
+          </figcaption>
+        {% endif %}
+      </figure>
     </div>
 
-   <!-- 🔽 Accordion with custom styles to match Meal Plan Detail -->
-<div class="col-md-7">
-  <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
-    <div class="accordion" id="recipeAccordion">
+    <!-- Accordion Section -->
+    <div class="col-md-7">
+      <section class="bg-white p-4 rounded-4 shadow-sm">
+        <div class="accordion" id="recipeAccordion">
 
-      <!-- 🧾 Ingredients -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingIngredients">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
-            🧾 Ingredients
-          </button>
-        </h2>
-        <div id="collapseIngredients" class="accordion-collapse collapse show" data-bs-parent="#recipeAccordion">
-          <div class="accordion-body">
-            <ul class="meal-day-list list-unstyled meal-item-group">
-              {% for line in recipe.ingredients.splitlines %}
-                {% if line.strip %}
-                  <li class="meal-item">{{ line }}</li>
-                {% endif %}
-              {% endfor %}
-            </ul>
+          <!-- Ingredients Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingIngredients">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
+                🧾 Ingredients
+              </button>
+            </h2>
+            <div id="collapseIngredients" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+              <div class="accordion-body">
+                <ul class="meal-day-list list-unstyled meal-item-group">
+                  {% for line in recipe.ingredients.splitlines %}
+                    {% if line.strip %}
+                      <li class="meal-item">{{ line }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingInstructions">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
+                🍳 Instructions
+              </button>
+            </h2>
+            <div id="collapseInstructions" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+              <div class="accordion-body">
+                <ul class="meal-day-list list-unstyled meal-item-group">
+                  {% for line in recipe.instructions.splitlines %}
+                    {% if line.strip %}
+                      <li class="meal-item">{{ line }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nutritional Info Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNutrition">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNutrition" aria-expanded="false" aria-controls="collapseNutrition">
+                🍽 Nutritional Info
+              </button>
+            </h2>
+            <div id="collapseNutrition" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+              <div class="accordion-body">
+                <ul class="meal-day-list list-unstyled meal-item-group">
+                  <li class="meal-item">Calories: ~320</li>
+                  <li class="meal-item">Protein: ~12g</li>
+                  <li class="meal-item">Carbs: ~18g</li>
+                  <li class="meal-item">Fat: ~22g</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 🍳 Instructions -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingInstructions">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
-            🍳 Instructions
-          </button>
-        </h2>
-        <div id="collapseInstructions" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
-          <div class="accordion-body text-start">
-            <ul class="meal-day-list list-unstyled meal-item-group">
-              {% for line in recipe.instructions.splitlines %}
-                {% if line.strip %}
-                  <li class="meal-item">{{ line }}</li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- 🍽 Nutritional Info -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingNutrition">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNutrition" aria-expanded="false" aria-controls="collapseNutrition">
-            🍽 Nutritional Info
-          </button>
-        </h2>
-        <div id="collapseNutrition" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
-          <div class="accordion-body">
-            <ul class="meal-day-list list-unstyled meal-item-group">
-              <li class="meal-item">Calories: ~320</li>
-              <li class="meal-item">Protein: ~12g</li>
-              <li class="meal-item">Carbs: ~18g</li>
-              <li class="meal-item">Fat: ~22g</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-          <!-- ❤️ Wishlist Button -->
+        <!-- ❤️ Wishlist Button -->
+        <div class="mt-4">
           {% if user.is_authenticated %}
             <button id="wishlist-btn"
-                    class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-30 mt-4"
+                    class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-30"
                     data-id="{{ recipe.id }}"
                     data-type="recipe">
               <i class="fas fa-heart me-2"></i>
               {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
             </button>
           {% else %}
-            <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100 mt-4">
+            <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100">
               <i class="fas fa-heart me-2"></i> Login to Save
             </a>
           {% endif %}
-    </div>
-  </div>
-</div>
-
-
-      
+        </div>
+      </section>
     </div>
   </div>
 
-  <!-- 🔙 Back Button -->
-  <div class="text-center mt-4">
+  <!-- 🔙 Back to Recipes -->
+  <div class="text-center">
     <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-secondary">← Back to Recipes</a>
   </div>
+</section>
 
-</div>
-
-<!-- ❗ Bootstrap Delete Confirmation Modal -->
+<!-- 🗑 Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -165,7 +144,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete the recipe <strong>{{ recipe.title }}</strong>?
+          Are you sure you want to delete <strong>{{ recipe.title }}</strong>?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -175,7 +154,5 @@
     </div>
   </div>
 </div>
-
-
-
 {% endblock %}
+
