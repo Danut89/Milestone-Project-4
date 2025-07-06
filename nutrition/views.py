@@ -22,7 +22,14 @@ def meal_plans(request):
 
 def recipes_list(request):
     recipes = Recipe.objects.all()
-    return render(request, 'nutrition/recipes.html', {'recipes': recipes})
+    
+    paginator = Paginator(recipes, 6)  # 6 recipes per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'nutrition/recipes.html', {
+        'page_obj': page_obj,
+    })
 
 def supplements_list(request):
     supplements = Supplement.objects.all()
@@ -119,8 +126,12 @@ def edit_recipe(request, pk):
 @login_required
 def delete_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk, author=request.user)
+
     if request.method == 'POST':
+        # Remove any wishlist entries
+        Wishlist.objects.filter(recipe=recipe).delete()
         recipe.delete()
         return redirect('nutrition:recipes')
-    return render(request, 'nutrition/recipe_confirm_delete.html', {'recipe': recipe})
+
+
 

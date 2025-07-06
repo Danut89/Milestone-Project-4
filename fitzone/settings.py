@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'nutrition',
     'shop',
     'cart',
-    'orders'
+    'orders',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [

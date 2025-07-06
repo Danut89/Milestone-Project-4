@@ -18,6 +18,8 @@
     </p>
   </div>
 
+
+
   <!-- 🧭 Breadcrumbs -->
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
@@ -28,6 +30,9 @@
     </ol>
   </nav>
 
+
+
+
   <!-- 📷 Image + Accordion Side by Side -->
   <div class="row g-4 align-items-start mb-5">
     
@@ -37,20 +42,22 @@
       {% if recipe.image %}
         <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded-4 shadow-sm recipe-image">
       {% endif %}
-      <!-- ❤️ Wishlist Button -->
-      {% if user.is_authenticated %}
-        <button id="wishlist-btn"
-                class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-100 mt-4"
-                data-id="{{ recipe.id }}"
-                data-type="recipe">
-          <i class="fas fa-heart me-2"></i>
-          {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
-        </button>
-      {% else %}
-        <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100 mt-4">
-          <i class="fas fa-heart me-2"></i> Login to Save
-        </a>
+      {% if request.user == recipe.author %}
+        <div class="d-flex justify-content-end gap-2 mt-4">
+
+          <!-- ✏️ Edit Button -->
+          <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">
+            ✏️ Edit
+          </a>
+
+          <!-- 🗑️ Delete Button (Triggers Modal) -->
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            🗑️ Delete
+          </button>
+
+        </div>
       {% endif %}
+
       </div>
     </div>
 
@@ -117,7 +124,20 @@
           </div>
         </div>
       </div>
-
+          <!-- ❤️ Wishlist Button -->
+          {% if user.is_authenticated %}
+            <button id="wishlist-btn"
+                    class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-30 mt-4"
+                    data-id="{{ recipe.id }}"
+                    data-type="recipe">
+              <i class="fas fa-heart me-2"></i>
+              {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
+            </button>
+          {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100 mt-4">
+              <i class="fas fa-heart me-2"></i> Login to Save
+            </a>
+          {% endif %}
     </div>
   </div>
 </div>
@@ -134,6 +154,27 @@
 
 </div>
 
+<!-- ❗ Bootstrap Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form method="POST" action="{% url 'nutrition:delete_recipe' recipe.pk %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="deleteModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the recipe <strong>{{ recipe.title }}</strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 
