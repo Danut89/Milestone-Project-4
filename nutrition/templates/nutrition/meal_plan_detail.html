@@ -4,67 +4,48 @@
 {% block title %}{{ meal_plan.title }}{% endblock %}
 
 {% block content %}
-
-<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 <section class="meal-detail-page shop-header text-center container py-4">
-  
-    <!-- 🌿 Header -->
-      <h1 class="mb-2">
-        <i class="fas fa-seedling text-success me-2"></i>{{ meal_plan.title }}
-      </h1>
-      <hr class="mt-4" style="width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
-
-       <!-- 🧭 Breadcrumb -->
-      <nav aria-label="breadcrumb" class="mb-4">
-      <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
-        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'nutrition:meal_plans' %}">Nutrition</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Meal Plans</li>
-      </ol>
-      </nav>
-
-      
+  <!-- 🌿 Header -->
+  <h1 class="mb-2">{{ meal_plan.title }}</h1>
+  <p class="text-muted small mb-0">
+    <i class="fas fa-calendar-day text-secondary me-1"></i> <strong>{{ meal_plan.created_at|date:"F j, Y" }}</strong>
+    &nbsp; | &nbsp;
+    <i class="fas fa-layer-group text-secondary me-1"></i> {{ days|length }} Days
+  </p>
 
 
-      
-    
+  <!-- 🧭 Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'nutrition:meal_plans' %}">Nutrition</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Meal Plans</li>
+    </ol>
+  </nav>
 
-    <!-- 🔍 Plan Summary + Breakdown -->
-    <div class="row g-4 mb-5">
-      <!-- 📊 Summary Left -->
-      <div class="col-md-4">
-        <div class="plan-summary text-center h-100">
-          {% if meal_plan.image %}
-            <img src="{{ meal_plan.image.url }}" alt="{{ meal_plan.title }}" class="img-fluid rounded-3 mb-3 shadow-sm">
-          {% endif %}
-          <p><i class="fas fa-fire text-danger me-1"></i><strong>Calories:</strong> {{ meal_plan.calories }}</p>
-          <p><i class="fas fa-clock text-warning me-1"></i><strong>Duration:</strong> {{ meal_plan.duration_days }} days</p>
-          <p><i class="fas fa-bullseye text-info me-1"></i><strong>Goal:</strong> Weight Loss</p>
-          
-          <!-- ❤️ Wishlist Button -->
-          {% if user.is_authenticated %}
-            <button id="wishlist-btn"
-                    class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %} w-100 mt-4"
-                    data-id="{{ meal_plan.id }}"
-                    data-type="meal_plan">
-              <i class="fas fa-heart me-2"></i>
-              {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
-            </button>
-          {% else %}
-            <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100 mt-4">
-              <i class="fas fa-heart me-2"></i> Login to Save
-            </a>
-          {% endif %}
-
-        </div>
+  <!-- 🔍 Plan Summary + Breakdown -->
+  <div class="row g-4 mb-5">
+    <!-- 📊 Summary Left -->
+    <div class="col-md-6">
+      <div class="plan-summary text-center h-100">
+        {% if meal_plan.image %}
+          <img src="{{ meal_plan.image.url }}" alt="{{ meal_plan.title }}" class="img-fluid rounded-3 mb-3 shadow-sm">
+        {% endif %}
+        <p><i class="fas fa-fire text-danger me-1"></i><strong>Calories:</strong> {{ meal_plan.calories }}</p>
+        <p><i class="fas fa-clock text-warning me-1"></i><strong>Duration:</strong> {{ meal_plan.duration_days }} days</p>
+        <p><i class="fas fa-bullseye text-info me-1"></i><strong>Goal:</strong> Weight Loss</p>
       </div>
+    </div>
 
-      <!-- 📅 Daily Breakdown Right -->
-      <div class="col-md-8">
-        <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
-        <h5 class="mb-4">
+    <!-- 📅 Daily Breakdown Right -->
+    <div class="col-md-6">
+      <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
+
+        <!-- 🧩 Accordion Title -->
+        <h5 class="mb-3 text-center fw-semibold">
           <i class="fas fa-calendar-alt me-2 text-success"></i>Daily Meal Breakdown
         </h5>
+
         <div class="accordion" id="mealPlanAccordion">
           {% for day in days %}
             <div class="accordion-item">
@@ -92,8 +73,7 @@
                             <i class="fas fa-chart-pie text-success me-1"></i>
                             <span class="meal-total">{{ line }}</span>
                           {% else %}
-                            <span class="text-muted me-1">–</span>
-                            {{ line }}
+                            <span class="text-muted me-1">–</span>{{ line }}
                           {% endif %}
                         </li>
                       {% endif %}
@@ -107,58 +87,73 @@
           {% endfor %}
         </div>
       </div>
-      </div>
-      
-      <div class="plan-description-box mx-auto mb-5 shadow-sm" data-aos="fade-up">
-        <h6 class="desc-title text-uppercase mb-3 text-center"><i class="fas fa-info-circle text-success me-2"></i>About This Plan</h6>
-        <ul class="desc-content">
-          {% for line in meal_plan.description.splitlines %}
-            {% if line.strip %}  {# skip empty lines #}
-              <li>{{ line }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
+      <!-- ❤️ Wishlist Button -->
+        {% if user.is_authenticated %}
+          <div class="text-center mt-4">
+            <button id="wishlist-btn"
+                    class="btn {% if is_saved %}btn-danger{% else %}btn-outline-danger{% endif %}"
+                    data-id="{{ meal_plan.id }}"
+                    data-type="meal_plan">
+              <i class="fas fa-heart me-2"></i>
+              {% if is_saved %}Remove from Wishlist{% else %}Save to Wishlist{% endif %}
+            </button>
+          </div>
+        {% else %}
+          <div class="text-center mt-4">
+            <a href="{% url 'account_login' %}" class="btn btn-outline-danger w-100">
+              <i class="fas fa-heart me-2"></i> Login to Save
+            </a>
+          </div>
+        {% endif %}
     </div>
-
-
-      
-
-
-    
-
-    <!-- 💬 Recommendations -->
-    <div class="section-light pt-4">
-      <h5 class="mb-4"><i class="fas fa-comments me-2 text-success"></i>You Might Also Like</h5>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
-            <h6 class="mb-1">🥗 Vegan Reset (3-Day)</h6>
-            <p class="text-muted small">Light & refreshing plant-based meals.</p>
-            <a href="#" class="btn-featured btn-sm">View</a>
-          </div>
-        </div>
-        <div class="col">
-          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
-            <h6 class="mb-1">💪 High Protein Plan</h6>
-            <p class="text-muted small">Perfect for muscle gain or gym-goers.</p>
-            <a href="#" class="btn-featured btn-sm">View</a>
-          </div>
-        </div>
-        <div class="col">
-          <div class="product-card p-4 rounded-4 shadow-sm bg-white">
-            <h6 class="mb-1">🧘 Balanced Energy Plan</h6>
-            <p class="text-muted small">Ideal for busy professionals or students.</p>
-            <a href="#" class="btn-featured btn-sm">View</a>
-          </div>
-        </div>
-      </div>
-
-       <!-- 🔙 Back Button -->
-  <div class="text-center mt-4">
-    <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-secondary">Back to Meal Plans</a>
   </div>
 
 
+  <!-- 📝 About This Plan -->
+  <div class="container plan-description-box bg-muted mx-auto mb-5 shadow-sm" data-aos="fade-up">
+    <h6 class="desc-title text-uppercase mb-3">
+      <i class="fas fa-info-circle text-success me-2"></i>About This Plan
+    </h6>
+    <ul class="desc-content">
+      {% for line in meal_plan.description.splitlines %}
+        {% if line.strip %}
+          <li>{{ line }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- 💬 You Might Also Like -->
+  <div class="section-light pt-4">
+    <h5 class="mb-4"><i class="fas fa-comments me-2 text-success"></i>You Might Also Like</h5>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">🥗 Vegan Reset (3-Day)</h6>
+          <p class="text-muted small">Light & refreshing plant-based meals.</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">💪 High Protein Plan</h6>
+          <p class="text-muted small">Perfect for muscle gain or gym-goers.</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="product-card p-4 rounded-4 shadow-sm bg-white">
+          <h6 class="mb-1">🧘 Balanced Energy Plan</h6>
+          <p class="text-muted small">Ideal for busy professionals or students.</p>
+          <a href="#" class="btn-featured btn-sm">View</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔙 Back Button -->
+    <div class="text-center mt-4">
+      <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-secondary">← Back to Meal Plans</a>
+    </div>
+  </div>
 </section>
 {% endblock %}

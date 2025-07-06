@@ -45,9 +45,13 @@ def meal_plan_detail(request, pk):
     is_saved = False
     if request.user.is_authenticated:
         is_saved = Wishlist.objects.filter(user=request.user, meal_plan=meal_plan).exists()
+
+    days = meal_plan.get_days
+    
     return render(request, 'nutrition/meal_plan_detail.html', {
         'meal_plan': meal_plan,
-        'is_saved': is_saved
+        'is_saved': is_saved,
+        'days': days
     })
 
 def recipe_detail(request, pk):
