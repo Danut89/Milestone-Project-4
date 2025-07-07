@@ -2,23 +2,30 @@
 {% block title %}Order Confirmed{% endblock %}
 
 {% block content %}
-<section class="container py-5">
-  <div class="bg-white p-5 rounded-4 shadow-sm text-center border">
+<section class="container py-5 section-highlight shop-header">
+  <div class="confirmation-box bg-white p-5 rounded-4 shadow-sm text-center border">
 
-    <h1 class="display-6 fw-bold text-success mb-3">
+    <h1 class="display-6 fw-bold mb-3">
       🎉 Thank You, {{ order.user.username }}!
     </h1>
 
-    <p class="fs-5 mb-4">Your order <strong>#{{ order.id }}</strong> was placed successfully.</p>
+    <p class="fs-5 mb-4">
+      Your order <strong>#{{ order.id }}</strong> was placed successfully.
+    </p>
 
-    <div class="order-summary-box d-inline-block px-4 py-3 rounded-3 shadow-sm mb-4" style="background-color: var(--light-bg);">
-      <p class="mb-1">💰 <strong>Total Paid:</strong> £{{ order.total_price }}</p>
+    <div class="order-summary-box d-inline-block px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle">
+      <p class="mb-1">
+        💰 <strong>Total Paid:</strong> £{{ order.total_price|floatformat:2 }}
+      </p>
       <p class="mb-0">📦 We'll process and ship your items shortly.</p>
     </div>
 
-    <a href="{% url 'all_products' %}" class="btn shop-btn mt-3">🛍 Continue Shopping</a>
+    <a href="{% url 'all_products' %}" class="btn shop-btn mt-3">
+      🛍 Continue Shopping
+    </a>
 
   </div>
 </section>
 {% endblock %}
+
 

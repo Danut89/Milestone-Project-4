@@ -1,0 +1,121 @@
+/* ===== Cart Table Styling ===== */
+
+.cart-table th,
+.cart-table td {
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+.cart-table thead {
+  border-bottom: 2px solid var(--border-muted);
+}
+
+.cart-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Card-like container */
+.table-wrap {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+}
+
+/* Remove button */
+.btn-outline-danger.btn-sm {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Section heading */
+.hero-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-heading);
+}
+
+/* Checkout button */
+.shop-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  transition: background-color 0.3s;
+}
+
+.shop-btn:hover {
+  background-color: var(--accent-color-dark);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .cart-table thead {
+    display: none;
+  }
+
+  .cart-table tr {
+    display: block;
+    margin-bottom: 1.5rem;
+    background-color: white;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
+  }
+
+  .cart-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  .cart-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .table-wrap {
+    padding: 1rem;
+  }
+}
+
+/* ===== Checkout Confirmation Styles ===== */
+
+.confirmation-box {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.order-summary-box {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  border-left: 4px solid var(--accent-color);
+}
+
+.shop-btn {
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  transition: background-color 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.shop-btn:hover {
+  background-color: var(--accent-color-dark);
+}
