@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.db import transaction
 from django.urls import reverse
 from .models import MealPlan, Recipe, Supplement, Wishlist
 from .forms import RecipeForm  # Make sure to create this form if not already created
@@ -127,15 +128,38 @@ def edit_recipe(request, pk):
         form = RecipeForm(instance=recipe)
     return render(request, 'nutrition/recipe_form.html', {'form': form})
 
-@login_required
-def delete_recipe(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk, author=request.user)
+#
 
-    if request.method == 'POST':
-        # Remove any wishlist entries
-        Wishlist.objects.filter(recipe=recipe).delete()
-        recipe.delete()
-        return redirect('nutrition:recipes')
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from .models import Recipe, Wishlist
+from django.db import transaction
+
+def delete_recipe(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if request.user != recipe.author and not request.user.is_superuser:
+        messages.error(request, "You don't have permission to delete this recipe.")
+        return redirect("nutrition:recipe_detail", pk=pk)
+
+    try:
+        with transaction.atomic():
+            # ✅ Step 1: Delete related wishlist entries
+            Wishlist.objects.filter(recipe=recipe).delete()
+
+            # ✅ Step 2: Delete the recipe
+            recipe.delete()
+
+        messages.success(request, "Recipe deleted successfully.")
+        return redirect("nutrition:recipes")
+
+    except Exception as e:
+        print("Error while deleting:", e)
+        messages.error(request, "An error occurred while deleting the recipe.")
+        return redirect("nutrition:recipe_detail", pk=pk)
+
+
+
 
 
 
