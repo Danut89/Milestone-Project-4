@@ -24,17 +24,17 @@
       <a href="{% url 'all_products' %}" class="btn shop-btn mt-3">🛍 Continue Shopping</a>
 
     </div>
-  
+
   {% else %}
-    <!-- ✅ Checkout Form -->
+    <!-- ✅ Stripe Checkout Form -->
     <div class="row justify-content-center">
       <div class="col-lg-8 col-xl-6">
         <div class="card p-4 p-md-5 shadow-sm rounded-4 border-0">
 
           <h1 class="text-center mb-4 fw-bold">💳 Checkout</h1>
-          <p class="text-center mb-4 text-muted">Complete your details to place the order.</p>
+          <p class="text-center mb-4 text-muted">Complete your details to place the order and pay securely.</p>
 
-          <form method="POST">
+          <form id="checkout-form">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -53,9 +53,10 @@
             </div>
 
             <div class="text-center mt-4">
-              <button type="submit" class="btn shop-btn px-4">✅ Place Order (£{{ cart_total|floatformat:2 }})</button>
+              <button id="stripe-button" type="button" class="btn shop-btn px-4">
+                💳 Pay with Stripe (£{{ cart_total|floatformat:2 }})
+              </button>
             </div>
-
           </form>
         </div>
       </div>
@@ -64,5 +65,30 @@
 </section>
 {% endblock %}
 
+{% block extra_js %}
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+  const stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
 
+  document.getElementById("stripe-button").addEventListener("click", async function (e) {
+    e.preventDefault();
 
+    const response = await fetch("{% url 'create_checkout_session' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+      body: JSON.stringify({})  // ✅ Add this empty body!
+    });
+
+    const session = await response.json();
+    if (session.id) {
+      stripe.redirectToCheckout({ sessionId: session.id });
+    } else {
+      alert("Something went wrong.");
+    }
+  });
+</script>
+
+{% endblock %}

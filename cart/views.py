@@ -5,6 +5,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from decimal import Decimal
+import stripe
+from django.conf import settings
+from django.http import JsonResponse
 
 # 📌 Helper function to calculate total
 def calculate_cart_total(cart):
@@ -37,8 +40,26 @@ def add_to_cart(request, product_id):
 @login_required
 def view_cart(request):
     cart = request.session.get('cart', {})
-    total = calculate_cart_total(cart)
-    return render(request, 'cart/cart.html', {'cart': cart, 'cart_total': total})
+    cart_items = []
+    total = Decimal('0.00')
+
+    for item_id, item_data in cart.items():
+        product = get_object_or_404(Product, pk=item_id)
+        quantity = item_data['quantity'] if isinstance(item_data, dict) else item_data
+        subtotal = product.price * quantity
+        total += subtotal
+        cart_items.append({
+            'product': product,
+            'quantity': quantity,
+            'subtotal': subtotal,
+        })
+
+    context = {
+        'cart_items': cart_items,
+        'cart_total': total,
+    }
+    return render(request, 'cart/cart.html', context)
+
 
 # ❌ Remove product from cart
 @require_POST
@@ -59,43 +80,99 @@ def remove_from_cart(request, product_id):
 @login_required
 def checkout_view(request):
     cart = request.session.get('cart', {})
+
+    # ✅ Handle Stripe success redirect
+    if request.GET.get('success') == 'true':
+        order_id = request.session.get('order_id')
+        if order_id:
+            order = get_object_or_404(Order, id=order_id, user=request.user)
+
+            # Clear cart and session
+            request.session['cart'] = {}
+            del request.session['order_id']
+
+            return render(request, 'cart/checkout.html', {
+                'order': order,
+                'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
+            })
+
+        # If no order found, fallback
+        messages.warning(request, "We couldn't confirm your order. Please contact support.")
+        return redirect('view_cart')
+
     if not cart:
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
-    if request.method == "POST":
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        address = request.POST.get('address')
-        total = calculate_cart_total(cart)
+    total = calculate_cart_total(cart)
+    return render(request, 'cart/checkout.html', {
+        'cart': cart,
+        'cart_total': total,
+        'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
+    })
 
-        # Save Order
-        order = Order.objects.create(
-            user=request.user,
-            full_name=name,
-            email=email,
-            address=address,
-            total_price=Decimal(str(total))
+
+
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@login_required
+@require_POST
+def create_checkout_session(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return JsonResponse({'error': 'Your cart is empty.'}, status=400)
+
+    # ⚠️ Calculate total
+    total = Decimal('0.00')
+    for item in cart.values():
+        total += Decimal(item['price']) * item['quantity']
+
+    # ⚠️ Create Order in DB
+    order = Order.objects.create(
+        user=request.user,
+        full_name=request.user.get_full_name() or "Guest",
+        email=request.user.email,
+        address="Stripe billing address placeholder",  # You can customize this later
+        total_price=total
+    )
+
+    # ⚠️ Add order items
+    for item_id, item in cart.items():
+        product = get_object_or_404(Product, pk=item_id)
+        OrderItem.objects.create(
+            order=order,
+            product=product,
+            quantity=item['quantity'],
+            price=Decimal(item['price'])
         )
 
-        # Save Order Items
-        for item_id, item in cart.items():
-            product = get_object_or_404(Product, pk=item_id)
-            OrderItem.objects.create(
-                order=order,
-                product=product,
-                quantity=item['quantity'],
-                price=Decimal(str(item['price']))
-            )
+    # ✅ Store order_id in session
+    request.session['order_id'] = order.id
 
-        # Clear cart
-        request.session['cart'] = {}
-        messages.success(request, f"Order #{order.id} placed successfully!")
-        return render(request, 'cart/checkout.html', {'order': order})
+    # ✅ Prepare Stripe line items
+    line_items = []
+    for item in cart.values():
+        line_items.append({
+            'price_data': {
+                'currency': 'gbp',
+                'product_data': {
+                    'name': item['name'],
+                },
+                'unit_amount': int(float(item['price']) * 100),
+            },
+            'quantity': item['quantity'],
+        })
 
-    total = calculate_cart_total(cart)
-    return render(request, 'cart/checkout.html', {'cart': cart, 'cart_total': total})
+    # ✅ Create Stripe checkout session
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
+        cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
+    )
 
-
-
+    return JsonResponse({'id': session.id})
 
