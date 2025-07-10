@@ -845,6 +845,12 @@
 
 /* Contact page*/
 
+.contact-section {
+  background-image: url('/static/images/hero-image.png');
+  background-size: cover;
+  background-position: center;
+}
+
 .card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(6px);

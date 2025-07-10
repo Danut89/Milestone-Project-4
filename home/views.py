@@ -11,3 +11,14 @@ def home(request):
 def dashboard(request):
     return render(request, 'home/dashboard.html')
 
+def contact_view(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        # You could save this info or send an email
+        messages.success(request, "Thanks for contacting us! We'll get back to you soon.")
+        return redirect('contact')
+
+    return render(request, 'home/contact.html')
