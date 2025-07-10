@@ -26,7 +26,7 @@ def add_to_cart(request, product_id):
             'name': product.name,
             'price': str(product.price),
             'quantity': 1,
-            'image_url': product.image.url if product.image else '',  # 🖼 Store product image
+            'image_url': product.image.url if product.image else '',
         }
         messages.success(request, f"Added '{product.name}' to your cart.")
 
@@ -38,11 +38,7 @@ def add_to_cart(request, product_id):
 def view_cart(request):
     cart = request.session.get('cart', {})
     total = calculate_cart_total(cart)
-
-    return render(request, 'cart/cart.html', {
-        'cart': cart,
-        'cart_total': total,
-    })
+    return render(request, 'cart/cart.html', {'cart': cart, 'cart_total': total})
 
 # ❌ Remove product from cart
 @require_POST
@@ -59,36 +55,47 @@ def remove_from_cart(request, product_id):
 
     return redirect('view_cart')
 
-# 💳 Checkout view (creates order)
+# 💳 Checkout view with user form and order creation
 @login_required
-def checkout(request):
+def checkout_view(request):
     cart = request.session.get('cart', {})
-
     if not cart:
-        messages.info(request, "Your cart is empty.")
+        messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
-    total = calculate_cart_total(cart)
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        total = calculate_cart_total(cart)
 
-    # Create the order
-    order = Order.objects.create(
-        user=request.user,
-        total_price=Decimal(str(total))
-    )
-
-    # Create each order item
-    for product_id_str, item in cart.items():
-        OrderItem.objects.create(
-            order=order,
-            product_id=int(product_id_str),
-            quantity=item['quantity'],
-            price=Decimal(str(item['price']))
+        # Save Order
+        order = Order.objects.create(
+            user=request.user,
+            full_name=name,
+            email=email,
+            address=address,
+            total_price=Decimal(str(total))
         )
 
-    # Clear cart and confirm success
-    request.session['cart'] = {}
-    messages.success(request, "Your order has been placed successfully!")
+        # Save Order Items
+        for item_id, item in cart.items():
+            product = get_object_or_404(Product, pk=item_id)
+            OrderItem.objects.create(
+                order=order,
+                product=product,
+                quantity=item['quantity'],
+                price=Decimal(str(item['price']))
+            )
 
-    return render(request, 'cart/checkout.html', {
-        'order': order
-    })
+        # Clear cart
+        request.session['cart'] = {}
+        messages.success(request, f"Order #{order.id} placed successfully!")
+        return render(request, 'cart/checkout.html', {'order': order})
+
+    total = calculate_cart_total(cart)
+    return render(request, 'cart/checkout.html', {'cart': cart, 'cart_total': total})
+
+
+
+

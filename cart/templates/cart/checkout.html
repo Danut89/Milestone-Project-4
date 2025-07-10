@@ -1,31 +1,68 @@
 {% extends "base.html" %}
-{% block title %}Order Confirmed{% endblock %}
+{% block title %}Checkout{% endblock %}
 
 {% block content %}
 <section class="container py-5 section-highlight shop-header">
-  <div class="confirmation-box bg-white p-5 rounded-4 shadow-sm text-center border">
 
-    <h1 class="display-6 fw-bold mb-3">
-      🎉 Thank You, {{ order.user.username }}!
-    </h1>
+  {% if order %}
+    <!-- ✅ Order Success Message -->
+    <div class="confirmation-box bg-white p-5 rounded-4 shadow-sm text-center border">
 
-    <p class="fs-5 mb-4">
-      Your order <strong>#{{ order.id }}</strong> was placed successfully.
-    </p>
+      <h1 class="display-6 fw-bold text-success mb-3">
+        🎉 Thank You, {{ order.user.username }}!
+      </h1>
 
-    <div class="order-summary-box d-inline-block px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle">
-      <p class="mb-1">
-        💰 <strong>Total Paid:</strong> £{{ order.total_price|floatformat:2 }}
+      <p class="fs-5 mb-4">
+        Your order <strong>#{{ order.id }}</strong> was placed successfully.
       </p>
-      <p class="mb-0">📦 We'll process and ship your items shortly.</p>
+
+      <div class="order-summary-box d-inline-block px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle">
+        <p class="mb-1">💰 <strong>Total Paid:</strong> £{{ order.total_price|floatformat:2 }}</p>
+        <p class="mb-0">📦 We'll process and ship your items shortly.</p>
+      </div>
+
+      <a href="{% url 'all_products' %}" class="btn shop-btn mt-3">🛍 Continue Shopping</a>
+
     </div>
+  
+  {% else %}
+    <!-- ✅ Checkout Form -->
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card p-4 p-md-5 shadow-sm rounded-4 border-0">
 
-    <a href="{% url 'all_products' %}" class="btn shop-btn mt-3">
-      🛍 Continue Shopping
-    </a>
+          <h1 class="text-center mb-4 fw-bold">💳 Checkout</h1>
+          <p class="text-center mb-4 text-muted">Complete your details to place the order.</p>
 
-  </div>
+          <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Danut Grigore" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Shipping Address</label>
+              <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter your delivery address" required></textarea>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn shop-btn px-4">✅ Place Order (£{{ cart_total|floatformat:2 }})</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 </section>
 {% endblock %}
+
 
 
