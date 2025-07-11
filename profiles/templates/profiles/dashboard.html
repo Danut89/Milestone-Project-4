@@ -3,6 +3,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+<div class="container shop-header text-center py-4">
 <h1>👋 Welcome, {{ user.username }}!</h1>
 <p>This is your FitZone Pro dashboard.</p>
 
@@ -40,7 +41,7 @@
           <li><strong>Email:</strong> {{ user.email }}</li>
           <li><strong>Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</li>
         </ul>
-        <a href="{% url 'settings' %}" class="btn btn-outline-primary">Manage Account</a>
+        <a href="{% url 'settings_view' %}" class="btn btn-outline-primary">Manage Account</a>
       </div>
     </div>
   </div>
@@ -137,7 +138,7 @@
           <a href="{% url 'all_products' %}" class="btn btn-sm btn-outline-primary">🛍️ View All Products</a>
            <a href="{% url 'nutrition:recipes' %}" class="btn btn-sm btn-outline-danger"> View All Recipes</a>
           <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-sm btn-outline-primary">🍎 View Meal Plans</a>
-          <a href="{% url 'settings' %}" class="btn btn-sm btn-outline-secondary">⚙️ Settings</a>
+          <a href="{% url 'settings_view' %}" class="btn btn-sm btn-outline-secondary">⚙️ Settings</a>
         </div>
       </div>
     </div>

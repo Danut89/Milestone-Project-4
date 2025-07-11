@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile Info{% endblock %}
+
+{% block content %}
+<div class="container shop-header text-center py-4">
+  <h2>📝 Update Personal Info</h2>
+  <form method="POST" class="mt-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="{% url 'settings_view' %}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

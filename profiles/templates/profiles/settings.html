@@ -2,7 +2,7 @@
 {% block title %}Profile Settings{% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container py-4 shop-header">
   <h2 class="mb-4">⚙️ Account Settings</h2>
   <p class="text-muted">Manage your personal information, account security, and preferences.</p>
 
@@ -14,7 +14,7 @@
         <div class="card-body">
           <h5 class="card-title">👤 Personal Information</h5>
           <p class="card-text">View and update your name and email address.</p>
-          <a href="#" class="btn btn-outline-primary disabled">Edit Info (Coming Soon)</a>
+          <a href="{% url 'edit_info' %}" class="btn btn-outline-primary">Edit Info</a>
         </div>
       </div>
     </div>
