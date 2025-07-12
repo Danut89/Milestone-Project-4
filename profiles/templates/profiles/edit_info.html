@@ -6,11 +6,18 @@
 {% block content %}
 <div class="container shop-header text-center py-4">
   <h2>📝 Update Personal Info</h2>
+  
   <form method="POST" class="mt-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="{% url 'settings_view' %}" class="btn btn-secondary ms-2">Cancel</a>
-  </form>
+  {% csrf_token %}
+  <h5 class="mb-3">Account Info</h5>
+  {{ user_form.as_p }}
+
+  <h5 class="mt-4 mb-3">Delivery Info</h5>
+  {{ profile_form.as_p }}
+
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+  <a href="{% url 'settings_view' %}" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+
 </div>
 {% endblock %}

@@ -8,6 +8,9 @@ from decimal import Decimal
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
+from .forms import CheckoutForm
+from profiles.models import UserProfile
+from cart.forms import CheckoutForm
 
 # 📌 Helper function to calculate total
 def calculate_cart_total(cart):
@@ -77,26 +80,21 @@ def remove_from_cart(request, product_id):
     return redirect('view_cart')
 
 # 💳 Checkout view with user form and order creation
+# 💳 Checkout view with user form and order creation
 @login_required
 def checkout_view(request):
     cart = request.session.get('cart', {})
 
-    # ✅ Handle Stripe success redirect
     if request.GET.get('success') == 'true':
         order_id = request.session.get('order_id')
         if order_id:
             order = get_object_or_404(Order, id=order_id, user=request.user)
-
-            # Clear cart and session
             request.session['cart'] = {}
             del request.session['order_id']
-
             return render(request, 'cart/checkout.html', {
                 'order': order,
                 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
             })
-
-        # If no order found, fallback
         messages.warning(request, "We couldn't confirm your order. Please contact support.")
         return redirect('view_cart')
 
@@ -104,12 +102,56 @@ def checkout_view(request):
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
+    profile = getattr(request.user, 'userprofile', None)
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            # Save delivery info to session for Stripe or later use
+            request.session['delivery_info'] = {
+                'full_name': data['full_name'],
+                'email': data['email'],
+                'phone_number': data['phone_number'],
+                'address_line1': data['address_line1'],
+                'address_line2': data['address_line2'],
+                'city': data['city'],
+                'postcode': data['postcode'],
+                'country': data['country'],
+            }
+
+            
+
+            messages.success(request, "Delivery information received.")
+            return redirect('create_checkout_session')
+    else:
+        # Pre-fill with profile defaults if they exist
+        initial_data = {}
+        if request.GET.get('use_saved_info') == 'on' and profile:
+            initial_data = {
+                'full_name': profile.default_full_name,
+                'email': profile.default_email,
+                'phone_number': profile.default_phone_number,
+                'address_line1': profile.default_address_line1,
+                'address_line2': profile.default_address_line2,
+                'city': profile.default_city,
+                'postcode': profile.default_postcode,
+                'country': profile.default_country,
+            }
+
+        form = CheckoutForm(initial=initial_data)
+
     total = calculate_cart_total(cart)
+
     return render(request, 'cart/checkout.html', {
         'cart': cart,
         'cart_total': total,
+        'form': form,
         'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
     })
+
+
 
 
 

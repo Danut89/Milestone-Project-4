@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
 from django.contrib import messages
+from .forms import UserUpdateForm, UserProfileForm
 
 # Create your views here.
 
@@ -24,15 +25,27 @@ def settings_view(request):
 
 
 
+
+
 @login_required
 def edit_info_view(request):
+    user = request.user
+    profile = user.userprofile
+
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
+        user_form = UserUpdateForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             messages.success(request, 'Your personal information was updated successfully!')
             return redirect('settings_view')
     else:
-        form = UserUpdateForm(instance=request.user)
+        user_form = UserUpdateForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
 
-    return render(request, 'profiles/edit_info.html', {'form': form})
+    return render(request, 'profiles/edit_info.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
