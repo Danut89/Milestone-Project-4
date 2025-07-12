@@ -36,6 +36,7 @@ urlpatterns = [
     path('shop/', include('shop.urls')),
     path('cart/', include('cart.urls')),
     path('orders/', include('orders.urls')),
+    path('search/', home_views.global_search, name='global_search'),
 ]
 
 

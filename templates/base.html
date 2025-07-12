@@ -40,9 +40,9 @@
       </a>
 
       <!-- 🔍 Search -->
-      <form class="d-flex flex-grow-1 mx-4" role="search" style="max-width: 500px;">
-        <input class="form-control me-2" type="search" placeholder="Search our site..." aria-label="Search">
-        <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
+      <form method="GET" action="{% url 'global_search' %}" class="d-flex">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search our site..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
       <!-- 👤 Account + Cart -->
