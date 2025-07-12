@@ -132,8 +132,87 @@
   box-shadow: var(--shadow-md);
 }
 
+
+
+/* Highlight the form card */
 .card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-radius: var(--radius-lg);
+  padding: 2rem;
+  border: 1px solid var(--border-muted);
+}
+
+/* Headings */
+.card h5 {
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-heading);
+}
+
+/* Form labels and fields */
+.form-label {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-control {
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border-muted);
+  padding: 0.5rem 0.75rem;
+}
+
+/* ========== Checkout Form Enhancements ========== */
+
+/* Use saved info checkbox */
+#useSavedInfo {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.form-check-label {
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+/* Section headings */
+.card h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Grouped rows for 2-column layout */
+.card .row > .col-md-6 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* Form spacing and input refinement */
+.form-control {
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+}
+
+.card form .mb-3,
+.card form .mb-4 {
+  margin-bottom: 1.25rem !important;
+}
+
+/* Checkout Stripe button container */
+#stripe-button {
+  font-size: 1.05rem;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-md);
+}
+
+/* Stripe secure note */
+.checkout-note {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
 }

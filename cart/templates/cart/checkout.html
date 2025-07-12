@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}Checkout{% endblock %}
 
@@ -31,11 +32,9 @@
           <h1 class="text-center mb-4 fw-bold">💳 Checkout</h1>
           <p class="text-center mb-4 text-muted">Complete your details to place the order and pay securely.</p>
 
-          <form method="GET" id="checkout-form">
-              {% csrf_token %}
-
-             
-              <div class="bg-light p-3 rounded-3 border mb-4">
+          <!-- ✅ Separate GET form for toggle -->
+          <form method="get" class="mb-4">
+            <div class="bg-light p-3 rounded-3 border">
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -43,24 +42,76 @@
                   name="use_saved_info"
                   id="useSavedInfo"
                   onchange="this.form.submit();"
+                  value="on"
                   {% if request.GET.use_saved_info == 'on' %}checked{% endif %}
                 >
                 <label class="form-check-label fw-semibold" for="useSavedInfo">
                   📝 Use my saved delivery information
                 </label>
                 <p class="small text-muted mt-1 mb-0">
-                  Check this box to automatically fill in your saved name, email, and address details.
+                  Check this box to auto-fill your saved details like name, email, and address.
                 </p>
               </div>
             </div>
-
-              {{ form.as_p }}
-
+          </form>
 
 
+          <!-- ✅ Change to POST -->
+          <form method="post" id="checkout-form">
+            {% csrf_token %}
 
-            <div class="text-center mt-4">
-              <button id="stripe-button" type="button" class="btn shop-btn px-4">
+            
+
+            <!-- ✅ Contact Info -->
+            <h5 class="mb-3 fw-bold border-bottom pb-2">📧 Contact Information</h5>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.full_name.id_for_label }}" class="form-label">Full Name</label>
+                {{ form.full_name|add_class:"form-control" }}
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                {{ form.email|add_class:"form-control" }}
+              </div>
+            </div>
+
+            <!-- ✅ Shipping Address -->
+            <h5 class="mt-4 mb-3 fw-bold border-bottom pb-2">🏠 Shipping Address</h5>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
+                {{ form.phone_number|add_class:"form-control" }}
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.address_line1.id_for_label }}" class="form-label">Address Line 1</label>
+                {{ form.address_line1|add_class:"form-control" }}
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="{{ form.address_line2.id_for_label }}" class="form-label">Address Line 2</label>
+              {{ form.address_line2|add_class:"form-control" }}
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.city.id_for_label }}" class="form-label">City</label>
+                {{ form.city|add_class:"form-control" }}
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="{{ form.postcode.id_for_label }}" class="form-label">Postcode</label>
+                {{ form.postcode|add_class:"form-control" }}
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="{{ form.country.id_for_label }}" class="form-label">Country</label>
+              {{ form.country|add_class:"form-control" }}
+            </div>
+
+            <!-- 🔒 Pay Button -->
+            <div class="text-center mt-5">
+              <div class="mb-3">
+                <span class="text-muted small">🔒 This is a secure checkout. Payments handled via Stripe.</span>
+              </div>
+              <button type="submit" class="btn shop-btn px-4">
                 💳 Pay with Stripe (£{{ cart_total|floatformat:2 }})
               </button>
             </div>
@@ -72,37 +123,45 @@
   {% endif %}
 
 </section>
-{% endblock %}
 
 {% block extra_js %}
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   const stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
 
-  document.getElementById("stripe-button").addEventListener("click", async function (e) {
-    e.preventDefault();
+  document.getElementById("checkout-form").addEventListener("submit", async function (e) {
+    e.preventDefault();  // Prevent normal form submission
 
-    const form = document.getElementById("checkout-form");
+    const form = e.target;
 
-    // Optionally validate fields before sending
-    // Add loading indicator or feedback here
+    // Collect form values
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
 
+    // Send to backend
     const response = await fetch("{% url 'create_checkout_session' %}", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": "{{ csrf_token }}",
       },
-      body: JSON.stringify({}) // optional: add form data to session in future
+      body: JSON.stringify(data)
     });
 
     const session = await response.json();
     if (session.id) {
       stripe.redirectToCheckout({ sessionId: session.id });
     } else {
-      alert("Something went wrong.");
+      alert("❌ Stripe session creation failed.");
     }
   });
 </script>
 {% endblock %}
+
+
+{% endblock %}
+
 

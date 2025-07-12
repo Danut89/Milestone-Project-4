@@ -12,6 +12,8 @@ from .forms import CheckoutForm
 from profiles.models import UserProfile
 from cart.forms import CheckoutForm
 
+
+
 # 📌 Helper function to calculate total
 def calculate_cart_total(cart):
     return sum(float(item['price']) * item['quantity'] for item in cart.values())
@@ -159,6 +161,8 @@ def checkout_view(request):
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
+
 @login_required
 @require_POST
 def create_checkout_session(request):
@@ -171,12 +175,15 @@ def create_checkout_session(request):
     for item in cart.values():
         total += Decimal(item['price']) * item['quantity']
 
+    # ✅ Get delivery info from session (submitted via form)
+    delivery = request.session.get('delivery_info', {})
+
     # ⚠️ Create Order in DB
     order = Order.objects.create(
         user=request.user,
-        full_name=request.user.get_full_name() or "Guest",
-        email=request.user.email,
-        address="Stripe billing address placeholder",  # You can customize this later
+        full_name=delivery.get('full_name', request.user.get_full_name() or "Guest"),
+        email=delivery.get('email', request.user.email),
+        address=delivery.get('address_line1', '') + ", " + delivery.get('city', ''),
         total_price=total
     )
 
@@ -207,14 +214,17 @@ def create_checkout_session(request):
             'quantity': item['quantity'],
         })
 
-    # ✅ Create Stripe checkout session
+    # ✅ Create Stripe checkout session with customer & shipping info
     session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=line_items,
-        mode='payment',
-        success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
-        cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
-    )
+    payment_method_types=['card'],
+    line_items=line_items,
+    mode='payment',
+    customer_email=delivery.get('email'),
+    shipping_address_collection={
+        'allowed_countries': ['GB', 'RO'],
+    },
+    success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
+    cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
+)
 
     return JsonResponse({'id': session.id})
-
