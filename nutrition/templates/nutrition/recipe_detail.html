@@ -102,10 +102,10 @@
             <div id="collapseNutrition" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
               <div class="accordion-body">
                 <ul class="meal-day-list list-unstyled meal-item-group">
-                  <li class="meal-item">Calories: ~320</li>
-                  <li class="meal-item">Protein: ~12g</li>
-                  <li class="meal-item">Carbs: ~18g</li>
-                  <li class="meal-item">Fat: ~22g</li>
+                  {% if recipe.calories %}<li class="meal-item">Calories: ~{{ recipe.calories }}</li>{% endif %}
+                  {% if recipe.protein %}<li class="meal-item">Protein: ~{{ recipe.protein }}</li>{% endif %}
+                  {% if recipe.carbs %}<li class="meal-item">Carbs: ~{{ recipe.carbs }}</li>{% endif %}
+                  {% if recipe.fat %}<li class="meal-item">Fat: ~{{ recipe.fat }}</li>{% endif %}
                 </ul>
               </div>
             </div>

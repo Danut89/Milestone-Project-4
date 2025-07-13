@@ -4,7 +4,7 @@ from .models import MealPlan, MealPlanDay, Recipe, Supplement, Wishlist
 # Register your models here.
 
 
-admin.site.register(Recipe)
+
 admin.site.register(Supplement)
 admin.site.register(Wishlist)
 
@@ -24,4 +24,18 @@ class MealPlanAdmin(admin.ModelAdmin):
     list_filter = ('created_at',)
     inlines = [MealPlanDayInline]
 
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'prep_time_minutes', 'calories', 'author', 'created_at')
+    search_fields = ('title', 'ingredients', 'instructions')
+    list_filter = ('created_at', 'author')
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'ingredients', 'instructions', 'prep_time_minutes', 'image', 'author')
+        }),
+        ('Nutritional Info', {
+            'fields': ('calories', 'protein', 'carbs', 'fat'),
+            'classes': ('collapse',),  # Optional: collapsible section
+        }),
+    )
 

@@ -19,6 +19,24 @@
   <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
 
+  <!-- 🔍 Filter & Sort Controls -->
+<form method="get" class="row g-3 align-items-center mb-4 justify-content-center">
+  <div class="col-auto">
+    <label for="sort" class="form-label mb-0 me-2">Sort by:</label>
+    <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
+      <option value="">Default</option>
+      <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
+      <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+      <option value="calories_asc" {% if request.GET.sort == 'calories_asc' %}selected{% endif %}>Calories: Low to High</option>
+      <option value="calories_desc" {% if request.GET.sort == 'calories_desc' %}selected{% endif %}>Calories: High to Low</option>
+      <option value="duration_asc" {% if request.GET.sort == 'duration_asc' %}selected{% endif %}>Duration: Short to Long</option>
+      <option value="duration_desc" {% if request.GET.sort == 'duration_desc' %}selected{% endif %}>Duration: Long to Short</option>
+    </select>
+  </div>
+</form>
+
+
+
   <!-- 🧭 Breadcrumb -->
   <nav aria-label="breadcrumb" class="mb-4">
   <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
@@ -87,13 +105,13 @@
     <ul class="pagination justify-content-center">
     {% if plans.has_previous %}
       <li class="page-item">
-        <a class="page-link text-muted" href="?page={{ plans.previous_page_number }}">&laquo; Prev</a>
+        <a class="page-link" href="?page={{ plans.previous_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}">&laquo; Prev</a>
       </li>
     {% endif %}
 
     {% if plans.number > 1 %}
       <li class="page-item">
-        <a class="page-link" href="?page=1">1</a>
+        <a class="page-link" href="?page=1{% if current_sort %}&sort={{ current_sort }}{% endif %}">1</a>
       </li>
       {% if plans.number > 3 %}
         <li class="page-item disabled"><span class="page-link">...</span></li>
@@ -104,7 +122,9 @@
       {% if num == plans.number %}
         <li class="page-item active"><span class="page-link">{{ num }}</span></li>
       {% elif num > plans.number|add:'-2' and num < plans.number|add:'2' and num != 1 and num != plans.paginator.num_pages %}
-        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ num }}</a>
+        </li>
       {% endif %}
     {% endfor %}
 
@@ -120,7 +140,7 @@
 
     {% if plans.has_next %}
       <li class="page-item">
-        <a class="page-link text-muted" href="?page={{ plans.next_page_number }}">Next &raquo;</a>
+        <a class="page-link text-muted" href="?page={{ plans.next_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}">Next &raquo;</a>
       </li>
     {% endif %}
   </ul>
@@ -132,10 +152,7 @@
     Showing {{ plans.start_index }}–{{ plans.end_index }} of {{ plans.paginator.count }} meal plans
   </p></strong>
 
-   <!-- 🔙 Back Button -->
-  <div class="text-center mt-4">
-    <a class="btn btn-outline-secondary text-muted" href="#">Back</a>
-  </div>
+   
 
 </section>
  

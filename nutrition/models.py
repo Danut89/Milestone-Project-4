@@ -49,6 +49,12 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="recipes")
 
+    # ✅ New fields for nutritional info
+    calories = models.PositiveIntegerField(blank=True, null=True)
+    protein = models.CharField(max_length=20, blank=True, null=True)
+    carbs = models.CharField(max_length=20, blank=True, null=True)
+    fat = models.CharField(max_length=20, blank=True, null=True)
+
     def __str__(self):
         return self.title
 

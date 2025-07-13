@@ -15,22 +15,61 @@ def nutrition_home(request):
     return render(request, 'nutrition/home.html')
 
 def meal_plans(request):
+    sort_option = request.GET.get('sort')
+
     all_plans = MealPlan.objects.all()
+
+    if sort_option == 'newest':
+        all_plans = all_plans.order_by('-created_at')
+    elif sort_option == 'title_asc':
+        all_plans = all_plans.order_by('title')
+    elif sort_option == 'calories_asc':
+        all_plans = all_plans.order_by('calories')
+    elif sort_option == 'calories_desc':
+        all_plans = all_plans.order_by('-calories')
+    elif sort_option == 'duration_asc':
+        all_plans = all_plans.order_by('duration_days')
+    elif sort_option == 'duration_desc':
+        all_plans = all_plans.order_by('-duration_days')
+
     paginator = Paginator(all_plans, 6)
     page_number = request.GET.get('page')
     plans = paginator.get_page(page_number)
-    return render(request, 'nutrition/meal_plans.html', {'plans': plans})
+
+    return render(request, 'nutrition/meal_plans.html', {
+        'plans': plans,
+        'current_sort': sort_option
+    })
+
+
+from django.db.models import Q
 
 def recipes_list(request):
-    recipes = Recipe.objects.all()
+    sort_option = request.GET.get('sort', 'newest')
     
-    paginator = Paginator(recipes, 6)  # 6 recipes per page
+    # Default ordering
+    sort_dict = {
+        'newest': '-created_at',
+        'title': 'title',
+        'prep_time_asc': 'prep_time_minutes',
+        'prep_time_desc': '-prep_time_minutes',
+        'calories_asc': 'calories',
+        'calories_desc': '-calories',
+    }
+
+    sort_by = sort_dict.get(sort_option, '-created_at')
+    recipes = Recipe.objects.all().order_by(sort_by)
+
+    # Pagination
+    paginator = Paginator(recipes, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'nutrition/recipes.html', {
+    context = {
         'page_obj': page_obj,
-    })
+        'current_sort': sort_option,
+    }
+    return render(request, 'nutrition/recipes.html', context)
 
 def supplements_list(request):
     supplements = Supplement.objects.all()
