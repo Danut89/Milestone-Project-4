@@ -8,7 +8,7 @@
   <p><strong>Total:</strong> £{{ order.total_price }}</p>
 
   <h4 class="mt-4">Items:</h4>
-  <table class="table">
+  <table class="table table-bordered table-hover align-middle text-center">
     <thead>
       <tr>
         <th>Product</th>
@@ -29,6 +29,53 @@
     </tbody>
   </table>
 
+  <!-- 🧾 Order Summary -->
+<div class="order-summary-card bg-white p-4 rounded shadow-sm mt-4" style="max-width: 400px; margin: 0 auto;">
+  <h5 class="text-center mb-3">Order Summary</h5>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item d-flex justify-content-between">
+      <span>Subtotal</span>
+      <strong>£{{ order.total_price|floatformat:2 }}</strong>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+      <span>Delivery</span>
+      <strong class="text-success">Free</strong>  <!-- or £X if you implement -->
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+      <span>Grand Total</span>
+      <strong>£{{ order.total_price|floatformat:2 }}</strong>
+    </li>
+  </ul>
+</div>
+
   <a href="{% url 'order_history' %}" class="btn btn-secondary mt-3">Back to My Orders</a>
+
+
+      <!-- Delete Button (Triggers Modal) -->
+    <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+      🗑️ Delete Order
+    </button>
+
+    <!-- Confirm Deletion Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete Order <strong>#{{ order.id }}</strong>? This cannot be undone.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <form method="POST" action="{% url 'delete_order' order.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </section>
 {% endblock %}
