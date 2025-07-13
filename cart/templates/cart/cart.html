@@ -7,16 +7,7 @@
 <section class="container py-5 shop-header">
   <h1 class="hero-title mb-4 text-center">🛒 Your Cart</h1>
 
-  <!-- 🔔 User Messages -->
-  {% if messages %}
-    <div aria-live="polite">
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} shadow-sm rounded-3 p-3 mb-3">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
+  
 
   {% if cart_items %}
     <div class="table-wrap shadow-sm rounded-4 p-4 mb-4">

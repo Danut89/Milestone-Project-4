@@ -1,23 +1,135 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}Edit Profile Info{% endblock %}
+{% block title %}Update Info{% endblock %}
 
 {% block content %}
-<div class="container shop-header text-center py-4">
-  <h2>📝 Update Personal Info</h2>
-  
-  <form method="POST" class="mt-4">
-  {% csrf_token %}
-  <h5 class="mb-3">Account Info</h5>
-  {{ user_form.as_p }}
+<section class="container text-center py-4 shop-header">
+<div class="container text-center">
+  <h2 class="text-center mb-4">📝 Update Personal Info</h2>
 
-  <h5 class="mt-4 mb-3">Delivery Info</h5>
-  {{ profile_form.as_p }}
+  <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
 
-  <button type="submit" class="btn btn-primary">Save Changes</button>
-  <a href="{% url 'settings_view' %}" class="btn btn-secondary ms-2">Cancel</a>
-</form>
+  <!-- 🧭 Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4 d-flex justify-content-right">
+    <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url  'settings_view' %}">Settings</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Info</li>
+    </ol>
+  </nav>
 
+  <div class="row d-flex justify-content-center g-5">
+
+    <div class="col-12 col-xl-7">
+      <form method="POST" action="/checkout/" id="checkout-form" class="mx-auto w-100" style="max-width: 550px;">
+        {% csrf_token %}
+
+        <div class="card shadow-sm rounded-4 mb-4">
+          <div class="card-header bg-white border-0 text-center">
+            <h5 class="m-0 text-uppercase fw-semibold" style="color: #4b2e83;">🚚 Delivery Details</h5>
+          </div>
+
+          <div class="card-body px-4">
+            <div class="mb-3">
+              <label for="id_first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="first_name" id="id_first_name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="last_name" id="id_last_name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_email" class="form-label">Email <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" name="email" id="id_email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="phone" id="id_phone" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_address1" class="form-label">Street Address 1 <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="address1" id="id_address1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_address2" class="form-label">Street Address 2</label>
+              <input type="text" class="form-control" name="address2" id="id_address2">
+            </div>
+
+            <div class="mb-3">
+              <label for="id_city" class="form-label">Town/City <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="city" id="id_city" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_county" class="form-label">County</label>
+              <input type="text" class="form-control" name="county" id="id_county">
+            </div>
+
+            <div class="mb-3">
+              <label for="id_postcode" class="form-label">Postcode <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="postcode" id="id_postcode" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_country" class="form-label">Country <span class="text-danger">*</span></label>
+              <select class="form-select" name="country" id="id_country" required>
+                <option selected disabled value="">Select country</option>
+                <option value="GB">United Kingdom</option>
+                <option value="RO">Romania</option>
+                <option value="ES">Spain</option>
+                <!-- Add more countries as needed -->
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    
+     <!-- Account Summary -->
+    <div class="card shadow-sm rounded-4 w-100 mb-4" style="max-width: 550px;">
+      <div class="card-header bg-white border-0 text-center">
+        <h5 class="m-0 text-uppercase fw-semibold" style="color: #4b2e83;">👤 Account Summary</h5>
+      </div>
+
+      <div class="card-body px-4">
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong>First name:</strong>
+            <span>Danut</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong>Last name:</strong>
+            <span>Grigore</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong>Email:</strong>
+            <span>examplemail@gmail.com</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong>Joined:</strong>
+            <span>June 15, 2025</span>
+          </li>
+        </ul>
+
+        <div class="d-grid">
+          <a href="/profile/dashboard/" class="btn btn-outline-secondary w-100">
+            View Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    
+
+  </div>
 </div>
+
+</section>
 {% endblock %}

@@ -81,29 +81,43 @@ def remove_from_cart(request, product_id):
 
     return redirect('view_cart')
 
-# 💳 Checkout view with user form and order creation
+
 # 💳 Checkout view with user form and order creation
 @login_required
 def checkout_view(request):
     cart = request.session.get('cart', {})
 
+    # ✅ Handle Stripe success return
     if request.GET.get('success') == 'true':
         order_id = request.session.get('order_id')
         if order_id:
             order = get_object_or_404(Order, id=order_id, user=request.user)
+
+            # ✅ Mark the order as paid (if not already)
+            if not order.is_paid:
+                order.is_paid = True
+                order.save()
+
+            # ✅ Clear cart and order ID from session
             request.session['cart'] = {}
-            del request.session['order_id']
+            if 'order_id' in request.session:
+                del request.session['order_id']
+
+            messages.success(request, f"Thank you! Your order #{order.id} has been confirmed.")
             return render(request, 'cart/checkout.html', {
                 'order': order,
                 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
             })
+
         messages.warning(request, "We couldn't confirm your order. Please contact support.")
         return redirect('view_cart')
 
+    # ✅ Redirect if cart is empty
     if not cart:
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
+    # 🧾 Pre-fill form with user profile data
     profile = getattr(request.user, 'userprofile', None)
 
     if request.method == 'POST':
@@ -111,7 +125,7 @@ def checkout_view(request):
         if form.is_valid():
             data = form.cleaned_data
 
-            # Save delivery info to session for Stripe or later use
+            # ✅ Store delivery info in session
             request.session['delivery_info'] = {
                 'full_name': data['full_name'],
                 'email': data['email'],
@@ -123,12 +137,9 @@ def checkout_view(request):
                 'country': data['country'],
             }
 
-            
-
             messages.success(request, "Delivery information received.")
             return redirect('create_checkout_session')
     else:
-        # Pre-fill with profile defaults if they exist
         initial_data = {}
         if request.GET.get('use_saved_info') == 'on' and profile:
             initial_data = {
@@ -152,6 +163,7 @@ def checkout_view(request):
         'form': form,
         'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
     })
+
 
 
 
@@ -214,17 +226,21 @@ def create_checkout_session(request):
             'quantity': item['quantity'],
         })
 
-    # ✅ Create Stripe checkout session with customer & shipping info
+        # ✅ Create Stripe checkout session with customer & shipping info
     session = stripe.checkout.Session.create(
-    payment_method_types=['card'],
-    line_items=line_items,
-    mode='payment',
-    customer_email=delivery.get('email'),
-    shipping_address_collection={
-        'allowed_countries': ['GB', 'RO'],
-    },
-    success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
-    cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
-)
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        customer_email=delivery.get('email'),
+        shipping_address_collection={
+            'allowed_countries': ['GB', 'RO'],
+        },
+        success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
+        cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
+    )
+
+    # ✅ Save Stripe session ID to the order
+    order.stripe_payment_id = session.id
+    order.save()
 
     return JsonResponse({'id': session.id})

@@ -1,0 +1,116 @@
+
+/*Dashboard Styles*/
+.card-glass {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-muted);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.card-glass h5 {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-muted);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 260px;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.2)
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard-card h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card p,
+.dashboard-card ul {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card .btn {
+  margin-top: auto;
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.scrollable-activity {
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: var(--radius-md); /* optional */
+}
+
+.scrollable-activity::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollable-activity::-webkit-scrollbar-thumb {
+  background-color: var(--text-muted); /* or a light grey */
+  border-radius: 10px;
+}
+.scrollable-activity::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+
+.delivery-info-form,
+.account-info-summary {
+  background-color: var(--bg-light, #fff);
+  border-radius: var(--radius-lg, 1rem);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.delivery-info-form input,
+.account-info-summary input {
+  border-radius: 0.375rem;
+}
+
+/* 💜 Purple Title Styling */
+.settings-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #4b2e83; /* Elegant purple */
+}
+
+/* Match both cards with subtle rounded corners and soft shadows */
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Card headers unified */
+.card-header h5 {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4b2e83;
+}

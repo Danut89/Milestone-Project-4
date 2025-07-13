@@ -5,19 +5,49 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
 from django.contrib import messages
 from .forms import UserUpdateForm, UserProfileForm
+from orders.models import Order 
+from nutrition.models import Recipe, MealPlan 
+from django.utils.timezone import now
+from itertools import chain
+from operator import attrgetter
 
 # Create your views here.
 
+
+from nutrition.models import MealPlan  # make sure this import is there
 
 @login_required
 def dashboard(request):
     saved_recipes = Wishlist.objects.filter(user=request.user, recipe__isnull=False)
     saved_meal_plans = Wishlist.objects.filter(user=request.user, meal_plan__isnull=False)
+    user = request.user
+
+    # Recent orders
+    orders = Order.objects.filter(user=user).order_by('-created_at')[:3]
+
+    # Recent recipes created
+    recipes = Recipe.objects.filter(author=user).order_by('-created_at')[:3]
+
+    # Recent meal plans created (optional: filter only user's if you support that)
+    meal_plans = MealPlan.objects.filter(created_by=user).order_by('-created_at')[:3]
+
+    # Combine activities
+    activities = sorted(
+        chain(
+            [{'type': 'order', 'item': order, 'date': order.created_at} for order in orders],
+            [{'type': 'recipe', 'item': recipe, 'date': recipe.created_at} for recipe in recipes],
+            [{'type': 'mealplan', 'item': plan, 'date': plan.created_at} for plan in meal_plans],
+        ),
+        key=lambda x: x['date'],
+        reverse=True
+    )
 
     return render(request, 'profiles/dashboard.html', {
         'saved_recipes': saved_recipes,
         'saved_meal_plans': saved_meal_plans,
+        'activities': activities,
     })
+
 
 @login_required
 def settings_view(request):
