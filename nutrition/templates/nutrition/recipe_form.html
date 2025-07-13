@@ -54,9 +54,34 @@
           {{ form.image|add_class:"form-control" }}
         </div>
 
+        
+        <hr>
+        <h5 class="fw-bold mt-4">Nutritional Info</h5>
+
+        <div class="mb-3">
+          {{ form.calories.label_tag }}
+          {{ form.calories|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.protein.label_tag }}
+          {{ form.protein|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.carbs.label_tag }}
+          {{ form.carbs|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.fat.label_tag }}
+          {{ form.fat|add_class:"form-control" }}
+        </div>
+
         <button type="submit" class="btn btn-success w-100 mt-3">
           {{ form.instance.pk|yesno:"Update Recipe,Add Recipe" }}
         </button>
+
          <!-- 🔙 Back Button -->
         <div class="text-center mt-4 mb-5">
           <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-secondary">← Back to Recipes</a>

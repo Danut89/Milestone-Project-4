@@ -5,7 +5,10 @@ from django.http import JsonResponse
 from django.db import transaction
 from django.urls import reverse
 from .models import MealPlan, Recipe, Supplement, Wishlist
-from .forms import RecipeForm  # Make sure to create this form if not already created
+from .forms import RecipeForm  
+from django.contrib import messages
+
+
 
 # ==============================
 # 📄 Static & Listing Views
@@ -167,12 +170,7 @@ def edit_recipe(request, pk):
         form = RecipeForm(instance=recipe)
     return render(request, 'nutrition/recipe_form.html', {'form': form})
 
-#
 
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib import messages
-from .models import Recipe, Wishlist
-from django.db import transaction
 
 def delete_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
