@@ -6,30 +6,67 @@
   <h1 class="mb-4">📦 My Orders</h1>
 
   {% if orders %}
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Order #</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for order in orders %}
-          <tr>
-            <td>{{ order.id }}</td>
-            <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
-            <td>£{{ order.total_price }}</td>
-            <td><a href="{% url 'order_detail' order.id %}">View</a></td> 
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead>
+        <tr>
+          <th>Order #</th>
+          <th>Date</th>
+          <th>Total</th>
+          <th>Product Preview</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr class="{% if order.id == most_recent_id %}highlight-row{% endif %}">
+          <td>{{ order.id }}</td>
+          <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+          <td>£{{ order.total_price }}</td>
+          <td>
+            {% with first_item=order.items.first %}
+              {% if first_item %}
+                {{ first_item.product.name }}
+              {% else %}
+                —
+              {% endif %}
+            {% endwith %}
+          </td>
+          <td>
+            <a href="{% url 'order_detail' order.id %}" class="btn btn-sm btn-outline-primary">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination justify-content-center mt-4">
+    <ul class="pagination">
+      {% if orders.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ orders.previous_page_number }}">«</a>
+      </li>
+      {% endif %}
+
+      {% for num in orders.paginator.page_range %}
+      <li class="page-item {% if orders.number == num %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endfor %}
+
+      {% if orders.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ orders.next_page_number }}">»</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
   {% else %}
     <p>You haven't placed any orders yet.</p>
   {% endif %}
 </section>
 {% endblock %}
+
