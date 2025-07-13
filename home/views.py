@@ -37,22 +37,83 @@ def contact_view(request):
 
 
 
+from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from nutrition.models import MealPlan, Recipe
+from shop.models import Product
+
+def home(request):
+    return render(request, 'home/index.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'home/dashboard.html')
+
+def contact_view(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        messages.success(request, "Thanks for contacting us! We'll get back to you soon.")
+        return redirect('contact')
+
+    return render(request, 'home/contact.html')
+
+
 def global_search(request):
     query = request.GET.get('q', '').lower().strip()
 
-    # Simple keyword mapping
-    if 'meal' in query or 'plan' in query:
-        return redirect('nutrition:meal_plans')  # Adjust name if needed
-    elif 'recipe' in query:
-        return redirect('nutrition:recipes')  
-    elif 'shop' in query or 'product' in query:
-        return redirect('product_list')  # Adjust name if needed
-    elif 'cart' in query:
-        return redirect('view_cart')
-    elif 'dashboard' in query or 'account' in query:
-        return redirect('dashboard')
-    elif 'vegan' in query or 'weight' in query or 'protein' in query:
-        return redirect(f"/nutrition/recipes/?tag={query}")  # Simple tag simulation
-    else:
-        return HttpResponse("Sorry, we couldn't find what you're looking for.")
+    # === Dictionary-based keyword to view mappings ===
+    basic_redirects = {
+        'meal': 'nutrition:meal_plans',
+        'plan': 'nutrition:meal_plans',
+        'recipe': 'nutrition:recipes',
+        'shop': 'product_list',
+        'product': 'product_list',
+        'cart': 'view_cart',
+        'dashboard': 'dashboard',
+        'account': 'dashboard',
+        'contact': 'contact',
+    }
 
+    for keyword, route_name in basic_redirects.items():
+        if keyword in query:
+            return redirect(route_name)
+
+    # === Tags simulation (e.g., vegan, protein, etc.) ===
+    tag_keywords = ['vegan', 'weight', 'protein']
+    for tag in tag_keywords:
+        if tag in query:
+            return redirect(f"/nutrition/recipes/?tag={query}")
+
+    # === Shop category redirection ===
+    category_map = {
+        'equipment': 'equipment',
+        'clothing': 'clothing',
+        'supplement': 'supplements',
+        'supplements': 'supplements',
+    }
+    for keyword, category_slug in category_map.items():
+        if keyword in query:
+            return redirect('products_by_category', category=category_slug)
+
+    # === Search for specific Meal Plan ===
+    meal_plan = MealPlan.objects.filter(title__icontains=query).first()
+    if meal_plan:
+        return redirect('nutrition:meal_plan_detail', pk=meal_plan.id)
+
+    # === Search for specific Recipe ===
+    recipe = Recipe.objects.filter(title__icontains=query).first()
+    if recipe:
+        return redirect('nutrition:recipe_detail', pk=recipe.id)
+
+    # === Search for specific Product ===
+    product = Product.objects.filter(name__icontains=query).first()
+    if product:
+        return redirect('product_detail', pk=product.id)
+
+    # === No match fallback ===
+    return HttpResponse("Sorry, we couldn't find what you're looking for.")

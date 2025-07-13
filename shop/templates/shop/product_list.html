@@ -11,14 +11,41 @@
   <p>Discover premium supplements, workout gear, and more to support your wellness journey.</p>
 
 <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
+
+<!-- 🔍 Filter & Sort Controls -->
+<form method="get" class="row g-3 align-items-center mb-4 justify-content-center">
+  <!-- Sort Dropdown -->
+  <div class="col-auto">
+    <label for="sort" class="form-label mb-0 me-2">Sort by:</label>
+    <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
+      <option value="">Default</option>
+      <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+      <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+      <option value="name_asc" {% if request.GET.sort == 'name_asc' %}selected{% endif %}>Name: A to Z</option>
+      <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Name: Z to A</option>
+      <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
+    </select>
+  </div>
+
+
+  <!-- Submit Button (optional fallback) -->
+  <div class="col-auto d-none">
+    <button type="submit" class="btn btn-primary">Apply Filters</button>
+  </div>
+</form>
+
   <!-- Breadcrumb -->
   <nav aria-label="breadcrumb" class="mb-4">
-  <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
-    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Shop</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ category_name|default:"All Products" }}</li>
-  </ol>
-</nav>
+    <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Shop</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ category_name|default:"All Products" }}</li>
+    </ol>
+  </nav>
+
+  
+
+
   {% if messages %}
     <div class="mb-4" aria-live="polite">
       {% for message in messages %}
@@ -90,19 +117,23 @@
   <ul class="pagination justify-content-center">
     {% if products.has_previous %}
       <li class="page-item">
-        <a class="page-link text-muted" href="?page={{ products.previous_page_number }}" aria-label="Previous">&laquo; Prev</a>
+        <a class="page-link text-muted"
+       href="?page={{ products.previous_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+       aria-label="Previous">&laquo; Prev</a>
       </li>
     {% endif %}
 
     {% for num in products.paginator.page_range %}
       <li class="page-item {% if products.number == num %}active{% endif %}">
-        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        <a class="page-link" href="?page={{ num }}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ num }}</a>
       </li>
     {% endfor %}
 
     {% if products.has_next %}
       <li class="page-item">
-        <a class="page-link text-muted" href="?page={{ products.next_page_number }}" aria-label="Next">Next &raquo;</a>
+        <a class="page-link text-muted"
+       href="?page={{ products.next_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+       aria-label="Next">Next &raquo;</a>
       </li>
     {% endif %}
   </ul>
