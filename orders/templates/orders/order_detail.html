@@ -3,79 +3,105 @@
 
 {% block content %}
 <section class="container py-5 shop-header">
-  <h1>📄 Order #{{ order.id }}</h1>
-  <p><strong>Date:</strong> {{ order.created_at|date:"Y-m-d H:i" }}</p>
-  <p><strong>Total:</strong> £{{ order.total_price }}</p>
+  <div class="container py-5">
+  <div class="text-center mb-5">
+    <h2><i class="fas fa-clipboard-list me-2"></i>Order #{{ order.id }}</h2>
+    <p><strong>Date:</strong> {{ order.date }}</p>
+    <p><strong>Total:</strong> £{{ order.total_price }}</p>
+  </div>
 
-  <h4 class="mt-4">Items:</h4>
-  <table class="table table-bordered table-hover align-middle text-center">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Unit Price</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in order.items.all %}
-      <tr>
-        <td>{{ item.product.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>£{{ item.price }}</td>
-        <td>£{{ item.price|floatformat:2|add:"0"|floatformat:2|floatformat:2|floatformat:2|floatformat:2|floatformat:2 }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <!-- 🧾 Order Summary -->
-<div class="order-summary-card bg-white p-4 rounded shadow-sm mt-4" style="max-width: 400px; margin: 0 auto;">
-  <h5 class="text-center mb-3">Order Summary</h5>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item d-flex justify-content-between">
-      <span>Subtotal</span>
-      <strong>£{{ order.total_price|floatformat:2 }}</strong>
-    </li>
-    <li class="list-group-item d-flex justify-content-between">
-      <span>Delivery</span>
-      <strong class="text-success">Free</strong>  <!-- or £X if you implement -->
-    </li>
-    <li class="list-group-item d-flex justify-content-between">
-      <span>Grand Total</span>
-      <strong>£{{ order.total_price|floatformat:2 }}</strong>
-    </li>
-  </ul>
-</div>
-
-  <a href="{% url 'order_history' %}" class="btn btn-secondary mt-3">Back to My Orders</a>
-
-
-      <!-- Delete Button (Triggers Modal) -->
-    <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-      🗑️ Delete Order
-    </button>
-
-    <!-- Confirm Deletion Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-danger" id="confirmDeleteModalLabel">Confirm Deletion</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Are you sure you want to delete Order <strong>#{{ order.id }}</strong>? This cannot be undone.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <form method="POST" action="{% url 'delete_order' order.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Yes, Delete</button>
-            </form>
+  <div class="row g-4">
+    <!-- Items Box -->
+    <div class="col-md-8">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="fas fa-box-open me-2"></i>Items</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                  <td>{{ item.product.name }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>£{{ item.price }}</td>
+                  <td>£{{ item.price|floatformat:2|add:"0"|floatformat:2|floatformat:2|floatformat:2|floatformat:2|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Order Summary Box -->
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Summary</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Number of items:</strong> {{ order.items.count }}</p>
+          <p><strong>Subtotal:</strong> £{{ order.total_price }}</p>
+          <p><strong>Delivery:</strong> Free</p>
+          <hr>
+          <p class="fs-5 fw-bold">Total: £{{ order.total_price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- 🔘 Action Buttons -->
+  <div class="d-flex justify-content-center gap-3 mt-5">
+    <a href="{% url 'order_history' %}" class="btn btn-secondary">
+      <i class="bi bi-arrow-left-circle"></i> Back to My Orders
+    </a>
+
+    <!-- 🔴 Delete Button triggers Modal -->
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOrderModal">
+      <i class="bi bi-trash3-fill"></i> Delete Order
+    </button>
+  </div>
 </section>
+
+<!-- 🧨 Delete Confirmation Modal -->
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="deleteOrderModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete <strong>Order #{{ order.id }}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="POST" action="{% url 'delete_order' order.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
 {% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+
+

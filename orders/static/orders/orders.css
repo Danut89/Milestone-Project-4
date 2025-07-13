@@ -8,3 +8,127 @@
   border: 1px solid var(--bs-border-color);
   background-color: var(--bs-light);
 }
+
+/* =============================
+   📦 Order Detail Page Styles
+============================= */
+.order-wrapper {
+  padding: 3rem 1rem;
+}
+
+.order-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.order-meta {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* Two-column layout for desktop */
+.order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .order-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Styles */
+.order-card {
+  background: var(--bg-muted);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* Section header inside cards */
+.card-header {
+  background-color: var(--accent-green-hover);
+  color: var(--text-primary);
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  padding: 1.5rem;
+  background: var(--bg-light);
+}
+
+/* Table Styling */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.95rem;
+}
+
+.order-table thead {
+  background: var(--bg-muted);
+}
+
+/* Order Summary Text */
+.order-summary p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.order-summary strong {
+  color: var(--text-dark);
+}
+
+.order-summary .fs-5 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Buttons Section */
+.action-buttons {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-order {
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: none;
+}
+
+.btn-back {
+  background-color: var(--text-muted);
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-back:hover,
+.btn-delete:hover {
+  opacity: 0.85;
+}
