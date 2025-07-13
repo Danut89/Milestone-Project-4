@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db import transaction
 from django.urls import reverse
-from .models import MealPlan, Recipe, Supplement, Wishlist
+from .models import MealPlan, Recipe, Wishlist
 from .forms import RecipeForm  
 from django.contrib import messages
 
@@ -74,9 +74,7 @@ def recipes_list(request):
     }
     return render(request, 'nutrition/recipes.html', context)
 
-def supplements_list(request):
-    supplements = Supplement.objects.all()
-    return render(request, 'nutrition/supplements.html', {'supplements': supplements})
+
 
 
 # ==============================

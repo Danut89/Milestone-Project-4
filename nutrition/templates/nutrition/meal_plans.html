@@ -20,20 +20,20 @@
 
 
   <!-- 🔍 Filter & Sort Controls -->
-<form method="get" class="row g-3 align-items-center mb-4 justify-content-center">
-  <div class="col-auto">
-    <label for="sort" class="form-label mb-0 me-2">Sort by:</label>
-    <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
-      <option value="">Default</option>
-      <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
-      <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
-      <option value="calories_asc" {% if request.GET.sort == 'calories_asc' %}selected{% endif %}>Calories: Low to High</option>
-      <option value="calories_desc" {% if request.GET.sort == 'calories_desc' %}selected{% endif %}>Calories: High to Low</option>
-      <option value="duration_asc" {% if request.GET.sort == 'duration_asc' %}selected{% endif %}>Duration: Short to Long</option>
+
+
+<form method="get" class="mb-4 d-flex align-items-center">
+    <label for="sort" class="me-2 fw-bold">Sort by:</label>
+    <select name="sort" id="sort" class="form-select w-auto me-2" onchange="this.form.submit()">
+      <option value="newest" {% if current_sort == 'newest' %}selected{% endif %}>Newest First</option>
+      <option value="title" {% if current_sort == 'title' %}selected{% endif %}>Title A-Z</option>
+       <option value="duration_asc" {% if request.GET.sort == 'duration_asc' %}selected{% endif %}>Duration: Short to Long</option>
       <option value="duration_desc" {% if request.GET.sort == 'duration_desc' %}selected{% endif %}>Duration: Long to Short</option>
+      <option value="calories_asc" {% if current_sort == 'calories_asc' %}selected{% endif %}>Calories: Low to High</option>
+      <option value="calories_desc" {% if current_sort == 'calories_desc' %}selected{% endif %}>Calories: High to Low</option>
     </select>
-  </div>
-</form>
+  </form>
+
 
 
 

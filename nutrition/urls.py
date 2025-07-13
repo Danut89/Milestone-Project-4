@@ -8,7 +8,6 @@ urlpatterns = [
     path('meal-plans/', views.meal_plans, name='meal_plans'),
     path('recipes/', views.recipes_list, name='recipes'),
     path('recipes/<int:pk>/', views.recipe_detail, name='recipe_detail'),
-    path('supplements/', views.supplements_list, name='supplements'),
     path('meal-plans/<int:pk>/', views.meal_plan_detail, name='meal_plan_detail'),
     path('toggle-wishlist/', views.toggle_wishlist, name='toggle_wishlist'),
     path('recipes/add/', views.add_recipe, name='add_recipe'),

@@ -1,11 +1,10 @@
 from django.contrib import admin
-from .models import MealPlan, MealPlanDay, Recipe, Supplement, Wishlist
+from .models import MealPlan, MealPlanDay, Recipe, Wishlist
 
 # Register your models here.
 
 
 
-admin.site.register(Supplement)
 admin.site.register(Wishlist)
 
 

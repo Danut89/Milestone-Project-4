@@ -1,12 +1,55 @@
 {% extends "base.html" %}
 
-{% block title %}Nutrition Overview{% endblock %}
+{% block title %}Nutrition Hub{% endblock %}
 
 {% block content %}
-  <h1 class="mb-4 text-primary">🥗 Nutrition Center</h1>
-  <ul>
-    <li><a href="{% url 'nutrition:meal_plans' %}">📋 Meal Plans</a></li>
-    <li><a href="{% url 'nutrition:recipes' %}">🍲 Recipes</a></li>
-    <li><a href="{% url 'nutrition:supplements' %}">💊 Supplements</a></li>
-  </ul>
+<section class="section-light py-5">
+  <div class="container text-center  shop-header">
+    <h1 class="section-heading mb-4">🥗 Nutrition Hub</h1>
+    <p class="lead mb-5">Your go-to center for healthy meal plans, delicious recipes, and wellness tips to fuel your journey.</p>
+
+    <div class="row g-4 justify-content-center">
+      <!-- Meal Plans -->
+      <div class="col-md-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h3 class="card-title">📅 Meal Plans</h3>
+            <p class="card-text">Explore structured plans tailored to different goals: weight loss, muscle gain, or balanced eating.</p>
+            <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-primary mt-3">View Meal Plans</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipes -->
+      <div class="col-md-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h3 class="card-title">🍳 Recipes</h3>
+            <p class="card-text">Browse our collection of tasty, easy-to-follow recipes made for every lifestyle and goal.</p>
+            <a href="{% url 'nutrition:recipes' %}" class="btn btn-success mt-3">View Recipes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wellness Advice (optional) -->
+    <div class="mt-5">
+      <h4>💡 Wellness Tip</h4>
+      <p>Consistency is key. Try planning meals ahead and stay hydrated throughout your day!</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="nutrition-tips bg-light py-5">
+  <div class="container">
+    <h3 class="text-center mb-4">💡 Wellness Tips</h3>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">🥗 Eat a balanced diet rich in whole foods.</li>
+      <li class="list-group-item">💧 Stay hydrated throughout the day.</li>
+      <li class="list-group-item">🕒 Stick to consistent meal times.</li>
+      <li class="list-group-item">🚶‍♂️ Pair nutrition with physical activity for best results.</li>
+    </ul>
+  </div>
+</section>
 {% endblock %}

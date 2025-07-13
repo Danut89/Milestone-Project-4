@@ -18,7 +18,6 @@
   
     <label for="sort" class="form-label mb-0 me-2">Sort by:</label>
     <select name="sort" id="sort" class="form-select w-auto me-2" onchange="this.form.submit()">
-      <option value="">Default</option>
       <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
       <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
       <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>

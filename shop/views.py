@@ -34,7 +34,7 @@ def all_products(request):
 
 
 
-# ✅ Dynamic category view (Step 1.2)
+# ✅ Dynamic category view
 def products_by_category(request, category):
     sort_option = request.GET.get('sort', '')
     product_list = Product.objects.filter(category__iexact=category, available=True)
