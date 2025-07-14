@@ -30,39 +30,6 @@ def contact_view(request):
     return render(request, 'home/contact.html')
 
 
-
-
-
-
-
-
-
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from nutrition.models import MealPlan, Recipe
-from shop.models import Product
-
-def home(request):
-    return render(request, 'home/index.html')
-
-@login_required
-def dashboard(request):
-    return render(request, 'home/dashboard.html')
-
-def contact_view(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
-
-        messages.success(request, "Thanks for contacting us! We'll get back to you soon.")
-        return redirect('contact')
-
-    return render(request, 'home/contact.html')
-
-
 def global_search(request):
     query = request.GET.get('q', '').lower().strip()
 

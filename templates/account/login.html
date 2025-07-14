@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign In | FitZone Pro{% endblock %}
+
+{% block content %}
+<section class="container py-5 mt-5 shop-header">
+  <div class="row justify-content-center mt-5 shop-header">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow border-0 p-4">
+        <div class="text-center mb-4">
+          <h2><i class="fa-solid fa-lock text-accent me-2"></i>Sign In</h2>
+        </div>
+
+        <form method="POST" action="{% url 'account_login' %}" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+
+         
+
+          <div class="mt-4 d-grid">
+            <button type="submit" class="btn btn-outline-success">
+              <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Sign In
+            </button>
+          </div>
+        </form>
+
+        <p class="text-center mt-3 small">
+          Don’t have an account? <a href="{% url 'account_signup' %}" class="text-decoration-none">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

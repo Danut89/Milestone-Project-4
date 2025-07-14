@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Recipe
 from django.urls import reverse
 
-# ✅ Recipe CRUD Tests using TDD for distinction-level functionality
+# ✅ Recipe CRUD Tests using TDD
 class RecipeCRUDTests(TestCase):
 
     def setUp(self):
