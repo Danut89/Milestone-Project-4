@@ -28,21 +28,29 @@
         <div class="card-body">
           <h5 class="card-title">🔒 Change Password</h5>
           <p class="card-text">Update your account password securely.</p>
-          <a href="#" class="btn btn-outline-primary disabled">Change Password</a>
+          <a href="{% url 'change_password' %}" class="btn btn-outline-primary">
+            Change Password
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- 💬 Preferences -->
+    <!-- 👁️‍🗨️ Toggle Recent Activity -->
     <div class="col-12 col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">💬 Preferences</h5>
-          <p class="card-text">Set your preferred language, theme or notifications.</p>
-          <a href="#" class="btn btn-outline-secondary disabled">Coming Soon</a>
+          <h5 class="card-title">👁️‍🗨️ Recent Activity</h5>
+          <p class="card-text">Toggle the visibility of your recent activity on the dashboard.</p>
+          <form method="POST" action="{% url 'toggle_recent_activity' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn {% if user.userprofile.hide_recent_activity %}btn-success{% else %}btn-outline-secondary{% endif %}">
+              {% if user.userprofile.hide_recent_activity %}Show{% else %}Hide{% endif %} Recent Activity
+            </button>
+          </form>
         </div>
       </div>
     </div>
+
 
     <!-- ❌ Account Deletion -->
     <div class="col-12 col-md-6">
@@ -57,4 +65,26 @@
 
   </div>
 </div>
+
+{% if request.GET.password_changed %}
+<script>
+  const toastEl = document.createElement('div');
+  toastEl.className = 'toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3';
+  toastEl.setAttribute('role', 'alert');
+  toastEl.setAttribute('aria-live', 'assertive');
+  toastEl.setAttribute('aria-atomic', 'true');
+  toastEl.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Password changed successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  `;
+  document.body.appendChild(toastEl);
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+</script>
+{% endif %}
+
 {% endblock %}

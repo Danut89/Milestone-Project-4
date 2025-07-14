@@ -15,5 +15,7 @@ class UserProfile(models.Model):
     default_postcode = models.CharField(max_length=20, null=True, blank=True)
     default_country = models.CharField(max_length=100, null=True, blank=True)
 
+    hide_recent_activity = models.BooleanField(default=False)
+
     def __str__(self):
         return self.user.username
