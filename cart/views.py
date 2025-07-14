@@ -83,6 +83,7 @@ def remove_from_cart(request, product_id):
 
 
 # 💳 Checkout view with user form and order creation
+# 💳 Checkout view with user form and order creation
 @login_required
 def checkout_view(request):
     cart = request.session.get('cart', {})
@@ -100,8 +101,7 @@ def checkout_view(request):
 
             # ✅ Clear cart and order ID from session
             request.session['cart'] = {}
-            if 'order_id' in request.session:
-                del request.session['order_id']
+            request.session.pop('order_id', None)
 
             messages.success(request, f"Thank you! Your order #{order.id} has been confirmed.")
             return render(request, 'cart/checkout.html', {
@@ -117,7 +117,36 @@ def checkout_view(request):
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
-    # 🧾 Pre-fill form with user profile data
+    # 🧾 Try to load user profile
+    profile = None
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        pass
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            # ✅ Store delivery info in session
+            request.session['delivery_info'] = {
+                'full_name': data['full_name'],
+                'email': data['email'],
+                'phone_number': data['phone_number'],
+                'address_line1': data['address_line1'],
+                'address_line2': data['address_line2'],
+                'city': data['city'],
+                'postcode': data['postcode'],
+                'country': data['country'],
+            }
+
+            messages.success(request, "Delivery information received.")
+            return redirect('create_checkout_session')
+    else:
+        initial_data = {}
+
+     # 🧾 Pre-fill form with user profile data
     profile = getattr(request.user, 'userprofile', None)
 
     if request.method == 'POST':
@@ -141,16 +170,36 @@ def checkout_view(request):
             return redirect('create_checkout_session')
     else:
         initial_data = {}
-        if request.GET.get('use_saved_info') == 'on' and profile:
+        if request.GET.get('use_saved_info') == 'on':
             initial_data = {
-                'full_name': profile.default_full_name,
-                'email': profile.default_email,
-                'phone_number': profile.default_phone_number,
-                'address_line1': profile.default_address_line1,
-                'address_line2': profile.default_address_line2,
-                'city': profile.default_city,
-                'postcode': profile.default_postcode,
-                'country': profile.default_country,
+                'full_name': (
+                    profile.default_full_name
+                    if profile and profile.default_full_name
+                    else request.user.get_full_name()
+                ),
+                'email': (
+                    profile.default_email
+                    if profile and profile.default_email
+                    else request.user.email
+                ),
+                'phone_number': (
+                    profile.default_phone_number if profile and profile.default_phone_number else ''
+                ),
+                'address_line1': (
+                    profile.default_address_line1 if profile and profile.default_address_line1 else ''
+                ),
+                'address_line2': (
+                    profile.default_address_line2 if profile and profile.default_address_line2 else ''
+                ),
+                'city': (
+                    profile.default_city if profile and profile.default_city else ''
+                ),
+                'postcode': (
+                    profile.default_postcode if profile and profile.default_postcode else ''
+                ),
+                'country': (
+                    profile.default_country if profile and profile.default_country else ''
+                ),
             }
 
         form = CheckoutForm(initial=initial_data)
@@ -163,6 +212,7 @@ def checkout_view(request):
         'form': form,
         'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
     })
+
 
 
 
@@ -244,3 +294,7 @@ def create_checkout_session(request):
     order.save()
 
     return JsonResponse({'id': session.id})
+
+
+
+
