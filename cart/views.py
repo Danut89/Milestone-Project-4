@@ -141,16 +141,36 @@ def checkout_view(request):
             return redirect('create_checkout_session')
     else:
         initial_data = {}
-        if request.GET.get('use_saved_info') == 'on' and profile:
+        if request.GET.get('use_saved_info') == 'on':
             initial_data = {
-                'full_name': profile.default_full_name,
-                'email': profile.default_email,
-                'phone_number': profile.default_phone_number,
-                'address_line1': profile.default_address_line1,
-                'address_line2': profile.default_address_line2,
-                'city': profile.default_city,
-                'postcode': profile.default_postcode,
-                'country': profile.default_country,
+                'full_name': (
+                    profile.default_full_name
+                    if profile and profile.default_full_name
+                    else request.user.get_full_name()
+                ),
+                'email': (
+                    profile.default_email
+                    if profile and profile.default_email
+                    else request.user.email
+                ),
+                'phone_number': (
+                    profile.default_phone_number if profile and profile.default_phone_number else ''
+                ),
+                'address_line1': (
+                    profile.default_address_line1 if profile and profile.default_address_line1 else ''
+                ),
+                'address_line2': (
+                    profile.default_address_line2 if profile and profile.default_address_line2 else ''
+                ),
+                'city': (
+                    profile.default_city if profile and profile.default_city else ''
+                ),
+                'postcode': (
+                    profile.default_postcode if profile and profile.default_postcode else ''
+                ),
+                'country': (
+                    profile.default_country if profile and profile.default_country else ''
+                ),
             }
 
         form = CheckoutForm(initial=initial_data)
