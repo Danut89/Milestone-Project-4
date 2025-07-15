@@ -8,7 +8,6 @@ from decimal import Decimal
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
-from .forms import CheckoutForm
 from profiles.models import UserProfile
 from cart.forms import CheckoutForm
 

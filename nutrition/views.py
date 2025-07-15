@@ -187,11 +187,11 @@ def delete_recipe(request, pk):
 
         messages.success(request, "Recipe deleted successfully.")
         return redirect("nutrition:recipes")
-
     except Exception as e:
-        print("Error while deleting:", e)
         messages.error(request, "An error occurred while deleting the recipe.")
         return redirect("nutrition:recipe_detail", pk=pk)
+
+   
 
 
 

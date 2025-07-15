@@ -1,13 +1,125 @@
 .highlight-row {
   background-color: #f1f8e9;
   font-weight: bold;
-  border-left: 4px solid #7cb342;
+  
 }
 
 .order-summary-card {
   border: 1px solid var(--bs-border-color);
   background-color: var(--bs-light);
 }
+
+/* =============================
+   🧾 Mini Order Cards (History)
+============================= */
+/* Improved Card Style */
+.mini-order-card {
+  background-color: var(--bg-light);
+  border-left: 5px solid var(--accent-green);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+  min-height: 120px;
+  margin-bottom: 1.5rem;
+  gap: 1.5rem;
+}
+
+.mini-order-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Left Column: Order Info */
+.order-info {
+  text-align: left;
+}
+
+.order-info h6 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.order-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* View Button */
+.btn-order-view {
+  border-radius: 999px;
+  font-weight: 500;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.9rem;
+  background: var(--accent-green);
+  color: white;
+  border: none;
+}
+
+
+.btn-order-view:hover {
+  opacity: 0.9;
+}
+
+/* =============================
+   📦 Order History Cards
+============================= */
+.order-card {
+  background-color: var(--bg-light);
+  border-left: 5px solid var(--accent-green);
+  transition: all 0.2s ease;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.order-card:hover {
+  background-color: var(--bg-muted);
+  transform: scale(1.01);
+}
+
+.order-info {
+  min-width: 180px;
+}
+
+.order-items {
+  flex: 1;
+  gap: 1rem;
+}
+
+.item-box {
+  max-width: 70px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.order-action {
+  min-width: 100px;
+}
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .mini-order-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mini-order-card .text-end {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
 
 
 /* =============================
@@ -49,10 +161,11 @@
 
 /* Card Styles */
 .order-card {
-  background: var(--bg-muted);
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.6); /* glass effect */
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);;
 }
 
 /* Section header inside cards */
@@ -74,6 +187,13 @@
 .order-table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.order-table tbody tr:nth-child(odd) {
+  background-color: var(--bg-muted);
+}
+.order-table td {
+  vertical-align: middle;
 }
 
 .order-table th,
@@ -133,3 +253,6 @@
 .btn-delete:hover {
   opacity: 0.85;
 }
+
+
+

@@ -6,39 +6,43 @@
   <h1 class="mb-4">📦 My Orders</h1>
 
   {% if orders %}
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover align-middle text-center ">
-        <thead class="table-light">
-          <tr>
-            <th>Order #</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Preview</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for order in orders %}
-            <tr class="{% if order.id == most_recent_id %}table-success fw-bold{% endif %}">
-              <td>{{ order.id }}</td>
-              <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
-              <td>£{{ order.total_price }}</td>
-              <td>
-                {% with preview=order.items.first %}
-                  {% if preview and preview.product %}
-                    {{ preview.product.name }}
-                  {% else %}
-                    N/A
-                  {% endif %}
-                {% endwith %}
-              </td>
-              <td>
-                <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">View</a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="order-list d-flex flex-column gap-4">
+      {% for order in orders %}
+        <div class="order-card d-flex justify-content-between align-items-center px-4 py-3 shadow-sm rounded-4">
+          <!-- Left: Order info -->
+          <div class="order-info">
+            <h5><i class="fas fa-box"></i> Order #{{ order.id }}</h5>
+            <p class="mb-0"><strong>Status:</strong> <span class="text-success">Paid</span></p>
+            <p class="mb-0"><strong>Date:</strong> {{ order.created_at|date:"M d, Y" }}</p>
+            <p class="mb-0"><strong>Total:</strong> £{{ order.total_price }}</p>
+          </div>
+
+          <!-- Middle: Items -->
+          <div class="order-items d-flex flex-wrap gap-3 justify-content-center">
+            {% for item in order.items.all %}
+              <div class="item-box text-center">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                <small>{{ item.product.name }}</small>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- Right: Button -->
+          <div class="order-action text-end">
+            <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary">
+              <i class="fas fa-eye me-1"></i> View
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center">You haven't placed any orders yet.</p>
+  {% endif %}
+</div>
+
+
+
     </div>
 
     <!-- Pagination -->
@@ -70,8 +74,8 @@
       </ul>
     </nav>
 
-  {% else %}
+  
     <p>You haven't placed any orders yet.</p>
-  {% endif %}
+  
 </section>
 {% endblock %}

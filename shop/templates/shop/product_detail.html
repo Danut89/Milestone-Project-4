@@ -10,7 +10,7 @@
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb px-3 py-2 rounded">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Shop</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'all_products' %}">Shop</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
     </ol>
   </nav>
@@ -63,7 +63,7 @@
             <path d="M16 10a4 4 0 01-8 0"/>
           </svg>
         </button>
-        <a href="{% url 'product_list' %}" class="btn btn-outline-dark px-4 py-2 fw-bold rounded-3 border">← Continue Shopping</a>
+        <a href="{% url 'all_products' %}" class="btn btn-outline-dark px-4 py-2 fw-bold rounded-3 border">← Continue Shopping</a>
       </form>
     </div>
 
