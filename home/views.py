@@ -5,7 +5,7 @@ from django.db.models import Q
 from shop.models import Product
 from nutrition.models import MealPlan, Recipe
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 
 # Create your views here.
@@ -24,11 +24,15 @@ def contact_view(request):
         message = request.POST.get("message")
 
         # You could save this info or send an email
-        messages.success(request, "Thanks for contacting us! We'll get back to you soon.")
+        success_msg = "Thanks for contacting us! We'll get back to you soon."
+
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return JsonResponse({"message": success_msg})
+
+        messages.success(request, success_msg)
         return redirect('contact')
 
     return render(request, 'home/contact.html')
-
 
 def global_search(request):
     query = request.GET.get('q', '').lower().strip()

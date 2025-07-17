@@ -111,9 +111,7 @@
             <!-- 🔒 Submit Button -->
             <div class="text-center mt-4">
               <p class="checkout-note mb-3">🔒 Secure checkout powered by Stripe</p>
-              <button type="submit" class="btn shop-btn px-4">
-                💳 Pay with Stripe (£{{ cart_total|floatformat:2 }})
-              </button>
+              <button id="checkout-btn" class="btn btn-success">Pay Now (£{{ cart_total|floatformat:2 }})</button>
             </div>
           </form>
 

@@ -1,4 +1,6 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
+from requests import request
 from shop.models import Product
 from orders.models import Order, OrderItem
 from django.views.decorators.http import require_POST
@@ -16,6 +18,7 @@ from cart.forms import CheckoutForm
 # 📌 Helper function to calculate total
 def calculate_cart_total(cart):
     return sum(float(item['price']) * item['quantity'] for item in cart.values())
+
 
 # 🛒 Add product to cart
 @require_POST
@@ -39,6 +42,11 @@ def add_to_cart(request, product_id):
 
     request.session['cart'] = cart
     return redirect('view_cart')
+
+   
+
+
+
 
 # 🛍️ View Cart Contents
 @login_required
@@ -81,7 +89,7 @@ def remove_from_cart(request, product_id):
     return redirect('view_cart')
 
 
-# 💳 Checkout view with user form and order creation
+
 # 💳 Checkout view with user form and order creation
 @login_required
 def checkout_view(request):

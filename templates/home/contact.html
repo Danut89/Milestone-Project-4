@@ -15,7 +15,7 @@
         <h1 class="text-center mb-4 fw-bold">📬 Get in Touch</h1>
         <p class="text-center mb-4 text-muted">Have questions, feedback, or just want to say hello? We’d love to hear from you!</p>
 
-        <form method="post" action="">
+         <form method="post" action="" id="contact-form">
           {% csrf_token %}
           <div class="mb-3">
             <label for="name" class="form-label">Full Name</label>
@@ -40,4 +40,33 @@
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch("{% url 'contact' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        showActionToast(data.message, 'success');
+        form.reset();
+      });
+    });
+  });
+</script>
 {% endblock %}
