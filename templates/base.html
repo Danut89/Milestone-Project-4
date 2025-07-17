@@ -42,8 +42,9 @@
       </a>
 
       <!-- 🔍 Search -->
-      <form method="GET" action="{% url 'global_search' %}" class="d-flex">
-        <input class="form-control me-2" type="search" name="q" placeholder="Search our site..." aria-label="Search">
+      <form id="global-search-form" method="GET" action="{% url 'global_search' %}" class="d-flex">
+        <input id="global-search-input" class="form-control me-2" type="search" name="q" placeholder="Search our site..." aria-label="Search" required>
+        <div class="invalid-feedback">Please enter a search term.</div>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
@@ -272,6 +273,24 @@
 
 <!-- ✅ Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 🔍 Global Search Validation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('global-search-form');
+    const input = document.getElementById('global-search-input');
+    if (!form || !input) return;
+
+    form.addEventListener('submit', function (e) {
+      if (!input.value.trim()) {
+        e.preventDefault();
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+  });
+</script>
 
 
 <!-- 🔄 Show only Django messages (not wishlist toast) -->
