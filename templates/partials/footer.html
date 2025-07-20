@@ -1,0 +1,54 @@
+<footer class="site-footer text-dark">
+  <div class="container py-5">
+    <div class="row gy-5 justify-content-between">
+      <!-- Brand -->
+      <div class="col-md-3">
+        <h4 class="logo mb-3"><span class="text-accent">Fit</span>Zone Pro</h4>
+        <p class="text-muted small">Your wellness companion. Discover nutrition, shop fitness, and reach your goals.</p>
+      </div>
+
+      <!-- Navigation -->
+      <div class="col-md-2">
+        <h5 class="mb-3 fw-semibold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="footer-link">Home</a></li>
+          <li><a href="{% url 'all_products' %}" class="footer-link">Shop</a></li>
+          <li><a href="{% url 'nutrition:nutrition' %}" class="footer-link">Nutrition</a></li>
+          <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-3">
+        <h5 class="mb-3 fw-semibold">Contact</h5>
+        <ul class="list-unstyled text-muted small">
+          <li><i class="fa-solid fa-phone me-2 text-accent"></i> +44 123 456 789</li>
+          <li><i class="fa-solid fa-envelope me-2 text-accent"></i> info@fitzonepro.com</li>
+          <li><i class="fa-solid fa-location-dot me-2 text-accent"></i> Hull, UK</li>
+        </ul>
+      </div>
+
+      <!-- Newsletter & Social -->
+      <div class="col-md-3">
+        <h5 class="mb-3 fw-semibold">Stay Updated</h5>
+        <form class="footer-newsletter d-flex mb-3" method="post" action="#">
+          <input type="email" class="form-control me-2" placeholder="Your email" required aria-label="Email address">
+          <button class="btn btn-accent" type="submit" aria-label="Subscribe">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+        <div class="footer-social d-flex gap-3">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5 pt-4 border-top small text-muted">
+      © 2025 <strong>FitZone Pro</strong>. All rights reserved.
+    </div>
+  </div>
+</footer>
+

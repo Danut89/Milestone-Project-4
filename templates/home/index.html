@@ -4,87 +4,29 @@
 {% block title %}Welcome to FitZone Pro{% endblock %}
 
 {% block content %}
-<!-- 🏋️‍♀️ Hero Section -->
-<section class="hero-section d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('{% static 'images/hero-image.png' %}') center/cover no-repeat;">
-  <div class="container-fluid py-5">
+
+<!--  Hero Section -->
+<section class="hero-section d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('{% static 'images/hero-image.png' %}') center/cover no-repeat;" role="banner">
+  <div class="container py-5 hero-content">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center text-lg-start">
-   <!-- Heading -->
-<h1 class="display-4 fw-bold mb-3 animate-fadeInUp text-center text-lg-start">
-  Fuel Your Body<br><span class="text-success">Clean Nutrition</span>
-</h1>
-
-<!-- Stars: moved below the heading on mobile -->
-<div class="review-stars d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 animate-fadeInUp">
-  <i class="fas fa-star text-warning"></i>
-  <i class="fas fa-star text-warning"></i>
-  <i class="fas fa-star text-warning"></i>
-  <i class="fas fa-star text-warning"></i>
-  <i class="fas fa-star text-warning"></i>
-  <span class="text-white-50 small">5.0 based on 4,500+ real user reviews</span>
-</div>
-
-  <!-- 📣 Subtitle -->
-  <p class="hero-subtitle lead text-white-50 mb-4 animate-fadeInUp delay-1">
-    Designed by experts to support your workouts, energy, and daily wellness routine.
-  </p>
-
-  <!-- 🚀 CTA Buttons -->
-  <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-fadeInUp delay-2">
-    <a href="#" class="btn btn-success px-4 py-2 fw-bold rounded-3 shadow">Shop FitZone</a>
-    <a href="#" class="btn btn-outline-light px-4 py-2 fw-bold rounded-3">Take the Quiz</a>
-  </div>
-</div>
-
-    </div>
-  </div>
-  </div>
-</section>
-
-
-
-<!-- 🌱 Wellness Journey Section (Updated with Glassmorphism Cards) -->
-<section class="wellness-journey section-light py-5">
-  <div class="container text-center">
-    <h2 class="section-heading mb-1 display-5 fw-bold">
-      <i class="fas fa-seedling text-success me-2"></i>
-      Your Journey to <span class="text-success">Wellness</span>
-    </h2>
-    <p class="lead text-muted mb-4">Let us guide you step by step toward a healthier lifestyle</p>
-
-    
-
-    <div class="row justify-content-center">
-      <div class="col-md-4 mb-4">
-        <div class="glass-card">
-          <div class="title">Eat Smarter</div>
-          <div class="icon"><i class="fas fa-bowl-food"></i></div>
-          <div class="content">
-            <p>Discover healthy recipes and custom meal plans.</p>
-            <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success btn-sm mt-2">Explore Meals</a>
-          </div>
+        <h1 class="hero-heading display-4 fw-bold mb-3 animate-fadeInUp">
+          Your Personal Wellness<br><span class="text-success">Companion</span>
+        </h1>
+        <div class="review-stars d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 animate-fadeInUp">
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <span class="text-white-50 small">5.0 based on 4,500+ real user reviews</span>
         </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="glass-card">
-          <div class="title">Train Better</div>
-          <div class="icon"><i class="fas fa-dumbbell"></i></div>
-          <div class="content">
-            <p>Get gear that supports your workouts and recovery.</p>
-            <a href="{% url 'products_by_category' 'equipment' %}" class="btn btn-outline-success btn-sm mt-2">Browse Equipment</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="glass-card">
-          <div class="title">Fuel Your Body</div>
-          <div class="icon"><i class="fas fa-capsules"></i></div>
-          <div class="content">
-            <p>Premium supplements to enhance your wellbeing.</p>
-            <a href="{% url 'products_by_category' 'supplements' %}" class="btn btn-outline-success btn-sm mt-2">View Supplements</a>
-          </div>
+        <p class="hero-subtitle hero-subheading lead text-white-50 mb-4 animate-fadeInUp delay-1">
+          Get expert-backed meal plans, healthy recipes, and gear to reach your goals
+        </p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-fadeInUp delay-2 hero-buttons">
+          <a href="{% url 'all_products' %}" class="btn btn-primary px-4 py-2 fw-bold rounded-3 shadow">Shop Now</a>
+          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-light px-4 py-2 fw-bold rounded-3">Browse Meal Plans</a>
         </div>
       </div>
     </div>
@@ -92,191 +34,171 @@
 </section>
 
 
-
-<div class="section-divider my-4"></div>
-
-
-<!-- 🌱 About FitZone Pro -->
-<section class="section-light py-5 about-section">
-  <div class="container text-center">
-    <h2 class="section-heading mb-4">🌟 About FitZone Pro</h2>
-    <p class="mb-5 text-muted">
-      Whether you're meal planning, training hard, or nourishing your body — we're here to guide you every step of the way.
-    </p>
-    <p class="lead mb-4">
-      FitZone Pro is your ultimate wellness companion — combining expert-crafted meal plans, workout programs, and premium supplements to help you thrive.
-    </p>
-    <p class="mb-4">
-      Our mission is to empower individuals to take control of their health journey with confidence, balance, and personalized support.
-    </p>
-    <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-success px-4 py-2 fw-semibold"><i class="fas fa-arrow-right me-2"></i>View Our Plans</a>
-  </div>
-</section>
-
-<div class="section-divider my-4"></div>
-
-<!-- 🌟 Membership Benefits Section -->
-<section class="section-light py-5" id="membership">
-  <div class="container text-center">
-    <h2 class="section-heading mb-3">
-      <i class="fas fa-id-card-alt text-accent me-2"></i> 
-      Exclusive Member Benefits
-    </h2>
-    <p class="text-muted mb-5">Unlock your full potential with FitZone Pro membership perks tailored to support your wellness journey.</p>
-
-    <div class="row g-4">
-      <!-- 🥇 Personalized Plans -->
-      <div class="col-md-4">
-        <div class="benefit-card h-100 p-4 shadow-sm rounded-4 bg-white">
-          <i class="fas fa-dumbbell fa-2x text-accent mb-3"></i>
-          <h5 class="fw-bold mb-2">Custom Workout Plans</h5>
-          <p class="text-muted small">Tailored training programs crafted by fitness professionals to match your goals.</p>
-        </div>
-      </div>
-
-      <!-- 🍽️ Meal Recommendations -->
-      <div class="col-md-4">
-        <div class="benefit-card h-100 p-4 shadow-sm rounded-4 bg-white">
-          <i class="fas fa-utensils fa-2x text-accent mb-3"></i>
-          <h5 class="fw-bold mb-2">Smart Meal Guides</h5>
-          <p class="text-muted small">Weekly nutrition insights, recipes, and plans to boost energy and results.</p>
-        </div>
-      </div>
-
-      <!-- 👨‍⚕️ Expert Access -->
-      <div class="col-md-4">
-        <div class="benefit-card h-100 p-4 shadow-sm rounded-4 bg-white">
-          <i class="fas fa-user-md fa-2x text-accent mb-3"></i>
-          <h5 class="fw-bold mb-2">Expert Consultations</h5>
-          <p class="text-muted small">Access to our network of coaches, trainers, and wellness experts for guidance.</p>
-        </div>
-      </div>
-    </div>
-
-    <a href="{% url 'account_signup' %}" class="btn btn-success mt-4 px-4 py-2 fw-semibold">
-      <i class="fas fa-star me-2"></i> Become a Member
-    </a>
-  </div>
-</section>
-
-
-<div class="section-divider my-4"></div>
-
-<!-- 💡 Why Choose Us -->
-<section class="features-section py-5 bg-dark text-white">
-  <div class="container text-center">
-    <h2 class="mb-5 fw-bold">Why Choose <span class="text-accent">FitZone Pro</span>?</h2>
-    <div class="row g-4">
-      <div class="col-md-3 text-center">
-        <i class="fas fa-seedling fa-3x mb-3"></i>
-        <h5 class="fw-bold">Mindful Nutrition</h5>
-        <p>Delicious meal plans tailored to fuel your goals.</p>
-      </div>
-      <div class="col-md-3 text-center">
-        <i class="fas fa-heartbeat fa-3x mb-3"></i>
-        <h5 class="fw-bold">Healthy Habits</h5>
-        <p>Empower your day with science-backed lifestyle tips.</p>
-      </div>
-      <div class="col-md-3 text-center">
-        <i class="fas fa-shopping-cart fa-3x mb-3"></i>
-        <h5 class="fw-bold">Wellness Shop</h5>
-        <p>Carefully curated supplements, gear & more.</p>
-      </div>
-      <div class="col-md-3 text-center">
-        <i class="fas fa-user-circle fa-3x mb-3"></i>
-        <h5 class="fw-bold">Personal Dashboard</h5>
-        <p>Track progress & access your favorite tools in one place.</p>
-      </div>
-    </div>
-</section>
-
-<!-- 🌟 Testimonials -->
-<section class="testimonials-section py-5 bg-black text-white">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-5">What Our Users Say</h2>
-    <div class="row justify-content-center">
-      <div class="col-md-4 mb-4">
-        <blockquote class="blockquote p-4 bg-dark rounded shadow-sm">
-          <p>"FitZone helped me completely reset my lifestyle — I've never felt more balanced."</p>
-          <footer class="blockquote-footer text-muted">Anna T., Yoga Enthusiast</footer>
-        </blockquote>
-      </div>
-      <div class="col-md-4 mb-4">
-        <blockquote class="blockquote p-4 bg-dark rounded shadow-sm">
-          <p>"Their plans are simple and inspiring. The dashboard keeps me on track."</p>
-          <footer class="blockquote-footer text-muted">Marcus L., Busy Parent</footer>
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 🛍️ Popular Products (Redesigned) -->
-<section class="popular-products-section py-5 bg-dark text-white">
+<!-- 💪 Why Choose FitZone Pro -->
+<section class="why-fitzone-pro text-center">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold text-white">Popular in the Shop</h2>
-      <p class="text-muted">Handpicked favourites from our wellness collection</p>
-    </div>
-    <div class="row g-4 justify-content-center">
-      <!-- Product Card 1 -->
-      <div class="col-md-4">
-        <div class="card product-card h-100">
-          <img src="{% static 'images/product1.png' %}" class="card-img-top" alt="Protein">
-          <div class="card-body">
-            <h5 class="card-title">Organic Vegan Protein</h5>
-            <p class="card-text">Plant-powered performance blend with essential nutrients.</p>
-            <a href="{% url 'all_products' %}" class="btn btn-success w-100">View Product</a>
-          </div>
-        </div>
+    <h2 class="section-heading"><i class="fas fa-star me-2 text-success"></i>Why Choose <span class="">FitZone Pro</span></h2>
+    <p class="lead mb-4">More than fitness – it's your complete wellness partner.</p>
+
+    <p class="section-text mb-2">
+      Discover a platform where your health goals come to life. Whether you're looking to follow expertly designed meal plans, cook delicious recipes, or shop premium fitness gear and supplements — we’ve got you covered.
+    </p>
+    <p class="section-text mb-5">
+      Personalize your wellness journey by sharing your own recipes, saving your favorites, and tracking your progress through an intuitive and inspiring dashboard.
+    </p>
+
+    <div class="row justify-content-center text-center icon-row gy-4">
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <i class="fa-solid fa-utensils fa-2x text-accent mb-2"></i>
+        <h6 class="fw-bold">Expert Meal Plans</h6>
+        <p class="small text-muted">Nutritionist-designed plans tailored to your goals and lifestyle.</p>
       </div>
-      <!-- Product Card 2 -->
-      <div class="col-md-4">
-        <div class="card product-card h-100">
-          <img src="{% static 'images/product2.jpg' %}" class="card-img-top" alt="Greens">
-          <div class="card-body">
-            <h5 class="card-title">Daily Greens Powder</h5>
-            <p class="card-text">Detox and energize — all in one easy scoop.</p>
-            <a href="{% url 'all_products' %}" class="btn btn-success w-100">View Product</a>
-          </div>
-        </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <i class="fa-solid fa-blender fa-2x text-accent mb-2"></i>
+        <h6 class="fw-bold">Recipe Sharing</h6>
+        <p class="small text-muted">Contribute your own ideas and inspire others to eat well.</p>
       </div>
-      <!-- Product Card 3 -->
-      <div class="col-md-4">
-        <div class="card product-card h-100">
-          <img src="{% static 'images/product3.jpg' %}" class="card-img-top" alt="Bottle">
-          <div class="card-body">
-            <h5 class="card-title">Hydration Bottle</h5>
-            <p class="card-text">BPA-free bottle with time markers to keep you on track.</p>
-            <a href="{% url 'all_products' %}" class="btn btn-success w-100">View Product</a>
-          </div>
-        </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <i class="fa-solid fa-dumbbell fa-2x text-accent mb-2"></i>
+        <h6 class="fw-bold">Shop Wellness Gear</h6>
+        <p class="small text-muted">Fitness clothing, equipment, and supplements — all in one place.</p>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-chart-line fa-2x text-accent mb-2"></i>
+        <h6 class="fw-bold">Progress Dashboard</h6>
+        <p class="small text-muted">Track goals, save favorites, and stay motivated every step of the way.</p>
       </div>
     </div>
   </div>
 </section>
+
+
+<!-- Your Wellness Journey Section -->
+<section class="wellness-journey-section" aria-labelledby="journey-heading">
+  <div class="container text-center">
+    <h2 id="journey-heading" class="section-title mb-3 mt-5">
+      <i class="fas fa-seedling text-primary me-2" aria-hidden="true"></i>
+      Your Journey to Wellness
+    </h2>
+    <p class="lead text-muted mb-5">
+      Let us guide you step by step toward a healthier lifestyle
+    </p>
+
+    <div class="row g-4 justify-content-center">
+      <!-- Card 1 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <article class="journey-card h-100" role="group" aria-labelledby="eat-smarter-title">
+          <h3 id="eat-smarter-title" class="card-title">Eat Smarter</h3>
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-bowl-food"></i></div>
+          <div class="card-content">
+            <p>Discover healthy recipes and custom meal plans.</p>
+            <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-primary btn-sm mt-2">Explore Meals</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <article class="journey-card h-100" role="group" aria-labelledby="train-better-title">
+          <h3 id="train-better-title" class="card-title">Train Better</h3>
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-dumbbell"></i></div>
+          <div class="card-content">
+            <p>Get gear that supports your workouts and recovery.</p>
+            <a href="{% url 'products_by_category' 'equipment' %}" class="btn btn-outline-primary btn-sm mt-2">Browse Equipment</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <article class="journey-card h-100" role="group" aria-labelledby="fuel-body-title">
+          <h3 id="fuel-body-title" class="card-title">Fuel Your Body</h3>
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-capsules"></i></div>
+          <div class="card-content">
+            <p>Premium supplements to enhance your wellbeing.</p>
+            <a href="{% url 'products_by_category' 'supplements' %}" class="btn btn-outline-primary btn-sm mt-2">View Supplements</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% include 'partials/popular_carousel.html' %}
+
+
+
+  <!-- 🗣️ Testimonials -->
+<section id="testimonials" class="testimonials-section text-center">
+  <div class="container">
+    <h2 class="testimonials-heading section-title mb-5">
+      <i class="fas fa-comment-dots text-success"></i> What Our Members Say
+    </h2>
+
+    <div class="row justify-content-center">
+
+      <!-- 🧍 Testimonial Card 1 -->
+      <div class="col-md-3 mb-4">
+        <div class="testimonial-card">
+          <img src="{% static 'images/image1.jpg' %}" alt="Sarah M." class="testimonial-avatar">
+          <p class="testimonial-text">“FitZone Pro has completely changed how I eat and train. I feel stronger, more focused, and more energized every day.”</p>
+          <p class="testimonial-name">Sarah M.</p>
+          <p class="testimonial-role">Verified Member</p>
+        </div>
+      </div>
+
+      <!-- 🧍 Testimonial Card 2 -->
+      <div class="col-md-3 mb-4">
+        <div class="testimonial-card">
+          <img src="{% static 'images/face3.jpg' %}" alt="James K." class="testimonial-avatar">
+          <p class="testimonial-text">“The meal plans are simple but so effective — and the products are top quality. 10/10 would recommend!”</p>
+          <p class="testimonial-name">James K.</p>
+          <p class="testimonial-role">Gym Enthusiast</p>
+        </div>
+      </div>
+
+      <!-- 🧍 Testimonial Card 3 -->
+      <div class="col-md-3 mb-4">
+        <div class="testimonial-card">
+          <img src="{% static 'images/image2.jpg' %}" alt="Emily R." class="testimonial-avatar">
+          <p class="testimonial-text">“I love the community of FitZone Pro. Sharing recipes has made my wellness journey so much more enjoyable.”</p>
+          <p class="testimonial-name">Emily R.</p>
+          <p class="testimonial-role">Community Member</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
 
 <!-- 📬 Subscribe Section -->
-<section class="subscribe-section py-5 bg-black text-white text-center">
+<section class="subscribe-section text-center" aria-labelledby="subscribe-heading" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('{% static 'images/subscribe-image.png' %}') center/cover no-repeat;" role="banner">
   <div class="container">
-    <h2 class="fw-bold mb-3">Stay in the Loop</h2>
-    <p class="mb-4">Sign up for health tips, product drops, and exclusive offers.</p>
-    <form class="row justify-content-center">
+    <h2 id="subscribe-heading" class="section-title mb-3">
+      <i class="fas fa-envelope-open-text me-2 text-primary" aria-hidden="true"></i>
+      Stay In the Loop
+    </h2>
+    <p class="lead text-muted mb-4">
+      Join our community for the latest wellness tips, product launches, and exclusive offers.
+    </p>
+
+    <form class="row justify-content-center align-items-center g-2" role="form" aria-label="Newsletter subscription">
       <div class="col-md-6">
-        <input type="email" class="form-control mb-2" placeholder="Enter your email">
+        <input type="email" class="form-control subscribe-input" placeholder="Enter your email" required aria-label="Email address">
       </div>
-      <div class="col-md-2">
-        <button type="submit" class="btn btn-success w-100">Subscribe</button>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
       </div>
     </form>
   </div>
 </section>
 
-
-
-
-
-
-
+<section class="section-divider">
+  {% include 'partials/animated_divider.html' %}
+</section>
 
 {% endblock %}

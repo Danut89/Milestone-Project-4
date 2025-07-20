@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm mt-3 mx-auto rounded-5 bg-dark text-white py-3 px-3 px-md-5">
+  <div class="container-fluid flex-column">
+
+    <!-- 🔝 Top Row: Brand + Search + Profile/Cart -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center w-100 gap-3">
+
+      <!-- 🔰 Brand -->
+      <a href="{% url 'home' %}" class="navbar-brand fs-3 fw-bold mb-2 mb-lg-0">
+        <span class="text-white">FitZone</span><span style="color: var(--primary-color); font-weight: 700;"> Pro</span>
+      </a>
+
+      <!-- 🔍 Search -->
+      <form id="global-search-form" method="GET" action="{% url 'global_search' %}" class="d-flex flex-grow-1 mx-3" role="search">
+        <input id="global-search-input" class="form-control me-2" type="search" name="q" placeholder="Search our site..." aria-label="Search" required>
+        <div class="invalid-feedback">Please enter a search term.</div>
+        <button class="btn btn-success px-4" type="submit">Search</button>
+      </form>
+
+      <!-- 👤 Account + Cart -->
+      <div class="account-cart-wrapper d-flex align-items-center gap-3">
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <a class="text-white dropdown-toggle text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user"></i> My Account
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a class="dropdown-item" href="{% url 'settings_view' %}">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
+          </ul>
+        </div>
+        {% else %}
+        <a href="{% url 'account_login' %}" class="text-white text-decoration-none">Login</a>
+        <a href="{% url 'account_signup' %}" class="text-white text-decoration-none">Register</a>
+        {% endif %}
+
+        <a href="{% url 'view_cart' %}" class="nav-link d-flex align-items-center gap-1 text-white">
+          <i class="fas fa-shopping-cart fa-lg"></i>
+          <span class="small fw-semibold">Cart ({{ cart_items_count|default:0 }})</span>
+        </a>
+      </div>
+
+      <!-- 📱 Toggler -->
+      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+      </button>
+    </div>
+
+    <!-- 🔽 Bottom Row: Nav Links -->
+    <div class="collapse navbar-collapse justify-content-center mt-3" id="mainNavbar">
+      <ul class="navbar-nav gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'all_products' %}">All Products</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'equipment' %}">Equipment</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'clothing' %}">Clothing</a></li>
+            <li><a class="dropdown-item" href="{% url 'products_by_category' 'supplement' %}">Supplements</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" aria-expanded="false">Nutrition</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'nutrition:nutrition' %}">Nutrition HUB</a></li>
+            <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
+            <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'contact' %}" class="nav-link text-white">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
