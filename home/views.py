@@ -11,7 +11,10 @@ from django.urls import reverse
 # Create your views here.
 
 def home(request):
-    return render(request, 'home/index.html')
+    popular_products = Product.objects.filter(available=True)[:6]  # Adjust if you want filtering
+    return render(request, 'home/index.html', {
+        'popular_products': popular_products,
+    })
 
 @login_required
 def dashboard(request):
