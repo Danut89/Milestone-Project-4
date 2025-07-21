@@ -31,3 +31,70 @@ Each test logs in a test user and uses the Django test client to simulate authen
 def setUp(self):
     self.user = User.objects.create_user(username='testuser', password='testpass')
     self.client.login(username='testuser', password='testpass')
+```
+
+### Running the Tests
+
+To execute all tests:
+
+```bash
+python manage.py test nutrition.tests.RecipeCRUDTests
+```
+
+### Test Output
+
+All tests passed successfully. Output:
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results.png)
+
+</details>
+
+
+---
+
+
+### ✅ Test Class: `GlobalSearchTests`
+
+Automated tests were also written for the **Global Search** feature, which spans multiple apps (`shop`, `nutrition`, etc.).
+
+> All tests are located in:  
+> `home/tests.py`
+
+| Test Method                         | Purpose |
+|------------------------------------|---------|
+| `test_results_page_returned`       | Verifies that a valid query returns the correct template and includes all matched objects (products, recipes, meal plans) in the context |
+| `test_no_results_redirects_with_message` | Ensures that an unmatched search query redirects back and triggers a toast message saying `"No results found."` |
+
+### 🛠️ Setup Logic
+
+The tests simulate a logged-in user and create mock data for `Product`, `Recipe`, and `MealPlan`.
+
+```python
+def setUp(self):
+    self.user = User.objects.create_user(username='tester', password='pass')
+    self.product = Product.objects.create(name='Search Product', description='desc', price=9.99, category='equipment')
+    self.recipe = Recipe.objects.create(title='Search Recipe', ingredients='i', instructions='i', prep_time_minutes=5, author=self.user)
+    self.meal_plan = MealPlan.objects.create(title='Search Plan', description='d', calories=100, duration_days=7, created_by=self.user)
+```
+
+### Running the Tests
+
+To execute all tests:
+
+```bash
+python manage.py test home.tests.GlobalSearchTests
+```
+
+### Test Output
+
+All tests passed successfully. Output:
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results2.png)
+
+</details>

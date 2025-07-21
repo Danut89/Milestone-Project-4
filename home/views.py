@@ -43,6 +43,11 @@ def contact_view(request):
 def global_search(request):
     query = request.GET.get('q', '').lower().strip()
 
+    if not query:
+        messages.error(request, "Please enter a search term.")
+        return redirect(request.META.get("HTTP_REFERER", reverse("home")))
+
+
     # === Dictionary-based keyword to view mappings ===
     basic_redirects = {
         'meal': 'nutrition:meal_plans',
