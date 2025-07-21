@@ -37,6 +37,9 @@ def contact_view(request):
 
     return render(request, 'home/contact.html')
 
+
+# ==============================
+# 🔍 Global Search Functionality
 def global_search(request):
     query = request.GET.get('q', '').lower().strip()
 
@@ -45,8 +48,8 @@ def global_search(request):
         'meal': 'nutrition:meal_plans',
         'plan': 'nutrition:meal_plans',
         'recipe': 'nutrition:recipes',
-        'shop': 'product_list',
-        'product': 'product_list',
+        'shop': 'all_products',
+        'product': 'all_products',
         'cart': 'view_cart',
         'dashboard': 'dashboard',
         'account': 'dashboard',
@@ -74,20 +77,35 @@ def global_search(request):
         if keyword in query:
             return redirect('products_by_category', category=category_slug)
 
-    # === Search for specific Meal Plan ===
-    meal_plan = MealPlan.objects.filter(title__icontains=query).first()
-    if meal_plan:
-        return redirect('nutrition:meal_plan_detail', pk=meal_plan.id)
-
-    # === Search for specific Recipe ===
-    recipe = Recipe.objects.filter(title__icontains=query).first()
-    if recipe:
-        return redirect('nutrition:recipe_detail', pk=recipe.id)
-
-    # === Search for specific Product ===
-    product = Product.objects.filter(name__icontains=query).first()
+    # === Exact match redirect (priority 1) ===
+    product = Product.objects.filter(name__iexact=query).first()
     if product:
-        return redirect('product_detail', pk=product.id)
+        return redirect('product_detail', slug=product.slug)
 
-    # === No match fallback ===
-    return HttpResponse("Sorry, we couldn't find what you're looking for.")
+    recipe = Recipe.objects.filter(title__iexact=query).first()
+    if recipe:
+        return redirect('nutrition:recipe_detail', pk=recipe.pk)
+
+    meal_plan = MealPlan.objects.filter(title__iexact=query).first()
+    if meal_plan:
+        return redirect('nutrition:meal_plan_detail', pk=meal_plan.pk)
+
+    # === Partial match fallback (priority 2) ===
+    products = Product.objects.filter(name__icontains=query)
+    recipes = Recipe.objects.filter(title__icontains=query)
+    meal_plans = MealPlan.objects.filter(title__icontains=query)
+
+    if products.exists() or recipes.exists() or meal_plans.exists():
+        return render(
+            request,
+            'home/global_search_results.html',
+            {
+                'products': products,
+                'recipes': recipes,
+                'meal_plans': meal_plans,
+                'query': query,
+            },
+        )
+
+    messages.warning(request, "No results found.")
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
