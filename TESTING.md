@@ -98,3 +98,46 @@ All tests passed successfully. Output:
   ![Test Results](static/testing-screenshoots/test-results2.png)
 
 </details>
+
+
+---
+
+
+### ✅ Test Class: `PasswordChangeTests`
+
+This test suite verifies the **password change functionality** in the user settings section. It ensures the form behaves securely and correctly when changing passwords.
+
+> All tests are located in:  
+> `profiles/tests.py`
+
+| Test Method              | Purpose |
+|--------------------------|---------|
+| `test_change_password_success` | Confirms that a logged-in user can successfully change their password using the password change form. Verifies the user stays logged in, the password is updated, and a success toast message is displayed. |
+
+### 🛠️ Setup Logic
+
+The test logs in a user with an initial password (`oldpass123`), submits a valid password change request, and confirms the update.
+
+```python
+def setUp(self):
+    self.user = User.objects.create_user(username='tester', password='oldpass123')
+    self.client.login(username='tester', password='oldpass123')
+
+### Running the Tests
+
+To execute all tests:
+
+```bash
+python manage.py test profiles.tests.PasswordChangeTests
+```
+
+### Test Output
+
+All tests passed successfully. Output:
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results3.png)
+
+</details>
