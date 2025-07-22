@@ -6,7 +6,6 @@ from django.conf import settings
 from django.http import JsonResponse
 from decimal import Decimal
 import stripe
-
 from shop.models import Product
 from orders.models import Order, OrderItem
 from profiles.models import UserProfile
@@ -104,9 +103,9 @@ def remove_from_cart(request, product_id):
     return redirect('view_cart')
 
 
-# 💳 Checkout view
 @login_required
 def checkout_view(request):
+    # Get cart items
     items_qs = CartItem.objects.filter(user=request.user).select_related('product')
     cart = {
         str(item.product.id): {
@@ -117,6 +116,7 @@ def checkout_view(request):
         } for item in items_qs
     }
 
+    # Handle post-payment success redirect
     if request.GET.get('success') == 'true':
         order_id = request.session.get('order_id')
         if order_id:
@@ -135,11 +135,31 @@ def checkout_view(request):
         messages.warning(request, "We couldn't confirm your order.")
         return redirect('view_cart')
 
+    # 🛑 Redirect if cart is empty
     if not cart:
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
+    # ✅ Default form instance
     form = CheckoutForm()
+
+    # ✅ Pre-fill form if checkbox is ticked
+    if request.GET.get('use_saved_info') == 'on':
+        try:
+            user_profile = request.user.userprofile
+            form = CheckoutForm(initial={
+                'full_name': user_profile.default_full_name,
+                'email': user_profile.default_email,
+                'phone_number': user_profile.default_phone_number,
+                'address_line1': user_profile.default_address_line1,
+                'address_line2': user_profile.default_address_line2,
+                'city': user_profile.default_city,
+                'postcode': user_profile.default_postcode,
+                'country': user_profile.default_country,
+            })
+        except UserProfile.DoesNotExist:
+            messages.warning(request, "No saved delivery info found.")
+
     total = calculate_cart_total(cart)
 
     return render(request, 'cart/checkout.html', {
@@ -148,6 +168,8 @@ def checkout_view(request):
         'form': form,
         'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
     })
+
+
 
 
 # 🔐 Stripe config
