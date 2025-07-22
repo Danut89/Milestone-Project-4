@@ -3,69 +3,60 @@
 
 {% block content %}
 <section class="container py-5 shop-header">
-  <h1 class="mb-4">📦 My Orders</h1>
+  <h1 class="mb-4 fw-bold text-dark">📦 Order History</h1>
 
   {% if orders %}
-    <div class="order-list d-flex flex-column gap-4">
+    <div class="order-history-grid">
       {% for order in orders %}
-        <div class="order-card d-flex justify-content-between align-items-center px-4 py-3 shadow-sm rounded-4">
-          <!-- Left: Order info -->
-          <div class="order-info">
-            <h5><i class="fas fa-box"></i> Order #{{ order.id }}</h5>
-            <p class="mb-0"><strong>Status:</strong> <span class="text-success">Paid</span></p>
-            <p class="mb-0"><strong>Date:</strong> {{ order.created_at|date:"M d, Y" }}</p>
-            <p class="mb-0"><strong>Total:</strong> £{{ order.total_price }}</p>
+        <div class="order-card">
+          <div class="order-header">
+            <div>
+              <h5 class="order-id">Order #{{ order.id }}</h5>
+              <p class="order-date">📅 {{ order.created_at|date:"F j, Y" }}</p>
+            </div>
+            <a href="{% url 'order_detail' order.id %}" class="view-btn">🔍 View</a>
           </div>
 
-          <!-- Middle: Items -->
-          <div class="order-items d-flex flex-wrap gap-3 justify-content-center">
+          <div class="order-body">
             {% for item in order.items.all %}
-              <div class="item-box text-center">
-                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-                <small>{{ item.product.name }}</small>
+              <div class="order-item">
+                {% if item.product.image %}
+                  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-img">
+                {% else %}
+                  <div class="placeholder-img">No Image</div>
+                {% endif %}
+                <div class="item-info">
+                  <p class="item-name">{{ item.product.name }}</p>
+                  <p class="item-qty">Qty: {{ item.quantity }}</p>
+                  <p class="item-price">£{{ item.price|floatformat:2 }}</p>
+                </div>
               </div>
             {% endfor %}
           </div>
 
-          <!-- Right: Button -->
-          <div class="order-action text-end">
-            <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary">
-              <i class="fas fa-eye me-1"></i> View
-            </a>
+          <div class="order-footer">
+            <span class="order-total-label">Total Paid:</span>
+            <span class="order-total-amount">£{{ order.total_price|floatformat:2 }}</span>
           </div>
         </div>
       {% endfor %}
     </div>
-  {% else %}
-    <p class="text-center">You haven't placed any orders yet.</p>
-  {% endif %}
-</div>
-
-
-
-    </div>
 
     <!-- Pagination -->
-    <nav aria-label="Order pagination" class="mt-4">
+    <nav class="pagination-wrapper mt-5">
       <ul class="pagination justify-content-center">
         {% if orders.has_previous %}
           <li class="page-item">
             <a class="page-link" href="?page={{ orders.previous_page_number }}">« Prev</a>
           </li>
         {% endif %}
-
         {% for num in orders.paginator.page_range %}
           {% if orders.number == num %}
-            <li class="page-item active">
-              <span class="page-link">{{ num }}</span>
-            </li>
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
           {% elif num > orders.number|add:"-3" and num < orders.number|add:"3" %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-            </li>
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
           {% endif %}
         {% endfor %}
-
         {% if orders.has_next %}
           <li class="page-item">
             <a class="page-link" href="?page={{ orders.next_page_number }}">Next »</a>
@@ -73,9 +64,10 @@
         {% endif %}
       </ul>
     </nav>
-
-  
-    <p>You haven't placed any orders yet.</p>
-  
+  {% else %}
+    <div class="text-center mt-5">
+      <p class="text-muted">You haven't placed any orders yet.</p>
+    </div>
+  {% endif %}
 </section>
 {% endblock %}

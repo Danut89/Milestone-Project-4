@@ -168,7 +168,7 @@
 
 /* --- Success Confirmation Card --- */
 .confirmation-box {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-bg);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-lg);
   padding: 3rem 2rem;
@@ -177,7 +177,7 @@
 
 /* --- Success Summary --- */
 .order-summary-box {
-  background: var(--bg-muted);
+  background: var(--color-bg);
   border-left: 4px solid var(--accent-color);
   font-size: 1.05rem;
   color: var(--text-primary);
