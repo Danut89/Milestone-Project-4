@@ -3,18 +3,18 @@
 # 📚 Table of Contents
 
 - [📖 About](#📖-about)
-  - [🎯 Project Overview](#🎯-project-overview)
-  - [🎯 Site Purpose](#🎯-site-purpose)
+  - [ Project Overview](#project-overview)
+  - [ Site Purpose](#site-purpose)
   - [🎯 Target Audience](#🎯-target-audience)
-- [🧠 User Experience (UX)](#🧠-user-experience-ux)
+- [ User Experience (UX)](#user-experience-ux)
   - [✅ User Stories](#✅-user-stories)
-  - [🎨 Design Choices](#-design-choices)
-    - [🎨 Colour Palette](#-colour-palette)
-    - [🔤 Typography](#-typography)
-    - [🔣 Icons](#-icons)
-    - [🎞️ Animations and Interactivity](#-animations-and-interactivity)
-    - [📱 Responsive Design](#-responsive-design)
-  - [🧾 Wireframes](#-wireframes)
+  - [🎨 Design Choices](#🎨-design-choices)
+    - [ Colour Palette](#colour-palette)
+    - [ Typography](#typography)
+    - [ Icons](#icons)
+    - [ Animations and Interactivity](#animations-and-interactivity)
+    - [ Responsive Design](#responsive-design)
+  - [🧾 Wireframes](#🧾-wireframes)
 - [💡 Features](#-features)
   - [🏠 Homepage and Navigation](#-homepage-and-navigation)
   - [🔐 Authentication (Login / Signup)](#-authentication-login--signup)
@@ -45,7 +45,7 @@
   - [🙏 Inspiration and Acknowledgements](#-inspiration-and-acknowledgements)
 
 
-# 📖 About
+## 📖 About
 
 **Project Name**: FitZone Pro  
 **Developer**: Danut Grigore  
@@ -57,7 +57,7 @@ Built using Django, PostgreSQL, and Bootstrap, it offers a responsive and profes
 
 ---
 
-## 🎯 Project Overview
+###  Project Overview
 
 FitZone Pro enables users to:
 
@@ -79,7 +79,7 @@ FitZone Pro is built to replicate real-world full-stack project challenges, incl
 
 ---
 
-## 🎯 Site Purpose
+###  Site Purpose
 
 The purpose of this project is to combine the most common tools used by fitness-focused users into one seamless digital experience. Unlike isolated meal plan apps or static recipe sites, FitZone Pro is designed to be:
 
@@ -101,7 +101,7 @@ The platform supports both anonymous browsing and rich personalized features for
 
 ---
 
-## 🎯 Target Audience
+### 🎯 Target Audience
 
 FitZone Pro is designed for the following user groups:
 
@@ -114,25 +114,59 @@ FitZone Pro is designed for the following user groups:
 
 ---
 
-## ✅ User Stories
+## User Experience UX
+
+### ✅ User Stories
 
 The following user stories were considered during the design and development of FitZone Pro:
 
-### 🧍 Guest User
+#### 🧍 Guest User
 - As a visitor, I want to explore the website without creating an account.
 - As a visitor, I want to browse meal plans and recipes to decide if the platform suits me.
-- As a visitor, I want to view available fitness products before deciding to sign up.
+- As a visitor, I want to view and search by keyword available products before deciding to sign up.
 
-### 👤 Registered User
+#### 👤 Registered User
 - As a user, I want to register and log in securely.
 - As a user, I want to view and save my favorite recipes and meal plans.
 - As a user, I want to manage my profile information and change my password.
 - As a user, I want to add items to my cart and complete a secure checkout.
 - As a user, I want to view my past orders and track my activity.
 
-### 🛠 Admin User
+#### 🛠 Admin User
 - As an admin, I want to add, update, and remove products in the shop.
 - As an admin, I want to manage submitted recipes or plans if moderation is needed.
 - As an admin, I want to monitor and process user orders.
 
 Each user type was considered in the platform's navigation, available features, and access permissions.
+
+---
+
+### 🎨 Design Choices
+
+This section will outline the visual and interaction design decisions made for FitZone Pro.
+
+####  Colour Palette
+
+> Placeholder: A clean and modern color palette was chosen to align with the brand identity and health/fitness focus. (Details to be added)
+
+####  Typography
+
+> Placeholder: The chosen fonts aim for readability, modern appeal, and consistency across devices. (Details to be added)
+
+####  Icons
+
+> Placeholder: Iconography enhances scannability and helps users identify sections intuitively. (Details to be added)
+
+####  Animations and Interactivity
+
+> Placeholder: Subtle animations, hover effects, and transitions were used to provide feedback and improve user experience. (Details to be added)
+
+####  Responsive Design
+
+> Placeholder: All templates were built mobile-first and thoroughly tested for responsiveness across device sizes. (Details to be added)
+
+---
+
+### 🧾 Wireframes
+
+> Placeholder: Initial low-fidelity wireframes were created to define structure and layout before development began. Screenshots or links to mockups will be added here.
