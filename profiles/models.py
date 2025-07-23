@@ -5,7 +5,7 @@ class UserProfile(models.Model):
     """
     A user profile model for storing default delivery info and order history
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     default_full_name = models.CharField(max_length=100, null=True, blank=True)
     default_email = models.EmailField(null=True, blank=True)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)

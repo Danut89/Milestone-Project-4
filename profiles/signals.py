@@ -10,12 +10,9 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile whenever the User object is saved.
     """
     if created:
-        # Create a new profile when the user is created
         UserProfile.objects.create(user=instance)
     else:
-        # Update the existing profile if it exists
         try:
-            instance.userprofile.save()
+            instance.profile.save()  # ✅ use 'profile' not 'userprofile'
         except UserProfile.DoesNotExist:
             UserProfile.objects.create(user=instance)
-

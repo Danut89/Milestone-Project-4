@@ -862,6 +862,36 @@ textarea:focus {
 }
 
 /* ============================
+   🗂️ login page
+============================ */
+/* 🔘 Accent Button */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+  color: white;
+}
+
+/* 🔲 Rounded Card */
+.login-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-bg);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+/* 🎨 Accent Color */
+.text-accent {
+  color: var(--color-accent);
+}
+
+
+/* ============================
    🗂️ Section Divider
 ============================ */
 .section-divider {
@@ -869,6 +899,21 @@ textarea:focus {
   overflow: hidden;
   height: 60px;
   margin-top: -2rem;
+}
+
+.toast {
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 

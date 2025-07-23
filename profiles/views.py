@@ -17,17 +17,12 @@ from nutrition.models import MealPlan
 
 # Create your views here.
 
-
-
-
-
-
 @login_required
 def dashboard(request):
     saved_recipes = Wishlist.objects.filter(user=request.user, recipe__isnull=False)
     saved_meal_plans = Wishlist.objects.filter(user=request.user, meal_plan__isnull=False)
     user = request.user
-    profile = user.userprofile
+    profile = user.profile
 
     activities = []
     if not profile.hide_recent_activity:
@@ -56,9 +51,10 @@ def dashboard(request):
 
 @login_required
 def toggle_recent_activity_visibility(request):
-    profile = request.user.userprofile
+    profile = request.user.profile
     profile.hide_recent_activity = not profile.hide_recent_activity
     profile.save()
+
     status = "hidden" if profile.hide_recent_activity else "visible"
     messages.success(request, f"Recent activity is now {status}.")
     return redirect('settings_view')
@@ -70,15 +66,10 @@ def settings_view(request):
     return render(request, 'profiles/settings.html')
 
    
-
-
-
-
-
 @login_required
 def edit_info_view(request):
     user = request.user
-    profile = user.userprofile
+    profile = user.profile
 
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=user)
@@ -97,8 +88,6 @@ def edit_info_view(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
-
-
 
 
 @login_required

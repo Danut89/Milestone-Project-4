@@ -36,10 +36,16 @@
          <h5 class="card-title">👁️‍🗨️ Recent Activity</h5>
           <p class="card-text">Toggle the visibility of your recent activity on the dashboard.</p>
           <form method="POST" action="{% url 'toggle_recent_activity' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn {% if user.userprofile.hide_recent_activity %}btn-success{% else %}btn-outline-secondary{% endif %}">
-              {% if user.userprofile.hide_recent_activity %}Show{% else %}Hide{% endif %} Recent Activity
-            </button>
+             {% csrf_token %}
+             {% if request.user.profile.hide_recent_activity %}
+                <button type="submit" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-eye-slash me-1"></i> Show Recent Activity
+                </button>
+             {% else %}
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fa-solid fa-eye me-1"></i> Hide Recent Activity
+                </button>
+             {% endif %}
           </form>
       </div>
     </div>
