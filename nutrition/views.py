@@ -143,27 +143,41 @@ def toggle_wishlist(request):
 
 @login_required
 def add_recipe(request):
+    """
+    Allows a logged-in user to add a new recipe.
+    On successful creation, redirects to the recipe detail view and displays a success message.
+    """
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.save()
+            messages.success(request, "✅ Your new recipe has been added!")
             return redirect('nutrition:recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm()
+
     return render(request, 'nutrition/recipe_form.html', {'form': form})
+
 
 @login_required
 def edit_recipe(request, pk):
+    """
+    Allows a logged-in user to edit their existing recipe.
+    On successful update, redirects to the recipe detail view and displays a success message.
+    """
     recipe = get_object_or_404(Recipe, pk=pk, author=request.user)
+
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
             form.save()
+            messages.success(request, "✅ Recipe updated successfully!")
             return redirect('nutrition:recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm(instance=recipe)
+
     return render(request, 'nutrition/recipe_form.html', {'form': form})
 
 

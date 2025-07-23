@@ -1,89 +1,30 @@
 {# ✅ Toasts Partial - templates/partials/toasts.html #}
-<div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1060;">
-  {% if messages %}
-    {% for message in messages %}
-      <div class="toast show align-items-center text-bg-{{ message.tags|default:'secondary' }} border-0 mb-2" role="alert">
-        <div class="d-flex">
-          <div class="toast-body">
-            {{ message }}
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      </div>
-    {% endfor %}
-  {% endif %}
-</div>
 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
-  <div id="wishlistToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" id="toast-body">
-        <!-- Toast message goes here -->
+{% if messages %}
+<div aria-live="polite" aria-atomic="true" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+  {% for message in messages %}
+    <div class="toast align-items-center text-white bg-{{ message.tags|default:'secondary' }} border-0 shadow-sm mb-3"
+         role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ message }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{# ✅ Wishlist toast (custom) - triggered via JS only #}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1070;">
+  <div id="wishlistToast" class="toast align-items-center text-white bg-success border-0 shadow-sm"
+       role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toast-body"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
-
-<!-- ✅ jQuery (required for Bootstrap JS) wishlist button -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const btn = document.getElementById("wishlist-btn");
-    if (!btn) return;
-
-    btn.addEventListener("click", function () {
-      const itemId = btn.dataset.id;
-      const itemType = btn.dataset.type;
-
-      fetch("{% url 'nutrition:toggle_wishlist' %}", {
-        method: "POST",
-        headers: {
-          "X-CSRFToken": "{{ csrf_token }}",
-          "X-Requested-With": "XMLHttpRequest",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `id=${itemId}&type=${itemType}`,
-      })
-      .then(response => response.json())
-      .then(data => {
-        const toastEl = document.getElementById("wishlistToast");
-        const toastBody = document.getElementById("toast-body");
-
-        if (data.status === "added") {
-          btn.classList.remove("btn-outline-danger");
-          btn.classList.add("btn-danger");
-          btn.innerHTML = `<i class="fas fa-heart me-2"></i> Remove from Wishlist`;
-
-          toastBody.textContent = "❤️ Item added to your wishlist!";
-          toastEl.classList.replace("bg-danger", "bg-success");
-
-        } else if (data.status === "removed") {
-          btn.classList.remove("btn-danger");
-          btn.classList.add("btn-outline-danger");
-          btn.innerHTML = `<i class="fas fa-heart me-2"></i> Save to Wishlist`;
-
-          toastBody.textContent = "💔 Item removed from your wishlist.";
-          toastEl.classList.replace("bg-success", "bg-danger");
-        }
-
-        // Show the toast
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-      });
-    });
-  });
-</script>
-
-<!-- 🔄 Show only Django messages (not wishlist toast) -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toastEls = document.querySelectorAll('.toast');
-    toastEls.forEach(function (toastEl) {
-      // Skip the wishlist toast
-      if (toastEl.id === "wishlistToast") return;
-
-      const toast = new bootstrap.Toast(toastEl, { delay: 4000 });
-      toast.show();
-    });
-  });
-</script>

@@ -5,8 +5,10 @@
 
 {% block content %}
 
-<!--  Hero Section -->
-<section class="hero-section d-flex align-items-center text-white" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('{% static 'images/hero-image.png' %}') center/cover no-repeat;" role="banner">
+<!-- 🏁 Hero Section -->
+<section class="hero-section d-flex align-items-center text-white"
+         style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('{% static 'images/hero-image.png' %}') center/cover no-repeat;"
+         role="banner" aria-label="Main promotional banner">
   <div class="container py-5 hero-content">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center text-lg-start">
@@ -14,10 +16,8 @@
           Your Personal Wellness<br><span class="text-success">Companion</span>
         </h1>
         <div class="review-stars d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 animate-fadeInUp">
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
-          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
           <span class="text-white-50 small">5.0 based on 4,500+ real user reviews</span>
         </div>
@@ -33,11 +33,12 @@
   </div>
 </section>
 
-
-<!-- 💪 Why Choose FitZone Pro -->
-<section class="why-fitzone-pro text-center">
+<!-- 💪 Why Choose Us -->
+<section class="why-fitzone-pro text-center py-5">
   <div class="container">
-    <h2 class="section-heading"><i class="fas fa-star me-2 text-success"></i>Why Choose <span class="">FitZone Pro</span></h2>
+    <h2 class="section-heading">
+      <i class="fas fa-star me-2 text-success"></i>Why Choose <span class="">FitZone Pro</span>
+    </h2>
     <p class="lead mb-4">More than fitness – it's your complete wellness partner.</p>
 
     <p class="section-text mb-2">
@@ -48,6 +49,7 @@
     </p>
 
     <div class="row justify-content-center text-center icon-row gy-4">
+      <!-- Feature Box -->
       <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
         <i class="fa-solid fa-utensils fa-2x text-accent mb-2"></i>
         <h6 class="fw-bold">Expert Meal Plans</h6>
@@ -72,11 +74,10 @@
   </div>
 </section>
 
-
-<!-- Your Wellness Journey Section -->
-<section class="wellness-journey-section" aria-labelledby="journey-heading">
+<!-- 🌱 Your Wellness Journey -->
+<section class="wellness-journey-section py-5" aria-labelledby="journey-heading">
   <div class="container text-center">
-    <h2 id="journey-heading" class="section-title mb-3 mt-5">
+    <h2 id="journey-heading" class="section-title mb-3">
       <i class="fas fa-seedling text-primary me-2" aria-hidden="true"></i>
       Your Journey to Wellness
     </h2>
@@ -85,7 +86,7 @@
     </p>
 
     <div class="row g-4 justify-content-center">
-      <!-- Card 1 -->
+      {% comment %} Cards for each journey step {% endcomment %}
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
         <article class="journey-card h-100" role="group" aria-labelledby="eat-smarter-title">
           <h3 id="eat-smarter-title" class="card-title">Eat Smarter</h3>
@@ -97,7 +98,6 @@
         </article>
       </div>
 
-      <!-- Card 2 -->
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
         <article class="journey-card h-100" role="group" aria-labelledby="train-better-title">
           <h3 id="train-better-title" class="card-title">Train Better</h3>
@@ -109,7 +109,6 @@
         </article>
       </div>
 
-      <!-- Card 3 -->
       <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
         <article class="journey-card h-100" role="group" aria-labelledby="fuel-body-title">
           <h3 id="fuel-body-title" class="card-title">Fuel Your Body</h3>
@@ -124,21 +123,18 @@
   </div>
 </section>
 
-
+<!-- 🔄 Popular Carousel -->
 {% include 'partials/popular_carousel.html' %}
 
-
-
-  <!-- 🗣️ Testimonials -->
-<section id="testimonials" class="testimonials-section text-center">
+<!-- 🗣️ Testimonials -->
+<section id="testimonials" class="testimonials-section text-center py-5">
   <div class="container">
     <h2 class="testimonials-heading section-title mb-5">
       <i class="fas fa-comment-dots text-success"></i> What Our Members Say
     </h2>
 
     <div class="row justify-content-center">
-
-      <!-- 🧍 Testimonial Card 1 -->
+      <!-- Testimonial Cards -->
       <div class="col-md-3 mb-4">
         <div class="testimonial-card">
           <img src="{% static 'images/image1.jpg' %}" alt="Sarah M." class="testimonial-avatar">
@@ -147,8 +143,6 @@
           <p class="testimonial-role">Verified Member</p>
         </div>
       </div>
-
-      <!-- 🧍 Testimonial Card 2 -->
       <div class="col-md-3 mb-4">
         <div class="testimonial-card">
           <img src="{% static 'images/face3.jpg' %}" alt="James K." class="testimonial-avatar">
@@ -157,8 +151,6 @@
           <p class="testimonial-role">Gym Enthusiast</p>
         </div>
       </div>
-
-      <!-- 🧍 Testimonial Card 3 -->
       <div class="col-md-3 mb-4">
         <div class="testimonial-card">
           <img src="{% static 'images/image2.jpg' %}" alt="Emily R." class="testimonial-avatar">
@@ -167,16 +159,14 @@
           <p class="testimonial-role">Community Member</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-
-
-
-<!-- 📬 Subscribe Section -->
-<section class="subscribe-section text-center" aria-labelledby="subscribe-heading" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('{% static 'images/subscribe-image.png' %}') center/cover no-repeat;" role="banner">
+<!-- 📬 Newsletter Subscription -->
+<section class="subscribe-section text-center" aria-labelledby="subscribe-heading"
+         style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('{% static 'images/subscribe-image.png' %}') center/cover no-repeat;"
+         role="region">
   <div class="container">
     <h2 id="subscribe-heading" class="section-title mb-3">
       <i class="fas fa-envelope-open-text me-2 text-primary" aria-hidden="true"></i>
@@ -186,7 +176,8 @@
       Join our community for the latest wellness tips, product launches, and exclusive offers.
     </p>
 
-    <form class="row justify-content-center align-items-center g-2" role="form" aria-label="Newsletter subscription">
+    <form action="#" method="POST" class="row justify-content-center align-items-center g-2"
+          role="form" aria-label="Newsletter subscription">
       <div class="col-md-6">
         <input type="email" class="form-control subscribe-input" placeholder="Enter your email" required aria-label="Email address">
       </div>
@@ -197,6 +188,7 @@
   </div>
 </section>
 
+<!-- 🌀 Animated Divider -->
 <section class="section-divider">
   {% include 'partials/animated_divider.html' %}
 </section>
