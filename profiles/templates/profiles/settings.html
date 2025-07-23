@@ -1,45 +1,39 @@
-
-
-
 {% extends "base.html" %}
-{% block title %}Profile Settings{% endblock %}
+{% load static %}
+
+{% block title %}Account Settings{% endblock %}
 
 {% block content %}
-<div class="container py-4 shop-header">
-  <h2 class="mb-4">⚙️ Account Settings</h2>
-  <p class="text-muted">Manage your personal information, account security, and preferences.</p>
+<section class="container py-5 dashboard-section shop-header">
+  <div class="text-center mb-5 dashboard-welcome">
+    <h1 class="fw-bold mb-2"><i class="bi bi-gear-fill text-primary me-2"></i> Account Settings</h1>
+    <p class="text-muted fs-5">Manage your personal information, account security, and preferences.</p>
+  </div>
 
-  <div class="row g-4 mt-4">
-
-    <!-- 👤 Personal Info -->
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">👤 Personal Information</h5>
-          <p class="card-text">View and update your name and email address.</p>
-          <a href="{% url 'edit_info' %}" class="btn btn-outline-primary">Edit Info</a>
-        </div>
+  <div class="row g-4">
+    <!-- Personal Info -->
+    <div class="col-md-6">
+      <div class="dashboard-card text-center info-card">
+        <h5><i class="bi bi-person-fill text-primary"></i> Personal Information</h5>
+        <p class="text-muted">Manage your profile details including name and email to keep your account up to date.</p>
+        <a href="{% url 'edit_info' %}" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit Info</a>
       </div>
     </div>
 
-    <!-- 🔒 Password -->
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">🔒 Change Password</h5>
-          <p class="card-text">Update your account password securely.</p>
-          <a href="{% url 'change_password' %}" class="btn btn-outline-primary">
-            Change Password
-          </a>
-        </div>
+     <!-- Change Password -->
+    <div class="col-md-6">
+      <div class="dashboard-card text-center info-card">
+        <h5><i class="bi bi-lock-fill text-warning"></i> Change Password</h5>
+        <p>Secure your account by updating your password to keep your personal information and preferences protected at all times.</p>
+        <a href="{% url 'change_password' %}" class="btn btn-outline-warning"><i class="bi bi-shield-lock"></i> Change Password</a>
       </div>
     </div>
 
-    <!-- 👁️‍🗨️ Toggle Recent Activity -->
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">👁️‍🗨️ Recent Activity</h5>
+
+    <!-- Recent Activity -->
+    <div class="col-md-12">
+      <div class="dashboard-card text-center">
+         <h5 class="card-title">👁️‍🗨️ Recent Activity</h5>
           <p class="card-text">Toggle the visibility of your recent activity on the dashboard.</p>
           <form method="POST" action="{% url 'toggle_recent_activity' %}">
             {% csrf_token %}
@@ -47,44 +41,60 @@
               {% if user.userprofile.hide_recent_activity %}Show{% else %}Hide{% endif %} Recent Activity
             </button>
           </form>
-        </div>
       </div>
     </div>
 
-
-    <!-- ❌ Account Deletion -->
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm border-danger">
-        <div class="card-body">
-          <h5 class="card-title text-danger">❌ Delete Account</h5>
-          <p class="card-text">Permanently remove your account and data.</p>
-          <a href="#" class="btn btn-danger disabled">Request Deletion</a>
+    <!-- FAQ Section -->
+    <div class="accordion mb-4" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading1">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false">
+          How can I edit my personal information?
+        </button>
+      </h2>
+      <div id="faqCollapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          To edit your personal information, click the "Edit Info" button above. You will be redirected to a form where you can update your name and email address.
         </div>
       </div>
     </div>
-
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false">
+          How do I change my password?
+        </button>
+      </h2>
+      <div id="faqCollapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Click the "Change Password" button to access the password update form. You must enter your current password and a new one to proceed.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false">
+          Can I hide my recent activity from the dashboard?
+        </button>
+      </h2>
+      <div id="faqCollapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes! Use the "Hide Recent Activity" button in the card below. It toggles whether your orders and recipe actions appear in your dashboard.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading4">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false">
+          What happens if I forget my password?
+        </button>
+      </h2>
+      <div id="faqCollapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          If you forget your password, click "Forgot Password?" on the login page. You will receive an email with instructions to reset it securely.
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-{% if request.GET.password_changed %}
-<script>
-  const toastEl = document.createElement('div');
-  toastEl.className = 'toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3';
-  toastEl.setAttribute('role', 'alert');
-  toastEl.setAttribute('aria-live', 'assertive');
-  toastEl.setAttribute('aria-atomic', 'true');
-  toastEl.innerHTML = `
-    <div class="d-flex">
-      <div class="toast-body">
-        ✅ Password changed successfully!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  `;
-  document.body.appendChild(toastEl);
-  const toast = new bootstrap.Toast(toastEl);
-  toast.show();
-</script>
-{% endif %}
-
+</section>
 {% endblock %}

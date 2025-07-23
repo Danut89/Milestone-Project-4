@@ -1,4 +1,6 @@
-/* 💎 Final Polished Dashboard Styles */
+/* ===========================
+   Dashboard Styles
+============================= */
 .dashboard-card {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(8px);
@@ -154,6 +156,36 @@
   border-radius: var(--radius-md);
   padding: 2rem;
   margin-bottom: 2rem;
+}
+
+/* ===========================
+   Settings page Styles
+============================= */
+/* ⚙️ Settings Page Enhancements */
+
+/* Use consistent spacing and hierarchy */
+.dashboard-welcome h1 {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dashboard-welcome i {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+
+/* Optional variation for delete card */
+.dashboard-card.border-danger {
+  border: 1px solid var(--color-danger, #dc3545);
+}
+
+/* Modal alignment override (ensure spacing is clean) */
+.modal-title i {
+  font-size: 1.2rem;
+  vertical-align: middle;
 }
 
 
