@@ -14,8 +14,6 @@ from django.contrib import messages
 # 📄 Static & Listing Views
 # ==============================
 
-def nutrition_home(request):
-    return render(request, 'nutrition/home.html')
 
 def meal_plans(request):
     sort_option = request.GET.get('sort')

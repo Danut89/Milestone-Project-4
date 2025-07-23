@@ -7,104 +7,102 @@
 <section class="container py-5 dashboard-section shop-header">
   <!-- 👋 Welcome Message -->
   <div class="mb-5 text-center">
-    <h1 class="display-5 fw-bold">👋 Welcome, {{ user.username }}!</h1>
-    <p class="text-muted fs-5">This is your FitZone Pro dashboard – manage your wellness journey with ease.</p>
+    <h1 class="display-5 fw-bold dashboard-welcome"><i class="bi bi-stars me-2 text-primary"></i> Welcome, {{ user.username }}!</h1>
+    <p class="text-muted fs-5">Manage your wellness journey with ease using your FitZone Pro dashboard.</p>
   </div>
 
-  <!-- 📦 Dashboard Grid -->
+  <!-- ✅ Dashboard Grid -->
   <div class="row g-4">
 
     <!-- 🥗 Nutrition -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card-glass p-4 h-100 dashboard-card">
-        <h5 class="mb-3">🥗 Nutrition Plans</h5>
-        <p>Access personalized meal plans and dietary advice.</p>
-        <a href="{% url 'nutrition:nutrition' %}" class="btn btn-sm btn-outline-success">Go to Nutrition</a>
+    <div class="col-md-6 col-xl-4">
+      <div class="card-glass dashboard-card info-card">
+        <h5 class="mb-3"><i class="bi bi-egg-fried text-success me-2"></i> Nutrition</h5>
+        <p>Explore personalized meal plans and recipes tailored to your lifestyle.</p>
+        <div class="d-flex gap-2 justify-content-center">
+          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success">Meal Plans</a>
+          <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-primary">Recipes</a>
+        </div>
       </div>
     </div>
 
-    <!-- 🛒 Store -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card-glass p-4 h-100 dashboard-card">
-        <h5 class="mb-3">🛒 Store</h5>
-        <p>Browse products and supplements tailored to your fitness goals.</p>
-        <a href="{% url 'all_products' %}" class="btn btn-sm btn-outline-primary">Go to Store</a>
+    <!-- 🛍️ Store -->
+    <div class="col-md-6 col-xl-4">
+      <div class="card-glass dashboard-card info-card">
+        <h5 class="mb-3"><i class="bi bi-bag-fill text-warning me-2"></i> Store</h5>
+        <p>Browse supplements and products designed to boost your goals.</p>
+        <a href="{% url 'all_products' %}" class="btn btn-outline-warning text-center">Visit Store</a>
       </div>
     </div>
 
-    <!-- 🧑‍💼 Account Summary -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card-glass p-4 h-100 dashboard-card">
-        <h5 class="mb-3">🧑‍💼 Account Summary</h5>
-        <ul class="list-unstyled mb-3">
+    <!-- 👤 Account Summary -->
+    <div class="col-md-12 col-xl-4">
+      <div class="card-glass dashboard-card info-card">
+        <h5 class="mb-3"><i class="bi bi-person-circle text-secondary me-2"></i> Account Summary</h5>
+        <ul class="list-unstyled info-card">
           <li><strong>Username:</strong> {{ user.username }}</li>
           <li><strong>Email:</strong> {{ user.email }}</li>
           <li><strong>Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</li>
         </ul>
-        <a href="{% url 'settings_view' %}" class="btn btn-sm btn-outline-danger">Manage Account</a>
+        <div class="text-center">
+          <a href="{% url 'settings_view' %}" class="btn btn-sm btn-outline-secondary">Manage Account</a>
+        </div>
       </div>
     </div>
 
-   
-      <!-- 💖 Wishlist Tabs -->
-      <div class="col-6 scrollable-activity p-2">
-        <div class="card-glass p-4 h-100 dashboard-card">
-          <h5 class="mb-3">💾 Wishlist</h5>
-
+    <!-- 💾 Wishlist Tabs -->
+    <div class="col-lg-6">
+      <div class="card-glass dashboard-card">
+        <h5 class="mb-3"><i class="bi bi-bookmark-heart-fill text-primary me-2"></i> Wishlist</h5>
         <ul class="nav nav-tabs" id="wishlistTab" role="tablist">
           <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#recipes">🍽 Recipes</button>
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#recipes"><i class="bi bi-egg-fried text-success me-1"></i> Recipes</button>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#plans">📋 Plans</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#plans"><i class="bi bi-journal-text me-1 text-primary"></i> Plans</button>
           </li>
         </ul>
 
         <div class="tab-content mt-3" id="wishlistTabContent">
-        <!-- Recipes -->
-        <div class="tab-pane fade show active" id="recipes" role="tabpanel">
-          {% if saved_recipes %}
-            <ul class="list-group">
-              {% for item in saved_recipes %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  {% if item.recipe.image %}
-                    <img src="{{ item.recipe.image.url }}" alt="{{ item.recipe.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
-                  {% else %}
-                    <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded me-3" style="width: 50px; height: 50px;">
-                      <i class="bi bi-image"></i>
+          <div class="tab-pane fade show active" id="recipes">
+            {% if saved_recipes %}
+              <ul class="list-group scrollable-activity">
+                {% for item in saved_recipes %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      {% if item.recipe.image %}
+                        <img src="{{ item.recipe.image.url }}" alt="{{ item.recipe.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      {% else %}
+                        <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded me-3" style="width: 50px; height: 50px;">
+                          <i class="bi bi-image"></i>
+                        </div>
+                      {% endif %}
+                     <strong><span>{{ item.recipe.title }}</span></strong>
                     </div>
-                  {% endif %}
-                  <span>{{ item.recipe.title }}</span>
-                </div>
-                <a href="{% url 'nutrition:recipe_detail' item.recipe.id %}" class="btn btn-sm btn-outline-secondary">View</a>
-              </li>
+                    <a href="{% url 'nutrition:recipe_detail' item.recipe.id %}" class="btn btn-sm btn-outline-secondary dashboard-button">View</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted">You haven't saved any recipes yet.</p>
+            {% endif %}
+          </div>
 
-
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p class="text-muted mt-2">You haven't saved any recipes yet.</p>
-          {% endif %}
-        </div>
-
-          <!-- Plans Tab -->
           <div class="tab-pane fade" id="plans">
             {% if saved_meal_plans %}
               <ul class="list-group">
                 {% for item in saved_meal_plans %}
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                  {% if item.meal_plan.image %}
-                    <img src="{{ item.meal_plan.image.url }}" alt="{{ item.meal_plan.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
-                  {% else %}
-                    <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded me-3" style="width: 50px; height: 50px;">
-                      <i class="bi bi-image"></i>
+                      {% if item.meal_plan.image %}
+                        <img src="{{ item.meal_plan.image.url }}" alt="{{ item.meal_plan.title }}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      {% else %}
+                        <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded me-3" style="width: 50px; height: 50px;">
+                          <i class="bi bi-image"></i>
+                        </div>
+                      {% endif %}
+                      <strong><span>{{ item.meal_plan.title }}</span></strong>
                     </div>
-                  {% endif %}
-                  <span>{{ item.recipe.title }}</span>
-                </div>
-                    <span>{{ item.meal_plan.title }}</span>
                     <a href="{% url 'nutrition:meal_plan_detail' item.meal_plan.id %}" class="btn btn-sm btn-outline-secondary">View</a>
                   </li>
                 {% endfor %}
@@ -117,51 +115,49 @@
       </div>
     </div>
 
-{% if activities %}
-<div class="col-6 scrollable-activity p-2">
-  <h5 class="mb-3"><i class="bi bi-clock"></i> Recent Activity</h5>
-      <ul class="list-group">
-        {% for activity in activities %}
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
+    <!-- 🕒 Recent Activity -->
+    {% if activities %}
+    <div class="col-lg-6">
+      <div class="card-glass dashboard-card">
+        <h5 class="mb-3"><i class="bi bi-clock-history text-muted me-2"></i> Recent Activity</h5>
+        <ul class="list-group scrollable-activity">
+          {% for activity in activities %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                {% if activity.type == 'order' %}
+                  <i class="bi bi-receipt-cutoff me-1 text-info"></i> <strong>Order #{{ activity.item.id }}</strong> placed on {{ activity.date|date:"M d, Y" }}
+                {% elif activity.type == 'recipe' %}
+                  <i class="bi bi-egg-fried me-1 text-success"></i> <strong>{{ activity.item.title }}</strong> recipe added on {{ activity.date|date:"M d, Y" }}
+                {% elif activity.type == 'mealplan' %}
+                  <i class="bi bi-journal-text me-1 text-primary"></i> <strong>{{ activity.item.title }}</strong> plan created on {{ activity.date|date:"M d, Y" }}
+                {% endif %}
+              </div>
               {% if activity.type == 'order' %}
-                🧾 <strong>Order #{{ activity.item.id }}</strong> placed on {{ activity.date|date:"M d, Y" }}
+                <a href="{% url 'order_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
               {% elif activity.type == 'recipe' %}
-                🍽️ <strong>{{ activity.item.title }}</strong> recipe added on {{ activity.date|date:"M d, Y" }}
+                <a href="{% url 'nutrition:recipe_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
               {% elif activity.type == 'mealplan' %}
-                📋 <strong>{{ activity.item.title }}</strong> meal plan created on {{ activity.date|date:"M d, Y" }}
+                <a href="{% url 'nutrition:meal_plan_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
               {% endif %}
-            </div>
-            {% if activity.type == 'order' %}
-              <a href="{% url 'order_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
-            {% elif activity.type == 'recipe' %}
-              <a href="{% url 'nutrition:recipe_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
-            {% elif activity.type == 'mealplan' %}
-              <a href="{% url 'nutrition:meal_plan_detail' activity.item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
-            {% endif %}
-          </li>
-        {% empty %}
-          <p class="text-muted">No recent activity to show.</p>
-        {% endfor %}
-      </ul>
-</div>
-{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
 
-
-    <!-- ⚙️ Quick Actions -->
+    <!-- ⚡ Quick Actions -->
     <div class="col-12">
-      <div class="card-glass p-4 h-100 dashboard-card">
-        <h5 class="mb-3">⚡ Quick Actions</h5>
-        <div class="d-flex flex-wrap gap-2 justify-content-center">
-          <a href="{% url 'all_products' %}" class="btn btn-outline-primary">🛍 View Products</a>
-          <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-danger">🍽 View Recipes</a>
-          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success">📋 View Meal Plans</a>
-          <a href="{% url 'settings_view' %}" class="btn btn-outline-secondary">⚙️ Account Settings</a>
+      <div class="card-glass dashboard-card top-card">
+        <h5 class="mb-3"><i class="bi bi-lightning-fill text-primary me-2"></i> Quick Actions</h5>
+        <div class="d-flex flex-wrap gap-2 justify-content-left">
+          <a href="{% url 'all_products' %}" class="btn btn-outline-primary"><i class="bi bi-bag-fill me-1"></i> View Products</a>
+          <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-success"><i class="bi bi-egg-fried me-1"></i> View Recipes</a>
+          <a href="{% url 'nutrition:meal_plans' %}" class="btn btn-outline-success"><i class="bi bi-journal-text me-1"></i> View Meal Plans</a>
+          <a href="{% url 'settings_view' %}" class="btn btn-outline-secondary"><i class="bi bi-gear me-1"></i> Account Settings</a>
         </div>
       </div>
     </div>
-
-    
 
   </div>
 </section>
