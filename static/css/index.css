@@ -187,6 +187,12 @@
   overflow: hidden;
 }
 
+/*  Hero Banner Background */
+.hero-banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
+              url('../images/hero-image.png') center/cover no-repeat;
+}
+
 /* 🎨 Hero Text Styling */
 .hero-section h1,
 .hero-section p {
@@ -664,7 +670,8 @@
    📬 Subscribe Section
 =========================== */
 .subscribe-section {
-  background: var(--gradient-primary);
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)),
+              url('../images/subscribe-image.png') center/cover no-repeat;
   padding: 4rem 0;
   position: relative;
   overflow: hidden;
