@@ -40,23 +40,51 @@ class MealPlanDay(models.Model):
 
 
 
+# ✅ Predefined categories for recipes
+RECIPE_CATEGORIES = [
+    ('breakfast', 'Breakfast'),
+    ('lunch', 'Lunch'),
+    ('dinner', 'Dinner'),
+    ('snack', 'Snack'),
+    ('dessert', 'Dessert'),
+    ('vegan', 'Vegan'),
+    ('keto', 'Keto'),
+]
+
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     ingredients = models.TextField()
     instructions = models.TextField()
     prep_time_minutes = models.IntegerField()
     image = models.ImageField(upload_to='recipe_images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True, help_text="Short description or context about the recipe.")
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="recipes")
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        default=1,
+        related_name="recipes"
+    )
 
-    # ✅ New fields for nutritional info
+    # ✅ Nutritional info
     calories = models.PositiveIntegerField(blank=True, null=True)
     protein = models.CharField(max_length=20, blank=True, null=True)
     carbs = models.CharField(max_length=20, blank=True, null=True)
     fat = models.CharField(max_length=20, blank=True, null=True)
 
+    # ✅ New category field
+    category = models.CharField(
+        max_length=20,
+        choices=RECIPE_CATEGORIES,
+        default='lunch',
+        blank=True,
+        null=True,
+        help_text="Classify the recipe to improve filtering and UX."
+    )
+
     def __str__(self):
         return self.title
+
 
 
 

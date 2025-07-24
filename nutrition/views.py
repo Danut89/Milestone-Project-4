@@ -7,13 +7,13 @@ from django.urls import reverse
 from .models import MealPlan, Recipe, Wishlist
 from .forms import RecipeForm  
 from django.contrib import messages
+from django.db.models import Q
 
 
 
 # ==============================
 # 📄 Static & Listing Views
 # ==============================
-
 
 def meal_plans(request):
     sort_option = request.GET.get('sort')
@@ -42,8 +42,6 @@ def meal_plans(request):
         'current_sort': sort_option
     })
 
-
-from django.db.models import Q
 
 def recipes_list(request):
     sort_option = request.GET.get('sort', 'newest')

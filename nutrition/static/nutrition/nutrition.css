@@ -17,48 +17,64 @@
   color: var(--text-muted);
 }
 
-/* Plan Description */
+/* ====================================
+   🍽️ Recipe Description Box Styling
+==================================== */
 .plan-description-box {
-  background-color: #fff;
+  background-color: var(--bg-muted);
   color: var(--text-dark);
   line-height: 1.6;
   text-align: left;
-  list-style-position: inside;
-  max-width: 800px;
+  max-width: 860px;
   width: 100%;
-  border-left: 4px solid var(--accent-green-hover);
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border-left: 6px solid var(--color-accent-3);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease;
 }
 
-.plan-description-box li {
-  margin-bottom: 0.5rem;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--text-dark);
+.plan-description-box:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .plan-description-box ul {
   list-style-type: disc;
-  padding-left: 1.5rem;
-  color: var(--text-muted);
+  padding-left: 1.75rem;
+  margin-bottom: 0;
   font-size: 1rem;
-  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.plan-description-box li {
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  position: relative;
 }
 
 .desc-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  display: inline-block;
-  padding-bottom: 0.25rem;
-  margin-bottom: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.desc-title i {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+
 .desc-content {
-  list-style: disc;
+  list-style: none;
   padding-left: 1.5rem;
   font-size: 1.05rem;
   line-height: 1.7;
@@ -181,7 +197,7 @@
 }
 
 /* ===============================
-       Recipe Page - Distinction Level
+       Recipe Page 
 =============================== */
 
 .recipe-card {
@@ -212,6 +228,7 @@
   object-fit: cover;
   height: 100%;
   width: 100%;
+  
 }
 
 .recipe-card .card-body {
@@ -259,19 +276,30 @@
 
 
 /* Optional: Badge styling for recipe tags like 'Vegan' or 'Quick' */
+.recipe-card-wrapper {
+  position: relative;
+}
+
 .recipe-badge {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: var(--color-accent);
+  background: var(--color-accent); /* Consistent */
   color: var(--text-light);
   font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  border-radius: 50rem; /* Full pill shape */
   font-weight: 600;
-  box-shadow: var(--shadow-sm);
-  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 2;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }
+
+.recipe-card-wrapper:hover .recipe-badge {
+  transform: scale(1.05);
+}
+
 
 .product-card {
   background-color: var(--color-neutral);

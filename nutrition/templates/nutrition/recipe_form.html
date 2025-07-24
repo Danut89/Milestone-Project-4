@@ -2,13 +2,11 @@
 {% load widget_tweaks %}
 {% include 'partials/toasts.html' %}
 
-
 {% block title %}
   {{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}
 {% endblock %}
 
 {% block content %}
-
 <section class="container shop-header text-center py-4">
 
   <div class="text-center mb-5">
@@ -17,46 +15,62 @@
   </div>
 
   <!-- 🧭 Breadcrumbs -->
-<nav aria-label="breadcrumb" class="mb-4">
-  <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
-    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'nutrition:recipes' %}">Recipes</a></li>
-    <!-- Recipe detail breadcrumb for edit page -->
-    <li class="breadcrumb-item active" aria-current="page">{{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}</li>
-  </ol>
-</nav>
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white p-2 rounded-3 shadow-sm">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'nutrition:recipes' %}">Recipes</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}</li>
+    </ol>
+  </nav>
 
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <form method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm bg-white border-0 rounded-4">
         {% csrf_token %}
-        
+
+        <!-- 🧾 Title -->
         <div class="mb-3">
           {{ form.title.label_tag }}
           {{ form.title|add_class:"form-control" }}
         </div>
 
+        <!-- 📝 Description -->
+        <div class="mb-3">
+          {{ form.description.label_tag }}
+          {{ form.description|add_class:"form-control" }}
+        </div>
+
+        <!-- ⏱️ Prep Time -->
         <div class="mb-3">
           {{ form.prep_time_minutes.label_tag }}
           {{ form.prep_time_minutes|add_class:"form-control" }}
         </div>
 
+        <!-- ✅ Category -->
+        <div class="mb-3">
+          {{ form.category.label_tag }}
+          {{ form.category|add_class:"form-select" }}
+        </div>
+
+        <!-- 📝 Ingredients -->
         <div class="mb-3">
           {{ form.ingredients.label_tag }}
           {{ form.ingredients|add_class:"form-control" }}
         </div>
 
+        <!-- 👨‍🍳 Instructions -->
         <div class="mb-3">
           {{ form.instructions.label_tag }}
           {{ form.instructions|add_class:"form-control" }}
         </div>
 
+        <!-- 📷 Image -->
         <div class="mb-3">
           {{ form.image.label_tag }}
           {{ form.image|add_class:"form-control" }}
         </div>
 
-        
+        <!-- 🧮 Nutrition -->
         <hr>
         <h5 class="fw-bold mt-4">Nutritional Info</h5>
 
@@ -80,11 +94,12 @@
           {{ form.fat|add_class:"form-control" }}
         </div>
 
-        <button type="submit" class="btn btn-success  w-100 mt-3">
+        <!-- ✅ Submit -->
+        <button type="submit" class="btn btn-success w-100 mt-3">
           {{ form.instance.pk|yesno:"Update Recipe,Add Recipe" }}
         </button>
 
-         <!-- 🔙 Back Button -->
+        <!-- 🔙 Back Button -->
         <div class="text-center mt-4 mb-5">
           <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-secondary">← Back to Recipes</a>
         </div>
@@ -93,4 +108,3 @@
   </div>
 </section>
 {% endblock %}
-

@@ -11,5 +11,5 @@ class MealPlanForm(forms.ModelForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'prep_time_minutes', 'ingredients', 'instructions', 'image', 'calories', 'protein', 'carbs', 'fat']
+        fields = ['title','description', 'prep_time_minutes', 'category', 'ingredients', 'instructions', 'image', 'calories', 'protein', 'carbs', 'fat']
 
