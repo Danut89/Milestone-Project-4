@@ -146,7 +146,7 @@ def checkout_view(request):
     # ✅ Pre-fill form if checkbox is ticked
     if request.GET.get('use_saved_info') == 'on':
         try:
-            user_profile = request.user.userprofile
+            user_profile = request.user.profile
             form = CheckoutForm(initial={
                 'full_name': user_profile.default_full_name,
                 'email': user_profile.default_email,
@@ -240,7 +240,3 @@ def create_checkout_session(request):
     order.save()
 
     return JsonResponse({'id': session.id})
-
-
-
-

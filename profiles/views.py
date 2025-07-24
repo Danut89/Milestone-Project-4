@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from nutrition.models import Wishlist  
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
 from django.contrib import messages
