@@ -4,10 +4,10 @@
 {% block title %}{{ recipe.title }}{% endblock %}
 
 {% block content %}
-<!-- 🔹 Main Container -->
 <section class="container py-4 recipe-detail shop-header">
-  <!-- 🔹 Recipe Title and Metadata -->
-  <div class="text-center mb-4">
+
+  <!-- 🔹 Title & Meta -->
+  <div class="text-center mb-3 py-3">
     <h1 class="fw-bold mb-2">{{ recipe.title }}</h1>
     <p class="text-muted small mb-0">
       <i class="fas fa-user text-secondary me-1"></i><strong>{{ recipe.author.username }}</strong>
@@ -25,24 +25,25 @@
     </ol>
   </nav>
 
-  <!-- 🖼 Image and Action Buttons -->
-  <div class="row g-4 align-items-start mb-4">
-    <div class="col-md-6 text-center">
-      <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
-        <div class="position-relative rounded-4 overflow-hidden shadow-sm">
-          {% if recipe.image %}
-            <img src="{{ recipe.image.url }}" class="img-fluid rounded-4" alt="{{ recipe.title }}">
-          {% else %}
-            <img src="{% static 'img/placeholder-recipe.jpg' %}" class="img-fluid rounded-4" alt="No image available">
-          {% endif %}
+<div class="row g-4 align-items-start mb-5">
+  <!-- 📸 Image Box -->
+  <div class="col-md-6">
+    <div class="details-box text-center p-4">
+      <div class="position-relative rounded-4 overflow-hidden shadow-sm">
+        {% if recipe.image %}
+          <img src="{{ recipe.image.url }}" class="img-fluid rounded-4" alt="{{ recipe.title }}">
+        {% else %}
+          <img src="{% static 'img/placeholder-recipe.jpg' %}" class="img-fluid rounded-4" alt="No image available">
+        {% endif %}
 
-          {% if recipe.category %}
-            <span class="recipe-badge">
-              {{ recipe.get_category_display }}
-            </span>
-          {% endif %}
-        </div>
+        {% if recipe.category %}
+          <span class="recipe-badge badge-{{ recipe.category|lower }}">
+            {{ recipe.get_category_display }}
+          </span>
+        {% endif %}
       </div>
+
+      <!-- ✏️ Edit/Delete Buttons -->
       {% if request.user == recipe.author %}
         <div class="d-flex justify-content-center gap-2 mt-4">
           <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">✏️ Edit</a>
@@ -50,92 +51,96 @@
         </div>
       {% endif %}
     </div>
+  </div>
 
-    <!-- 📋 Accordion Section -->
-    <div class="col-md-6">
-      <div class="section-muted p-4 rounded-4 shadow-sm bg-white">
-        <h5 class="mb-3 text-center fw-semibold">
-          <i class="fas fa-info-circle me-2 text-success"></i> Details
-        </h5>
+  <!-- 📋 Details + About + Wishlist Box -->
+  <div class="col-md-6">
+    <div class="details-box p-4">
+      <!-- 📑 Section Title -->
+      <h5 class="mb-3 text-center fw-semibold">
+        <i class="fas fa-info-circle me-2 text-success"></i> Details
+      </h5>
 
-        <div class="accordion" id="recipeAccordion">
-          <!-- 🧾 Ingredients -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingIngredients">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
-                🧾 Ingredients
-              </button>
-            </h2>
-            <div id="collapseIngredients" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
-              <div class="accordion-body">
-                <ul class="meal-day-list list-unstyled meal-item-group">
-                  {% for line in recipe.ingredients.splitlines %}
-                    {% if line.strip %}
-                      <li class="meal-item">{{ line }}</li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-              </div>
+      <!-- 📦 Accordion -->
+      <div class="accordion" id="recipeAccordion">
+        <!-- 🧾 Ingredients -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingIngredients">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
+              🧾 Ingredients
+            </button>
+          </h2>
+          <div id="collapseIngredients" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+            <div class="accordion-body">
+              <ul class="meal-day-list list-unstyled meal-item-group">
+                {% for line in recipe.ingredients.splitlines %}
+                  {% if line.strip %}
+                    <li class="meal-item">{{ line }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
             </div>
           </div>
+        </div>
 
-          <!-- 🍳 Instructions -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingInstructions">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
-                🍳 Instructions
-              </button>
-            </h2>
-            <div id="collapseInstructions" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
-              <div class="accordion-body">
-                <ul class="meal-day-list list-unstyled meal-item-group">
-                  {% for line in recipe.instructions.splitlines %}
-                    {% if line.strip %}
-                      <li class="meal-item">{{ line }}</li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-              </div>
+        <!-- 🍳 Instructions -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingInstructions">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
+              🍳 Instructions
+            </button>
+          </h2>
+          <div id="collapseInstructions" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+            <div class="accordion-body">
+              <ul class="meal-day-list list-unstyled meal-item-group">
+                {% for line in recipe.instructions.splitlines %}
+                  {% if line.strip %}
+                    <li class="meal-item">{{ line }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
             </div>
           </div>
+        </div>
 
-          <!-- 🍽 Nutritional Info -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingNutrition">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseNutrition" aria-expanded="false" aria-controls="collapseNutrition">
-                🍽 Nutritional Info
-              </button>
-            </h2>
-            <div id="collapseNutrition" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
-              <div class="accordion-body">
-                <ul class="meal-day-list list-unstyled meal-item-group">
-                  {% if recipe.calories %}<li class="meal-item">Calories: ~{{ recipe.calories }}</li>{% endif %}
-                  {% if recipe.protein %}<li class="meal-item">Protein: ~{{ recipe.protein }}</li>{% endif %}
-                  {% if recipe.carbs %}<li class="meal-item">Carbs: ~{{ recipe.carbs }}</li>{% endif %}
-                  {% if recipe.fat %}<li class="meal-item">Fat: ~{{ recipe.fat }}</li>{% endif %}
-                </ul>
-              </div>
+        <!-- 🍽 Nutritional Info -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingNutrition">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseNutrition" aria-expanded="false" aria-controls="collapseNutrition">
+              🍽 Nutritional Info
+            </button>
+          </h2>
+          <div id="collapseNutrition" class="accordion-collapse collapse" data-bs-parent="#recipeAccordion">
+            <div class="accordion-body">
+              <ul class="meal-day-list list-unstyled meal-item-group">
+                {% if recipe.calories %}<li class="meal-item">Calories: ~{{ recipe.calories }}</li>{% endif %}
+                {% if recipe.protein %}<li class="meal-item">Protein: ~{{ recipe.protein }}</li>{% endif %}
+                {% if recipe.carbs %}<li class="meal-item">Carbs: ~{{ recipe.carbs }}</li>{% endif %}
+                {% if recipe.fat %}<li class="meal-item">Fat: ~{{ recipe.fat }}</li>{% endif %}
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 📝 About This Recipe -->
-      <div class="container plan-description-box bg-muted mx-auto my-5 shadow-sm" data-aos="fade-up">
-        <h6 class="desc-title text-uppercase mb-3">
-          <i class="fas fa-info-circle text-success me-2"></i>About This Recipe
-        </h6>
-        <ul class="desc-content">
-          {% for line in recipe.description.splitlines %}
-            {% if line.strip %}
-              <li>{{ line }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
+      <!-- 📝 About Section -->
+      {% if recipe.description %}
+        <div class="plan-description-box mt-4 shadow-sm" data-aos="fade-up">
+          <h6 class="desc-title text-uppercase">
+            <i class="fas fa-info-circle text-success me-2"></i>About This Recipe
+          </h6>
+          <ul class="desc-content">
+            {% for line in recipe.description.splitlines %}
+              {% if line.strip %}
+                <li>{{ line }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
 
       <!-- ❤️ Wishlist Button -->
       <div class="text-center mt-4">
@@ -155,12 +160,12 @@
       </div>
     </div>
   </div>
+</div>
 
-  
-
+</div>
 
   <!-- 🔙 Back Button -->
-  <div class="text-center mt-4 mb-5">
+  <div class="text-center mt-5 mb-4">
     <a href="{% url 'nutrition:recipes' %}" class="btn btn-outline-secondary">← Back to Recipes</a>
   </div>
 </section>
@@ -188,6 +193,4 @@
   </div>
 </div>
 {% endif %}
-
 {% endblock %}
-
