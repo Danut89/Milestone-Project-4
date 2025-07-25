@@ -1,19 +1,23 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.conf import settings
-from django.http import JsonResponse
 from decimal import Decimal
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 import stripe
+
 from shop.models import Product
 from orders.models import Order, OrderItem
 from profiles.models import UserProfile
 from .models import CartItem
 from .forms import CheckoutForm
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
-# 📌 Helper to calculate cart total for session-based carts
+
+# 📌 Helper to calculate cart total
 def calculate_cart_total(cart):
     return sum(float(item['price']) * item['quantity'] for item in cart.values())
 
@@ -103,9 +107,9 @@ def remove_from_cart(request, product_id):
     return redirect('view_cart')
 
 
+# ✅ Checkout view – render form and save order after PaymentIntent success
 @login_required
 def checkout_view(request):
-    # Get cart items
     items_qs = CartItem.objects.filter(user=request.user).select_related('product')
     cart = {
         str(item.product.id): {
@@ -116,49 +120,67 @@ def checkout_view(request):
         } for item in items_qs
     }
 
-    # Handle post-payment success redirect
-    if request.GET.get('success') == 'true':
-        order_id = request.session.get('order_id')
-        if order_id:
-            order = get_object_or_404(Order, id=order_id, user=request.user)
-            if not order.is_paid:
-                order.is_paid = True
-                order.save()
-            CartItem.objects.filter(user=request.user).delete()
-            request.session.pop('order_id', None)
-            messages.success(request, f"Thank you! Your order #{order.id} has been confirmed.")
-            return render(request, 'cart/checkout.html', {
-                'order': order,
-                'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
-            })
-
-        messages.warning(request, "We couldn't confirm your order.")
-        return redirect('view_cart')
-
     # 🛑 Redirect if cart is empty
     if not cart:
         messages.warning(request, "Your cart is empty.")
         return redirect('view_cart')
 
-    # ✅ Default form instance
-    form = CheckoutForm()
+    # ✅ Save the order after Stripe confirms payment
+    if request.method == "POST":
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            total = calculate_cart_total(cart)
 
-    # ✅ Pre-fill form if checkbox is ticked
-    if request.GET.get('use_saved_info') == 'on':
-        try:
-            user_profile = request.user.profile
-            form = CheckoutForm(initial={
-                'full_name': user_profile.default_full_name,
-                'email': user_profile.default_email,
-                'phone_number': user_profile.default_phone_number,
-                'address_line1': user_profile.default_address_line1,
-                'address_line2': user_profile.default_address_line2,
-                'city': user_profile.default_city,
-                'postcode': user_profile.default_postcode,
-                'country': user_profile.default_country,
+            # Save the order
+            order = Order.objects.create(
+                user=request.user,
+                full_name=cleaned['full_name'],
+                email=cleaned['email'],
+                phone_number=cleaned['phone_number'],
+                address=f"{cleaned['address_line1']}, {cleaned['city']}",
+                total_price=total,
+                is_paid=True  # Because payment already confirmed via Stripe JS
+            )
+
+            for pid, item in cart.items():
+                product = get_object_or_404(Product, pk=pid)
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=item['quantity'],
+                    price=Decimal(item['price']),
+                )
+
+            # ✅ Clear cart
+            CartItem.objects.filter(user=request.user).delete()
+
+            messages.success(request, f"Thank you! Your order #{order.id} has been placed.")
+            return render(request, 'cart/checkout_success.html', {
+            'order': order,
+                'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
             })
-        except UserProfile.DoesNotExist:
-            messages.warning(request, "No saved delivery info found.")
+
+        else:
+            messages.error(request, "❌ Please correct the errors below and try again.")
+
+    else:
+        form = CheckoutForm()
+        if request.GET.get('use_saved_info') == 'on':
+            try:
+                user_profile = request.user.profile
+                form = CheckoutForm(initial={
+                    'full_name': user_profile.default_full_name,
+                    'email': user_profile.default_email,
+                    'phone_number': user_profile.default_phone_number,
+                    'address_line1': user_profile.default_address_line1,
+                    'address_line2': user_profile.default_address_line2,
+                    'city': user_profile.default_city,
+                    'postcode': user_profile.default_postcode,
+                    'country': user_profile.default_country,
+                })
+            except UserProfile.DoesNotExist:
+                messages.warning(request, "No saved delivery info found.")
 
     total = calculate_cart_total(cart)
 
@@ -170,73 +192,26 @@ def checkout_view(request):
     })
 
 
-
-
-# 🔐 Stripe config
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
-# 🔁 Create Stripe checkout session
+# ✅ Create PaymentIntent (called from JS)
+@csrf_exempt
 @login_required
-@require_POST
-def create_checkout_session(request):
-    items_qs = CartItem.objects.filter(user=request.user).select_related('product')
-    if not items_qs.exists():
-        return JsonResponse({'error': 'Your cart is empty.'}, status=400)
+def create_payment_intent(request):
+    if request.method == 'POST':
+        items_qs = CartItem.objects.filter(user=request.user).select_related('product')
+        cart = {
+            str(item.product.id): {
+                'name': item.product.name,
+                'price': str(item.product.price),
+                'quantity': item.quantity,
+            } for item in items_qs
+        }
 
-    cart = {
-        str(item.product.id): {
-            'name': item.product.name,
-            'price': str(item.product.price),
-            'quantity': item.quantity,
-        } for item in items_qs
-    }
+        cart_total = sum(float(item['price']) * item['quantity'] for item in cart.values())
 
-    total = sum(Decimal(item['price']) * item['quantity'] for item in cart.values())
-    delivery = request.session.get('delivery_info', {})
-
-    order = Order.objects.create(
-        user=request.user,
-        full_name=delivery.get('full_name', request.user.get_full_name() or "Guest"),
-        email=delivery.get('email', request.user.email),
-        address=delivery.get('address_line1', '') + ", " + delivery.get('city', ''),
-        total_price=total,
-    )
-
-    for pid, item in cart.items():
-        product = get_object_or_404(Product, pk=pid)
-        OrderItem.objects.create(
-            order=order,
-            product=product,
-            quantity=item['quantity'],
-            price=Decimal(item['price']),
+        intent = stripe.PaymentIntent.create(
+            amount=int(cart_total * 100),  # amount in pence
+            currency='gbp',
+            metadata={'integration_check': 'accept_a_payment'},
         )
 
-    request.session['order_id'] = order.id
-
-    line_items = [
-        {
-            'price_data': {
-                'currency': 'gbp',
-                'product_data': {'name': item['name']},
-                'unit_amount': int(float(item['price']) * 100),
-            },
-            'quantity': item['quantity'],
-        }
-        for item in cart.values()
-    ]
-
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=line_items,
-        mode='payment',
-        customer_email=delivery.get('email'),
-        shipping_address_collection={'allowed_countries': ['GB', 'RO']},
-        success_url=request.build_absolute_uri('/cart/checkout/?success=true'),
-        cancel_url=request.build_absolute_uri('/cart/checkout/?canceled=true'),
-    )
-
-    order.stripe_payment_id = session.id
-    order.save()
-
-    return JsonResponse({'id': session.id})
+        return JsonResponse({'clientSecret': intent.client_secret})

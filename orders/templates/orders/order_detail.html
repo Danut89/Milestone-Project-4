@@ -28,17 +28,14 @@
 
       <hr>
 
-      <h6 class="fw-bold mt-3">Delivery Address</h6>
-      {% if order.user.profile %}
-        <p class="mb-0">{{ order.user.profile.default_full_name }}</p>
-        <p class="mb-0">{{ order.user.profile.default_address_line1 }}</p>
-        <p class="mb-0">{{ order.user.profile.default_address_line2 }}</p>
-        <p class="mb-0">{{ order.user.profile.default_city }}</p>
-        <p class="mb-0">{{ order.user.profile.default_postcode }}</p>
-        <p class="mb-0">{{ order.user.profile.default_country }}</p>
-      {% else %}
-        <p class="text-muted fst-italic">No delivery address provided.</p>
-      {% endif %}
+      <h6 class="fw-bold mt-3">Delivery Info</h6>
+      <p class="mb-0"><strong>Name:</strong> {{ order.full_name }}</p>
+      <p class="mb-0"><strong>Email:</strong> {{ order.email }}</p>
+      <p class="mb-0"><strong>Phone:</strong> {{ order.phone_number }}</p>
+      <p><strong>Address:</strong> {{ order.address }}</p>
+
+      <p class="text-muted small">Stripe Payment ID: {{ order.stripe_payment_id }}</p>
+
 
       <!-- 🔘 Buttons -->
       <div class="order-actions d-flex justify-content-center mt-4">
