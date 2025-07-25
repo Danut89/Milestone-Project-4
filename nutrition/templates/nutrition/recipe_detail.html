@@ -42,16 +42,17 @@
           </span>
         {% endif %}
       </div>
-
-      <!-- ✏️ Edit/Delete Buttons -->
+    </div>
+    <!-- ✏️ Edit/Delete Buttons -->
       {% if request.user == recipe.author %}
         <div class="d-flex justify-content-center gap-2 mt-4">
           <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">✏️ Edit</a>
           <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.pk }}">🗑️ Delete</button>
         </div>
       {% endif %}
-    </div>
   </div>
+
+   
 
   <!-- 📋 Details + About + Wishlist Box -->
   <div class="col-md-6">
@@ -62,7 +63,7 @@
       </h5>
 
       <!-- 📦 Accordion -->
-      <div class="accordion" id="recipeAccordion">
+      <div class="accordion mb-5" id="recipeAccordion">
         <!-- 🧾 Ingredients -->
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingIngredients">
@@ -128,7 +129,7 @@
 
       <!-- 📝 About Section -->
       {% if recipe.description %}
-        <div class="plan-description-box mt-4 shadow-sm" data-aos="fade-up">
+        <div class="plan-description-box mt-5 mb-3" data-aos="fade-up">
           <h6 class="desc-title text-uppercase">
             <i class="fas fa-info-circle text-success me-2"></i>About This Recipe
           </h6>
@@ -141,8 +142,9 @@
           </ul>
         </div>
       {% endif %}
+    </div>
 
-      <!-- ❤️ Wishlist Button -->
+    <!-- ❤️ Wishlist Button -->
       <div class="text-center mt-4">
         {% if user.is_authenticated %}
           <button id="wishlist-btn"
@@ -158,10 +160,9 @@
           </a>
         {% endif %}
       </div>
-    </div>
+
   </div>
 </div>
-
 </div>
 
   <!-- 🔙 Back Button -->

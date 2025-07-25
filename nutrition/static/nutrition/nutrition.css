@@ -117,12 +117,11 @@
 
 /* 📝 Description Box (About Section) */
 .plan-description-box {
-  background-color: var(--bg-muted);
-  color: var(--text-dark);
+  background-color: var(--color-neutral);
+  color: var(--text-muted);
   line-height: 1.6;
   text-align: left;
   width: 100%;
-  border-left: 6px solid var(--color-accent-3);
   border-radius: var(--radius-md);
   padding: 2.5rem;
   box-shadow: var(--shadow-md);
