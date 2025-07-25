@@ -47,7 +47,10 @@
       {% if request.user == recipe.author %}
         <div class="d-flex justify-content-center gap-2 mt-4">
           <a href="{% url 'nutrition:edit_recipe' recipe.pk %}" class="btn btn-warning">✏️ Edit</a>
-          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.pk }}">🗑️ Delete</button>
+          <!-- 🗑️ Delete Recipe Button -->
+          <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.pk }}">
+            <i class="bi bi-trash"></i> Delete Recipe
+          </button>
         </div>
       {% endif %}
   </div>
@@ -178,8 +181,8 @@
     <div class="modal-content">
       <form method="POST" action="{% url 'nutrition:delete_recipe' recipe.pk %}">
         {% csrf_token %}
-        <div class="modal-header">
-          <h5 class="modal-title text-danger" id="deleteModalLabel{{ recipe.pk }}">Confirm Deletion</h5>
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title text-light" id="deleteModalLabel{{ recipe.pk }}">Confirm Deletion</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

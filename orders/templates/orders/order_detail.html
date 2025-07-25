@@ -8,7 +8,7 @@
     <h2 class="order-title">
       <i class="bi bi-clipboard-check me-2 text-muted"></i> Order Details
     </h2>
-   <strong><p class="text-muted">Order: #{{ order.id }}</p></strong>
+   <p class="text-dark">Order: <strong>#{{ order.id }}</strong></p>
   </div>
 
   <div class="order-grid">
@@ -42,8 +42,9 @@
 
       <!-- 🔘 Buttons -->
       <div class="order-actions d-flex justify-content-center mt-4">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOrderModal">
-          <i class="bi bi-trash-fill"></i> Delete Order
+        <!-- 🗑️ Delete Order Button -->
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteOrderModal">
+          <i class="bi bi-trash"></i> Delete Order
         </button>
       </div>
      
@@ -71,6 +72,29 @@
 <a href="{% url 'order_history' %}" class="btn btn-outline-secondary">
           <i class="bi bi-arrow-left-circle"></i> Back to Orders
 </a>
+
+<!-- 🧾 Order Delete Confirmation Modal -->
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-sm border-0">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteOrderModalLabel"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Delete</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this order? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="{% url 'delete_order' order.id %}">
+          {% csrf_token %}
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Yes, delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
  
 </section>
 
