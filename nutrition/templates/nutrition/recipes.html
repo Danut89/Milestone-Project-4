@@ -5,12 +5,11 @@
 
 {% block content %}
 
-<section class="container py-5 shop-header">
-  <!-- 🍲 Header -->
-  <div class="text-center mb-4">
-    <h1 class="fw-bold display-5">🍽️ Recipes</h1>
+<section class="container text-center py-5 shop-header">
+  <!-- Header -->
+  <div class="text-center mt-2 mb-4">
+    <h1 class="mb-2"><i class="fa-solid fa-utensils me-2 text-success"></i> Recipes</h1>
     <p class="lead text-muted">Browse our collection of healthy and delicious recipes to support your goals.</p>
-    <hr class="mx-auto my-4" style="max-width: 60px; border-color: var(--accent-green);">
   </div>
 
   <!-- 🔧 Add Recipe + Sort -->
@@ -34,7 +33,7 @@
     </form>
   </div>
 
-  <!-- 🧭 Breadcrumbs -->
+  <!--  Breadcrumbs -->
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb bg-white px-3 py-2 rounded-3 shadow-sm">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -44,19 +43,19 @@
   </nav>
 
   
-  <!-- 🧾 Recipe Cards -->
+  <!--  Recipe Cards -->
   <div class="row g-4 mb-5">
     {% for recipe in page_obj %}
       <div class="col-md-6 col-lg-4 d-flex">
         <div class="card recipe-card w-100 d-flex flex-column">
 
-          <!-- ✅ Image Wrapper with Badge -->
+          <!-- Image Wrapper with Badge -->
           <div class="recipe-card-wrapper position-relative">
             <div class="ratio ratio-4x3">
               {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" class="card-img-top rounded-top-4" alt="{{ recipe.title }}">
+                <img src="{{ recipe.image.url }}" class="card-img-top img-fluid rounded" alt="{{ recipe.title }}">
               {% else %}
-                <img src="{% static 'img/placeholder-recipe.jpg' %}" class="card-img-top rounded-top-4" alt="No image available">
+                <img src="{% static 'img/placeholder-recipe.jpg' %}" class="card-img-top img-fluid rounded" alt="No image available">
               {% endif %}
             </div>
 
@@ -67,13 +66,13 @@
             {% endif %}
           </div>
 
-          <!-- ✅ Card Content -->
+          <!-- Card Content -->
           <div class="card-body d-flex flex-column text-center">
-            <h5 class="fw-bold mb-1">{{ recipe.title }}</h5>
+            <h5 class="fw-bold card-title mb-1">{{ recipe.title }}</h5>
             <p class="text-muted small mb-2">Prep Time: {{ recipe.prep_time_minutes }} mins</p>
             <p class="text-muted small">{{ recipe.ingredients|truncatewords:20 }}</p>
             <div class="mt-auto">
-              <a href="{% url 'nutrition:recipe_detail' recipe.id %}" class="btn btn-success mt-2">View Recipe</a>
+              <a href="{% url 'nutrition:recipe_detail' recipe.id %}" class="btn btn-success mt-2">View Recipe <i class="fa-solid fa-arrow-right ms-1"></i></a>
             </div>
           </div>
         </div>
@@ -87,7 +86,7 @@
 
 
 
-  <!-- 📄 Pagination -->
+  <!-- Pagination -->
   {% if page_obj.has_other_pages %}
   <nav aria-label="Recipe navigation">
     <ul class="pagination justify-content-center">

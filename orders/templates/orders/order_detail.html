@@ -53,7 +53,9 @@
       <ul>
         {% for item in order.items.all %}
           <li>
-            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            {% if item.product.image %}
+              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            {% endif %}
             <div class="product-info">
               <p><strong>{{ item.product.name }}</strong></p>
               <p class="text-muted">Qty: {{ item.quantity }}</p>

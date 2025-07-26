@@ -7,13 +7,13 @@
 
 
 <!-- 🥗 Page Heading -->
-<section class="shop-header text-center container py-4">
-  <div class="text-center mb-4">
+<section class="shop-header text-center container py-5">
+  <div class="text-center mt-2 mb-4">
     <h1 class="mb-2">
       <i class="fa-solid fa-bowl-food me-2 text-success"></i>
       <span class="text-dark">Meal</span> <span class="text-success">Plans</span>
     </h1>
-    <p class="text-muted fs-5">Explore structured nutrition plans tailored to your health goals.</p>
+    <p class="text-muted lead fs-5">Explore structured nutrition plans tailored to your health goals.</p>
   </div>
 
   <hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
@@ -49,45 +49,41 @@
   <!-- 🧩 Meal Plan Grid -->
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     {% for plan in plans %}
-      <div class="col h-100">
-        <div class="product-modern-card h-100">
+     <div class="col-md-6 col-lg-4 d-flex">
+      <div class="card recipe-card w-100 d-flex flex-column justify-content-between">
 
-          <!-- 📸 Image -->
-          <div class="img">
+        <!-- ✅ Image Wrapper -->
+        <div class="recipe-card-wrapper position-relative">
+          <div class="ratio ratio-4x3">
             {% if plan.image %}
-              <img src="{{ plan.image.url }}" alt="{{ plan.title }}">
+              <img src="{{ plan.image.url }}" alt="{{ plan.title }}" class="card-img-top object-fit-cover rounded-top">
             {% else %}
-              <img src="{% static 'images/default-meal-plan.jpg' %}" alt="Meal Plan">
+              <img src="{% static 'images/default-meal-plan.jpg' %}" alt="Meal Plan" class="card-img-top object-fit-cover rounded-top">
             {% endif %}
           </div>
+        </div>
 
-          <!-- 📋 Info -->
-          <div class="info">
-            <p class="cat">Meal Plan</p>
-            <h5 class="title">{{ plan.title }}</h5>
-            <p class="desc">{{ plan.description|truncatewords:18 }}</p>
+        <!-- 📋 Info -->
+        <div class="card-body d-flex flex-column text-center px-3 pb-4 pt-3">
+          <h5 class="card-title mb-2 text-dark">{{ plan.title }}</h5>
+          <p class="card-text text-muted small mb-3">{{ plan.description|truncatewords:18 }}</p>
 
-            <!-- 🔹 Meta Features -->
-            <div class="feats">
-              <span class="feat">
-                <i class="fa-solid fa-fire text-danger me-1"></i> {{ plan.calories }} kcal
-              </span>
-              <span class="feat">
-                <i class="fa-regular fa-clock text-success me-1"></i> {{ plan.duration_days }} days
-              </span>
-            </div>
-
-            <!-- ➡️ Button -->
-            <div class="bottom">
-              <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="btn">
-                View Plan
-                <i class="fa-solid fa-arrow-right icon"></i>
-              </a>
-            </div>
+          <!-- 🔹 Meta Features -->
+          <div class="d-flex justify-content-center gap-3 mb-3 small">
+            <span class="text-danger"><i class="fa-solid fa-fire me-1"></i>{{ plan.calories }} kcal</span>
+            <span class="text-success"><i class="fa-regular fa-clock me-1"></i>{{ plan.duration_days }} days</span>
           </div>
 
+          <!-- ➡️ Button -->
+          <div class="mt-auto">
+            <a href="{% url 'nutrition:meal_plan_detail' plan.id %}" class="btn btn-dark">
+              View Plan <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+          </div>
         </div>
       </div>
+    </div>
+
     {% empty %}
       <div class="col-12">
         <div class="alert alert-info text-center">
