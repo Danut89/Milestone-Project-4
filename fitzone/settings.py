@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    # Cloud storage
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -161,3 +165,12 @@ STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 # 🔧 Default Auto Field
 # ========================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ✅ Cloudinary media config
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
