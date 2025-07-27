@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -56,7 +57,7 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
     prep_time_minutes = models.IntegerField()
-    image = models.ImageField(upload_to='recipe_images/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     description = models.TextField(blank=True, null=True, help_text="Short description or context about the recipe.")
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
