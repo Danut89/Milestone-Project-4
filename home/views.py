@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 
+
 # Create your views here.
 
 def home(request):
@@ -20,18 +21,28 @@ def home(request):
 def dashboard(request):
     return render(request, 'home/dashboard.html')
 
+
 def contact_view(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
         message = request.POST.get("message")
 
-        # You could save this info or send an email
-        success_msg = "Thanks for contacting us! We'll get back to you soon."
+        if not name or not email or not message:
+            error_msg = "All fields are required."
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return JsonResponse({"message": error_msg}, status=400)
+            messages.error(request, error_msg)
+            return redirect('contact')
+
+        # Optional: save or send
+        print(f"[CONTACT FORM] {name} ({email}): {message}")
+
+        success_msg = "Thanks for contacting us! We’ll get back to you soon."
 
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return JsonResponse({"message": success_msg})
-
+        
         messages.success(request, success_msg)
         return redirect('contact')
 

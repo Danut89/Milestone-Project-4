@@ -8,6 +8,7 @@ from .models import MealPlan, Recipe, Wishlist
 from .forms import RecipeForm  
 from django.contrib import messages
 from django.db.models import Q
+from random import sample
 
 
 
@@ -80,15 +81,20 @@ def recipes_list(request):
 def meal_plan_detail(request, pk):
     meal_plan = get_object_or_404(MealPlan, pk=pk)
     is_saved = False
+
     if request.user.is_authenticated:
         is_saved = Wishlist.objects.filter(user=request.user, meal_plan=meal_plan).exists()
 
     days = meal_plan.get_days
-    
+
+    # ✅ Suggest 3 random recipes with images (exclude empty)
+    suggested_recipes = Recipe.objects.exclude(image='').order_by('?')[:3]
+
     return render(request, 'nutrition/meal_plan_detail.html', {
         'meal_plan': meal_plan,
         'is_saved': is_saved,
-        'days': days
+        'days': days,
+        'suggested_recipes': suggested_recipes, 
     })
 
 def recipe_detail(request, pk):
@@ -96,11 +102,15 @@ def recipe_detail(request, pk):
     is_saved = False
     if request.user.is_authenticated:
         is_saved = Wishlist.objects.filter(user=request.user, recipe=recipe).exists()
+
+    # ✅ Suggest 3 random meal plans with images
+    suggested_plans = MealPlan.objects.exclude(image='').order_by('?')[:3]
+
     return render(request, 'nutrition/recipe_detail.html', {
         'recipe': recipe,
         'is_saved': is_saved,
+        'suggested_plans': suggested_plans,
     })
-
 
 # ==============================
 # 💖 Wishlist Toggle View

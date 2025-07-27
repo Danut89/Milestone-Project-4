@@ -22,36 +22,48 @@ def calculate_cart_total(cart):
     return sum(float(item['price']) * item['quantity'] for item in cart.values())
 
 
-# 🛒 Add product to cart
+
+# 🛒 Add product to cart with quantity
 @require_POST
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
 
+    # 1️⃣ Get quantity from form (default to 1)
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
+    except ValueError:
+        quantity = 1
+
     if request.user.is_authenticated:
         item, created = CartItem.objects.get_or_create(user=request.user, product=product)
         if not created:
-            item.quantity += 1
-            item.save()
+            item.quantity += quantity
             messages.info(request, f"Updated quantity for '{product.name}' in your cart.")
         else:
+            item.quantity = quantity
             messages.success(request, f"Added '{product.name}' to your cart.")
+        item.save()
+
     else:
         cart = request.session.get('cart', {})
         pid = str(product.id)
         if pid in cart:
-            cart[pid]['quantity'] += 1
+            cart[pid]['quantity'] += quantity
             messages.info(request, f"Updated quantity for '{product.name}' in your cart.")
         else:
             cart[pid] = {
                 'name': product.name,
                 'price': str(product.price),
-                'quantity': 1,
+                'quantity': quantity,
                 'image_url': product.image.url if product.image else '',
             }
             messages.success(request, f"Added '{product.name}' to your cart.")
         request.session['cart'] = cart
 
     return redirect('view_cart')
+
 
 
 # 🛍️ View cart

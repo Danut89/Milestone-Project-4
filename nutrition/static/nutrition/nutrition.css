@@ -15,7 +15,7 @@
 .recipe-card {
   background-color: var(--color-neutral);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 2rem;
   box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.2), inset -2px 2px #fff;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -56,12 +56,12 @@
    📋 Accordion & Details Container
 ================================ */
 .details-box {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: var(--radius-lg);
+  background: var(--color-neutral);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.3s ease;
-  border: 1px solid var(--color-accent-3);
+  border: 1px solid var(--color-bg);
 }
 
 .details-box:hover {
@@ -276,4 +276,47 @@
 .recipe-card .btn:hover {
   background-color: var(--color-accent);
   border: none;
+}
+.plan-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
+
+.badge-icon {
+  background-color: var(--bg-muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.badge-icon i {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+}
+
+
+/* ==================================
+   🧠 "You Might Also Like" Suggestions
+=================================== */
+.suggestion-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-bg);
+}
+
+.suggestion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.suggestion-title {
+  border-bottom: 1px solid var(--color-accent);
+
 }

@@ -2,53 +2,55 @@
 {% block title %}Contact Us{% endblock %}
 
 {% block content %}
+<section class="contact-section shop-header">
 
+  <!-- 📝 Contact Form -->
+  <div class="container mt-2">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="contact-card p-5 shadow-lg rounded-4">
+          <h2 class="text-center fw-bold mb-3 text-dark">
+            <i class="fas fa-envelope-open-text text-primary me-2"></i> Get in Touch
+          </h2>
+          <p class="text-center text-muted mb-4">Fill out the form and we’ll get back to you as soon as possible.</p>
 
-<section class="container py-5 section-highlight shop-header contact-section">
+          <form method="post" action="" id="contact-form">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Danut Grigore" required>
+            </div>
 
-   <h1 class="mb-2">Contact Us</h1>
-  <p>Discover premium supplements, workout gear, and more to support your wellness journey.</p>
-  
-  <div class="row justify-content-center">
-    <div class="col-lg-8 col-xl-7">
-      <div class="card p-4 p-md-5 shadow-sm rounded-4 border-0">
-        <h1 class="text-center mb-4 fw-bold">📬 Get in Touch</h1>
-        <p class="text-center mb-4 text-muted">Have questions, feedback, or just want to say hello? We’d love to hear from you!</p>
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+            </div>
 
-         <form method="post" action="" id="contact-form">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Danut Grigore" required>
-          </div>
+            <div class="mb-4">
+              <label for="message" class="form-label fw-semibold">Message</label>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+            </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-          </div>
-
-          <div class="text-center">
-            <button type="submit" class="btn shop-btn px-4">Send Message</button>
-          </div>
-        </form>
+            <div class="text-center">
+              <button type="submit" class="btn btn-accent px-5 py-2 fw-semibold">Send Message</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
 {% endblock %}
 
+
+
 {% block extra_js %}
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("contact-form");
     if (!form) return;
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
       const formData = new FormData(form);
 
@@ -61,12 +63,31 @@
         },
         body: new URLSearchParams(formData)
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(data => {
+            throw new Error(data.message || "Something went wrong.");
+          });
+        }
+        return response.json();
+      })
       .then(data => {
         showActionToast(data.message, 'success');
         form.reset();
+      })
+      .catch(error => {
+        showActionToast(error.message, 'error');
       });
     });
   });
+
+
+  function showActionToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast-alert toast-${type}`;
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+  }
 </script>
 {% endblock %}

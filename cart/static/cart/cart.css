@@ -22,7 +22,7 @@
 .table-wrap {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--border-muted);
+  border: 1px solid var(--color-bg);
   border-radius: var(--radius-lg);
 }
 
@@ -39,21 +39,6 @@
   font-weight: 600;
   text-align: center;
   color: var(--text-heading);
-}
-
-/* Checkout button */
-.shop-btn {
-  background-color: var(--accent-color);
-  color: white;
-  border-radius: var(--radius-md);
-  padding: 0.75rem 1.5rem;
-  font-weight: 500;
-  box-shadow: var(--shadow-md);
-  transition: background-color 0.3s;
-}
-
-.shop-btn:hover {
-  background-color: var(--accent-color-dark);
 }
 
 /* Responsive tweaks */
@@ -145,21 +130,6 @@
   margin-left: 0.75rem;
 }
 
-/* --- Button --- */
-.shop-btn {
-  background-color: var(--color-accent);
-  color: white;
-  font-weight: 600;
-  padding: 0.8rem 1.6rem;
-  font-size: 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: background-color 0.3s ease;
-}
-.shop-btn:hover {
-  background-color: var(--color-accent-2);
-}
-
 /* --- Stripe Note --- */
 .checkout-note {
   font-size: 0.9rem;
@@ -184,3 +154,4 @@
   padding: 1rem;
   margin-top: 1rem;
 }
+

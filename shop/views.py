@@ -67,7 +67,19 @@ def products_by_category(request, category):
 # ✅ Product detail page
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'shop/product_detail.html', {'product': product})
+
+    # Get 3 random other products to recommend
+    related_products = Product.objects.exclude(id=product.id).filter(available=True)
+
+    # Shuffle or slice if needed
+    import random
+    related_products = random.sample(list(related_products), min(len(related_products), 3))
+
+    context = {
+        'product': product,
+        'related_products': related_products,
+    }
+    return render(request, 'shop/product_detail.html', context)
 
 
 # ✅ Superuser-only check

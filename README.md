@@ -37,12 +37,12 @@
   - [ Model Relationships](#model-relationships)
   - [ Schema Diagram](#schema-diagram)
 - [🧪 Testing](#🧪-testing)
-- [ Security](#-security)
-- [ Deployment](#-deployment)
-  - [ Render Deployment](#-render-deployment)
-  - [ Cloning and Running Locally](#-cloning-and-running-locally)
-- [🔧 Future Improvements](#-future-improvements)
-- [📚 Credits](#-credits)
+- [🔐 Security](#🔐-security)
+- [🚀 Deployment](#🚀-deployment)
+  - [ Deployment](#deployment-process)
+  - [ Cloning and Running Locally](#cloning-and-running-locally)
+- [🔧 Future Improvements](#🔧-future-improvements)
+- [📚 Credits](#📚-credits)
   - [ Resources and Tutorials](#-resources-and-tutorials)
   - [🙏 Inspiration and Acknowledgements](#-inspiration-and-acknowledgements)
 
@@ -85,21 +85,21 @@ FitZone Pro is built to replicate real-world full-stack project challenges, incl
 
 The purpose of this project is to combine the most common tools used by fitness-focused users into one seamless digital experience. Unlike isolated meal plan apps or static recipe sites, FitZone Pro is designed to be:
 
-- 💪 Goal-oriented
-- 📱 Easy to use and mobile-friendly
-- 🎯 Highly interactive for logged-in users
-- 🛍️ Commercially capable through its integrated shop
+-  Goal-oriented
+-  Easy to use and mobile-friendly
+-  Highly interactive for logged-in users
+-  Commercially capable through its integrated shop
 
 The platform supports both anonymous browsing and rich personalized features for registered users. It encourages healthy habits while offering flexibility and control.
 
 **Key Features Include:**
 
-- ✅ Personalized user dashboard with saved content
-- 🧾 Meal plan and recipe CRUD functionality
-- 🛍️ Product catalog with cart and secure checkout
-- 📦 Order tracking and past order display
-- 💬 Feedback via toasts and validation
-- 🔐 Secure profile & password management
+-  Personalized user dashboard with saved content
+-  Meal plan and recipe CRUD functionality
+-  Product catalog with cart and secure checkout
+-  Order tracking and past order display
+-  Feedback via toasts and validation
+-  Secure profile & password management
 
 ---
 
@@ -108,11 +108,11 @@ The platform supports both anonymous browsing and rich personalized features for
 FitZone Pro is designed for the following user groups:
 
 - 🧍‍♂️ **Health-conscious individuals** who want to follow structured meal plans and track progress
-- 🍳 **Home cooks and food enthusiasts** looking to discover or save healthy recipes
-- 💪 **Fitness lovers** interested in buying quality supplements, gym gear, or workout apparel
-- 👩‍💻 **Registered users** who want to personalize their wellness experience, save content, and manage their data securely
-- 🛍️ **Shoppers** who want a convenient, all-in-one platform for browsing and purchasing fitness products
-- 🛠️ **Admin users** responsible for managing content, monitoring orders, and maintaining site integrity
+-  **Home cooks and food enthusiasts** looking to discover or save healthy recipes
+-  **Fitness lovers** interested in buying quality supplements, gym gear, or workout apparel
+-  **Registered users** who want to personalize their wellness experience, save content, and manage their data securely
+-  **Shoppers** who want a convenient, all-in-one platform for browsing and purchasing fitness products
+-  **Admin users** responsible for managing content, monitoring orders, and maintaining site integrity
 
 ---
 
@@ -601,3 +601,186 @@ A detailed breakdown of all test cases, tools, methods, and results is available
 📄 [**View Full Testing Documentation → `Testing.md`**](Testing.md)
 
 ---
+
+## 🔐 Security
+
+Security best practices were followed throughout the development and deployment of FitZone Pro to protect user data, prevent unauthorized access, and ensure secure payment processing.
+
+---
+
+###  User Authentication & Access Control
+
+- Django’s built-in authentication system was used for login, registration, logout, and password management.
+- Sensitive user data is only accessible to the authenticated user via session control.
+- Profile access, dashboard, and checkout pages are restricted to logged-in users using `@login_required`.
+- Admin-only features (like editing products) are protected using `@user_passes_test` and staff checks.
+- Superusers have access to Django Admin; regular users do not.
+
+---
+
+###  Input Validation & Form Protection
+
+- All forms include CSRF tokens (Django adds them automatically).
+- Django form and model validation is used to prevent invalid data from entering the database.
+- Forms return meaningful error messages for users and reject unexpected data types.
+- Checkout form and profile update forms include both frontend and backend validation.
+
+---
+
+###  Stripe Payment Security
+
+- Stripe test keys were used during development.
+- Card data is **never stored** on the server; it is handled entirely by Stripe's secure JavaScript SDK.
+- Only authenticated users can initiate a checkout.
+- Payment success and failure are handled via query strings and validated session data.
+
+---
+
+###  Sensitive Data & Environment Variables
+
+- All sensitive keys (e.g., `SECRET_KEY`, `STRIPE_PUBLIC/SECRET_KEYS`, `DATABASE_URL`) are stored in environment variables.
+- The `.env` file is **excluded** from version control using `.gitignore`.
+- On deployment platforms (e.g., Render), secrets are configured in the dashboard UI.
+
+---
+
+###  General Deployment Practices
+
+- `DEBUG = False` in production settings
+- `ALLOWED_HOSTS` explicitly set
+- Static files are served using **WhiteNoise** (production-ready)
+- Admin URL kept default unless otherwise protected (optional to change to a non-standard URL)
+- All outgoing dependencies are listed in `requirements.txt`
+
+
+> 🔐 FitZone Pro follows Django’s security model and industry standards for authentication, validation, and secret management.
+
+---
+
+## 🚀 Deployment
+
+FitZone Pro is deployed to [Render](https://render.com/) — a cloud-based hosting platform suitable for full-stack Django applications.
+
+All production configurations, environment variables, and build steps are handled via Render's dashboard.
+
+---
+
+### 🧷 Render Deployment Setup
+
+The live application is accessible at:  
+🔗 [https://fitzone-pro.onrender.com](https://fitzone-pro.onrender.com) *(update if needed)*
+
+---
+
+### ⚙️ Key Configuration Details
+
+- **Database**: PostgreSQL (via Render’s internal PostgreSQL add-on)
+- **Static Files**: Served via WhiteNoise
+- **WSGI Server**: Gunicorn
+- **Environment Variables**:
+  - `SECRET_KEY`, `DEBUG`, `DATABASE_URL`, `STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`, etc.
+- **Deployment Tools**:
+  - `build.sh` script or Render build commands
+  - `requirements.txt` for Python dependencies
+  - `Procfile` defines the WSGI entry point
+
+---
+
+###  Deployment Process
+
+1. Create new web service in Render and connect to GitHub repo
+2. Add required **environment variables**
+3. Define:
+   - **Start command**: `gunicorn fitzone_pro.wsgi:application`
+   - **Build command** (if using `build.sh`): `./build.sh`
+4. Add PostgreSQL database via Render’s service panel
+5. Wait for automatic build + deploy (on every commit)
+
+---
+
+###  Cloning and Running Locally
+
+To run FitZone Pro locally:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/fitzone-pro.git
+cd fitzone-pro
+```
+
+ ## 🔧 Future Improvements
+
+While FitZone Pro is fully functional and tested, several enhancements are planned for future iterations to enrich the user experience and improve scalability:
+
+---
+
+### 🔄 Functional Enhancements
+
+- **Email Notifications**  
+  - Send order confirmation emails after Stripe checkout using `sendgrid` or Django email backend.
+
+- **User Activity Log**  
+  - Track all CRUD activity in the user dashboard and allow users to export a summary.
+
+- **Recipe Ratings and Reviews**  
+  - Let users rate and review recipes to increase engagement and feedback.
+
+- **Comments on Meal Plans**  
+  - Introduce a comment/discussion section on meal plan detail pages.
+
+---
+
+### 🧠 UX & UI Enhancements
+
+- **Dark Mode Toggle**  
+  - Allow users to switch between light and dark themes.
+
+- **Animations & Transitions**  
+  - Enhance feedback with subtle transitions for buttons, toast messages, and page loads.
+
+---
+
+### 💻 Admin Features
+
+- **Approve Recipes Before Publication**  
+  - Introduce moderation tools for user-submitted recipes.
+
+- **Analytics Dashboard**  
+  - View site metrics (number of recipes, popular products, checkout conversion rate).
+
+
+> ✨ These improvements are based on user feedback, testing insights, and scalability goals.
+
+---
+
+## 📚 Credits
+
+This section acknowledges all resources, tools, tutorials, and individuals that contributed to the development of FitZone Pro.
+
+---
+
+### 📘 Resources and Tutorials
+
+- [Code Institute](https://codeinstitute.net/) — Full Stack Web Development curriculum and project rubric  
+- [Django Documentation](https://docs.djangoproject.com/en/stable/) — Official docs used throughout backend development  
+- [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.3/) — Frontend components, utilities, and layout  
+- [Stripe Docs](https://stripe.com/docs) — Payment integration guidance  
+- [dbdiagram.io](https://dbdiagram.io/) — Used to design and export the ERD  
+- [Font Awesome](https://fontawesome.com/) — Icon set for enhanced UI clarity  
+- [W3C Validators](https://validator.w3.org/) — HTML and CSS validation tools  
+- [Flake8](https://flake8.pycqa.org/) — Python code linting  
+- [GitHub Readme Styling Guide](https://github.com/matiassingers/awesome-readme) — Markdown formatting inspiration
+
+---
+
+### 🙏 Inspiration and Acknowledgements
+
+- 💻 **My mentor and Code Institute tutors** — for feedback, guidance, and support throughout the project  
+- 🧠 **Code Institute Slack community** — for sharing insights, troubleshooting, and motivation  
+- 🔧 **Figma Community Mockups** — used during wireframing and section layout planning  
+- 📣 **Users who tested the project** — for valuable UX feedback and improvement ideas  
+- 👨‍👩‍👧‍👦 **My family** — for encouraging me to push through the long hours and learning curve
+
+> ❤️ This project is a result of months of learning, iteration, testing, and dedication. Thank you to everyone who helped shape it.
+

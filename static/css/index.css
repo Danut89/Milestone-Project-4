@@ -837,26 +837,26 @@
 /* ============================
    📬 Contact Page Styles
 ============================ */
+
 .contact-section {
-  background-image: url('/static/images/hero-image.png');
-  background-size: cover;
-  background-position: center;
-  padding: 5rem 0;
+  padding-bottom: 8rem;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(6px);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  padding: 2rem;
+
+/* 🧾 Contact Card */
+.contact-card {
+  margin-top: 3rem;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
 }
 
+/* Inputs + Textarea */
 input,
 textarea {
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  padding: 0.75rem;
+  border: 1px solid var(--color-bg);
+  padding: 0.75rem 1rem;
   font-size: 1rem;
   width: 100%;
 }
@@ -865,36 +865,20 @@ input:focus,
 textarea:focus {
   border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 0.2rem rgba(0, 184, 148, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
 }
 
-/* ============================
-   🗂️ login page
-============================ */
-/* 🔘 Accent Button */
+/* Button */
 .btn-accent {
-  background-color: var(--color-accent);
+  background-color: var(--primary-color);
   color: white;
   border: none;
+  transition: all 0.3s ease;
 }
 
 .btn-accent:hover {
-  background-color: var(--color-accent-hover);
+  background-color: #157347;
   color: white;
-}
-
-/* 🔲 Rounded Card */
-.login-card {
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-bg);
-  box-shadow: var(--shadow-md);
-  padding: 2rem;
-  margin-top: 3rem;
-}
-
-/* 🎨 Accent Color */
-.text-accent {
-  color: var(--color-accent);
 }
 
 
@@ -921,6 +905,33 @@ textarea:focus {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* ============================
+   🥳 Toast Notifications for contact page*/
+.toast-alert {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  width: fit-content;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  z-index: 9999;
+  background-color: var(--primary-color);
+  animation: fadeOut 4s ease forwards;
+}
+
+
+.toast-success { background-color: #198754; }
+.toast-error { background-color: #dc3545; }
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
 }
 
 

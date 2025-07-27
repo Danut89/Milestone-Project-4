@@ -5,12 +5,12 @@
 
 {% block content %}
 <section class="container py-5 shop-header">
-  <h1 class="hero-title mb-4 text-center">🛒 Your Cart</h1>
+  <h1 class="hero-title mb-4 text-center"><i class="fas fa-shopping-cart text-success"></i> Your Cart</h1>
 
   
 
   {% if cart_items %}
-    <div class="table-wrap shadow-sm rounded-4 p-4 mb-4">
+    <div class="table-wrap cart-box shadow-lg rounded-3 p-4 mb-4">
       <table class="table align-middle cart-table w-100">
         <thead class="table-light">
           <tr>
@@ -49,7 +49,7 @@
 
     <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
       <p class="fs-5 mb-0"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
-      <a href="{% url 'checkout' %}" class="btn btn-outline-secondary shop-btn">
+      <a href="{% url 'checkout' %}" class="btn btn-outline-success">
         Proceed to Checkout
       </a>
       <a href="{% url 'all_products' %}" class="btn btn-outline-dark px-4 py-2 fw-bold rounded-3 border">← Continue Shopping</a>

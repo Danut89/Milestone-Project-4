@@ -6,12 +6,14 @@
 {% block content %}
 
 <!-- Title -->
-<section class="shop-header text-center container py-4">
-  <h1 class="mb-2">🛒 Explore <span class="text-success">All Products</span></h1>
-  <p>Discover premium supplements, workout gear, and more to support your wellness journey.</p>
+<section class="shop-header text-center container py-5">
 
-<hr class="my-4" style="max-width: 60px; margin: 1rem auto; border-color: var(--accent-green);">
-
+  <div class="text-center mt-2 mb-4">
+    <h1 class="mb-2">
+      <i class="fa-solid fa-store me-2 text-success"></i> Explore <span class="text-success">All Products</span>
+    </h1>
+    <p class="text-muted lead">Discover premium supplements, workout gear, and more to support your wellness journey.</p>
+  </div>
 <!-- 🔍 Filter & Sort Controls -->
 <form method="get" class="mb-4 d-flex align-items-center">
   <!-- Sort Dropdown -->
@@ -54,17 +56,16 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
       {% for product in products %}
         <div class="col">
-          <div class="card product-modern-card">
+          <div class="card  h-100 product-modern-card">
             <div class="badge">HOT SALE</div>
             <div class="img">
               {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" class="img-fluid product-img" alt="{{ product.name }}">
               {% else %}
                 <img src="{% static 'img/no-image-available.png' %}" alt="No image available">
               {% endif %}
             </div>
             <div class="info">
-              <div class="cat">Premium Product</div>
               <h2 class="title">{{ product.name }}</h2>
               <p class="desc">{{ product.description|truncatechars:100 }}</p>
               <div class="feats">
