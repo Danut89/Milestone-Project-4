@@ -34,9 +34,12 @@
 
   <!-- 🔝 Site Navigation -->
   <header>
-    {% include 'partials/navbar.html' %}
-
-    {% include 'partials/mobile_navbar.html' %}
+    <div class="d-none d-md-block">
+        {% include 'partials/navbar.html' %}
+    </div>
+    <div class="d-block d-md-none">
+        {% include 'partials/mobile_navbar.html' %}
+    </div>
   </header>
 
   <!-- 🧩 Page Content -->
