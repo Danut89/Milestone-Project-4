@@ -12,10 +12,11 @@ Both **manual tests** and **automated unit tests** were performed to ensure corr
 
 Automated unit tests were written using Django’s built-in `TestCase` framework. These tests focus on the **Recipe** model and test key CRUD operations: create, update, and delete.
 
-> All tests are located in:  
-> `nutrition/tests.py`
 
 ### ✅ Test Class: `RecipeCRUDTests`
+
+> tests are located in:  
+> `nutrition/tests.py`
 
 | Test Method | Purpose |
 |-------------|---------|
@@ -23,9 +24,7 @@ Automated unit tests were written using Django’s built-in `TestCase` framework
 | `test_update_recipe` | Verifies that a user can update their own recipe and that the changes are saved |
 | `test_delete_recipe` | Confirms that a user can delete a recipe and it is removed from the database |
 
-### 🛠️ Setup Logic
-
-Each test logs in a test user and uses the Django test client to simulate authenticated requests.
+#### 🛠️ Setup Logic
 
 ```python
 def setUp(self):
@@ -33,17 +32,11 @@ def setUp(self):
     self.client.login(username='testuser', password='testpass')
 ```
 
-### Running the Tests
-
-To execute all tests:
+#### ▶️ Running the Tests
 
 ```bash
 python manage.py test nutrition.tests.RecipeCRUDTests
 ```
-
-### Test Output
-
-All tests passed successfully. Output:
 
 <details>
   <summary>📸 Test Output (Click to expand)</summary>
@@ -52,25 +45,19 @@ All tests passed successfully. Output:
 
 </details>
 
-
 ---
-
 
 ### ✅ Test Class: `GlobalSearchTests`
 
-Automated tests were also written for the **Global Search** feature, which spans multiple apps (`shop`, `nutrition`, etc.).
-
-> All tests are located in:  
+> tests are located in:  
 > `home/tests.py`
 
 | Test Method                         | Purpose |
 |------------------------------------|---------|
-| `test_results_page_returned`       | Verifies that a valid query returns the correct template and includes all matched objects (products, recipes, meal plans) in the context |
-| `test_no_results_redirects_with_message` | Ensures that an unmatched search query redirects back and triggers a toast message saying `"No results found."` |
+| `test_results_page_returned`       | Valid query returns correct template with all matched objects (products, recipes, meal plans) |
+| `test_no_results_redirects_with_message` | Unmatched search query redirects with a toast saying `"No results found."` |
 
-### 🛠️ Setup Logic
-
-The tests simulate a logged-in user and create mock data for `Product`, `Recipe`, and `MealPlan`.
+#### 🛠️ Setup Logic
 
 ```python
 def setUp(self):
@@ -80,17 +67,11 @@ def setUp(self):
     self.meal_plan = MealPlan.objects.create(title='Search Plan', description='d', calories=100, duration_days=7, created_by=self.user)
 ```
 
-### Running the Tests
-
-To execute all tests:
+#### ▶️ Running the Tests
 
 ```bash
 python manage.py test home.tests.GlobalSearchTests
 ```
-
-### Test Output
-
-All tests passed successfully. Output:
 
 <details>
   <summary>📸 Test Output (Click to expand)</summary>
@@ -99,41 +80,30 @@ All tests passed successfully. Output:
 
 </details>
 
-
 ---
-
 
 ### ✅ Test Class: `PasswordChangeTests`
 
-This test suite verifies the **password change functionality** in the user settings section. It ensures the form behaves securely and correctly when changing passwords.
-
-> All tests are located in:  
+> tests are located in:  
 > `profiles/tests.py`
 
 | Test Method              | Purpose |
 |--------------------------|---------|
-| `test_change_password_success` | Confirms that a logged-in user can successfully change their password using the password change form. Verifies the user stays logged in, the password is updated, and a success toast message is displayed. |
+| `test_change_password_success` | Confirms user can change password successfully, remains logged in, and sees success toast |
 
-### 🛠️ Setup Logic
-
-The test logs in a user with an initial password (`oldpass123`), submits a valid password change request, and confirms the update.
+#### 🛠️ Setup Logic
 
 ```python
 def setUp(self):
     self.user = User.objects.create_user(username='tester', password='oldpass123')
     self.client.login(username='tester', password='oldpass123')
+```
 
-### Running the Tests
-
-To execute all tests:
+#### ▶️ Running the Tests
 
 ```bash
 python manage.py test profiles.tests.PasswordChangeTests
 ```
-
-### Test Output
-
-All tests passed successfully. Output:
 
 <details>
   <summary>📸 Test Output (Click to expand)</summary>
@@ -141,3 +111,45 @@ All tests passed successfully. Output:
   ![Test Results](static/testing-screenshoots/test-results3.png)
 
 </details>
+
+
+##  🔍 Manual Feature Testing
+
+Manual testing was conducted across the major features of FitZone Pro using both desktop and mobile browsers. The following table outlines the results:
+
+###  Features Manual Testing
+
+| Feature                      | Tested On        | Expected Result                                             | Outcome   |
+|-----------------------------|------------------|-------------------------------------------------------------|-----------|
+| User Registration           | Desktop / Mobile | New user created, redirected to dashboard/home             | ✅ Pass    |
+| Login / Logout              | Desktop / Mobile | User can log in, see account info, and securely log out     | ✅ Pass    |
+| Create Recipe               | Desktop / Mobile | Recipe saved and appears in recipe list                     | ✅ Pass    |
+| Edit / Delete Recipe        | Desktop / Mobile | User can update or delete their own recipe                  | ✅ Pass    |
+| Save to Wishlist (Recipe)   | Desktop / Mobile | Wishlist button toggles and updates dashboard list          | ✅ Pass    |
+| View Meal Plan Details      | Desktop / Mobile | Plan displays all days and meals; accordion works correctly | ✅ Pass    |
+| Save to Wishlist (Meal Plan)| Desktop / Mobile | Toggle saves plan and appears in dashboard                  | ✅ Pass    |
+| Add to Cart                 | Desktop / Mobile | Product added to cart and item count updates                | ✅ Pass    |
+| Checkout Flow               | Desktop / Mobile | Stripe form loads, payment succeeds, order is saved         | ✅ Pass    |
+| View Past Orders            | Desktop / Mobile | Orders show in dashboard with correct info                  | ✅ Pass    |
+| Profile Info Update         | Desktop / Mobile | Address details update with success toast                   | ✅ Pass    |
+| Password Change             | Desktop / Mobile | Password changes securely and user remains logged in        | ✅ Pass    |
+| Admin Product Edit/Delete   | Desktop          | Product list updates immediately for admin users            | ✅ Pass    |
+
+---
+
+### 🧭 UI & Navigation Manual Testing
+
+This section outlines tests for general navigation, link behavior, and UI feedback.
+
+| Interaction Tested            | Action Performed                                | Expected Behavior                                       | Outcome   |
+|-------------------------------|--------------------------------------------------|----------------------------------------------------------|-----------|
+| Navigation Links              | Clicked: "Home", "Meal Plans", "Shop", "Dashboard" | Correct pages load and scroll to top                    | ✅ Pass    |
+| Logo Click                    | Click logo from any page                         | Redirects to homepage                                   | ✅ Pass    |
+| Dashboard Button              | Clicked avatar/profile icon                      | Opens dashboard if logged in                            | ✅ Pass    |
+| Wishlist Tabs Toggle          | Click between Recipes / Meal Plans tabs          | Each tab shows relevant saved items                     | ✅ Pass    |
+| Cart Icon Click               | Clicked from navbar                              | Opens cart page with current items                      | ✅ Pass    |
+| Quantity Adjust Buttons       | Clicked plus/minus on cart page                  | Quantity updates and subtotal recalculates              | ✅ Pass    |
+| Toast Message Dismiss         | Clicked close button on success/error toast      | Toast disappears                                         | ✅ Pass    |
+| Scroll To Section             | Used nav or in-page anchor link (e.g. How It Works) | Page scrolls smoothly to anchor section                 | ✅ Pass    |
+| Accordion (Meal Plan)         | Clicked each day in meal plan detail             | Expands/collapses correctly                             | ✅ Pass    |
+| Responsive Menu Toggle        | Used hamburger icon on mobile view               | Expands and collapses menu                              | ✅ Pass    |
