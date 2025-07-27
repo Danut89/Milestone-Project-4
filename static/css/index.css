@@ -7,7 +7,7 @@
   background-color: rgba(24, 24, 24, 0.85);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg), inset 0 0 10px rgba(255, 255, 255, 0.02);
   max-width: 92%;
   padding: 1rem 2rem;
@@ -125,50 +125,6 @@
   box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.3);
 }
 
-/* ================================
-   📱 Responsive - Max-width 768px
-================================== */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-  }
-
-  .navbar .navbar-brand {
-    font-size: 1.5rem;
-    text-align: center;
-    width: 100%;
-  }
-
-  .navbar form[role="search"] {
-    margin-top: 0.5rem;
-  }
-
-  .navbar .account-cart-wrapper {
-    margin-top: 0.75rem;
-    gap: 0.75rem;
-  }
-
-  .navbar .nav-link {
-    font-size: 1.05rem;
-    padding: 0.75rem 0;
-  }
-
-  .navbar .navbar-collapse {
-    margin-top: 1rem;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    width: 100%;
-    box-shadow: var(--shadow-md);
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-}
 
 
 
@@ -935,4 +891,136 @@ textarea:focus {
 }
 
 
+/* ============================
+   📱 Mobile Navbar Styling
+============================ */
+.mobile-navbar {
+  background-color: var(--color-dark);
+  z-index: 1030;
+}
 
+.mobile-navbar .form-control.search-mobile {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border-radius: var(--radius-sm);
+  border: none;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.mobile-navbar .form-control.search-mobile::placeholder {
+  color: var(--text-muted);
+}
+
+.mobile-navbar .dropdown-menu {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border-radius: var(--radius-md);
+}
+
+.mobile-navbar .dropdown-item:hover {
+  background-color: var(--color-accent-2);
+  color: var(--text-light);
+}
+
+.mobile-navbar .badge {
+  font-size: 0.65rem;
+  padding: 4px 6px;
+}
+
+
+
+/* ============================
+   📱 Mobile Navbar Styling
+============================ */
+
+.mobile-navbar {
+  background-color: rgba(24, 24, 24, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1055;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .mobile-navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  nav.navbar,
+  .navbar-fixed-top,
+  .navbar-sticky-top {
+    display: none !important;
+  }
+}
+
+/* 🔍 Search Input */
+.mobile-navbar .search-mobile {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.mobile-navbar .search-mobile::placeholder {
+  color: var(--text-muted);
+}
+
+/* 📩 Dropdown Menu */
+.mobile-navbar .dropdown-menu {
+  background-color: var(--bg-light);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-navbar .dropdown-item:hover {
+  background-color: var(--color-accent-2);
+  color: var(--text-light);
+}
+
+/* 🛒 Cart Badge */
+.mobile-navbar .badge {
+  font-size: 0.65rem;
+  padding: 4px 6px;
+}
+
+/* 🔠 Icons */
+.mobile-navbar i {
+  font-size: 1.25rem;
+  color: white;
+}
+
+
+/* =============================================
+   📱 Responsive Spacing Fix for .shop-header
+============================================= */
+
+/* Mobile (<576px) */
+@media (max-width: 575.98px) {
+  .shop-header {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 3rem !important; /* or adjust as needed */
+  }
+}
+
+/* Small to Medium Screens (Tablet) (576px–1023px) */
+@media (min-width: 576px) and (max-width: 1023.98px) {
+  .shop-header {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 10rem !important; /* match visual layout to mobile */
+  }
+}
+
+/* Large Screens (Desktop ≥1024px) — Keep default spacing */

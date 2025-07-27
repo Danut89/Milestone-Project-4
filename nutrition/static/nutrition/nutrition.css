@@ -275,7 +275,6 @@
 
 .recipe-card .btn:hover {
   background-color: var(--color-accent);
-  border: none;
 }
 .plan-badges {
   display: flex;

@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -125,3 +127,20 @@ def global_search(request):
 
     messages.warning(request, "No results found.")
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+
+# ==============================
+# 📧 Newsletter Subscription View
+def subscribe_view(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+
+        # Validate email format
+        try:
+            validate_email(email)
+            messages.success(request, "🎉 You're now subscribed to FitZone Pro!")
+        except ValidationError:
+            messages.error(request, "❌ Please enter a valid email address.")
+
+    return redirect('home')  # Redirect back to homepage

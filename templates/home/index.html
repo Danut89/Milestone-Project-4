@@ -161,6 +161,7 @@
   </div>
 </section>
 
+
 <!-- 📬 Newsletter Subscription -->
 <section class="subscribe-section text-center" aria-labelledby="subscribe-heading" role="region">
   <div class="container">
@@ -172,10 +173,16 @@
       Join our community for the latest wellness tips, product launches, and exclusive offers.
     </p>
 
-    <form action="#" method="POST" class="row justify-content-center align-items-center g-2"
+    <form action="{% url 'subscribe' %}" method="POST" class="row justify-content-center align-items-center g-2"
           role="form" aria-label="Newsletter subscription">
+      {% csrf_token %}
       <div class="col-md-6">
-        <input type="email" class="form-control subscribe-input" placeholder="Enter your email" required aria-label="Email address">
+        <input type="email"
+               class="form-control subscribe-input"
+               name="email"
+               placeholder="Enter your email"
+               required
+               aria-label="Email address">
       </div>
       <div class="col-auto">
         <button type="submit" class="btn btn-primary">Subscribe</button>
@@ -183,6 +190,7 @@
     </form>
   </div>
 </section>
+
 
 <!-- 🌀 Animated Divider -->
 <section class="section-divider">

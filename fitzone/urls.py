@@ -30,6 +30,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('dashboard/', home_views.dashboard, name='dashboard'),
     path('contact/', home_views.contact_view, name='contact'),
+    path('subscribe/', home_views.subscribe_view, name='subscribe'),
     path('workouts/', include('workouts.urls')),
     path('profile/', include('profiles.urls')),
     path('nutrition/', include('nutrition.urls')),

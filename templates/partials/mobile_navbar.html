@@ -1,0 +1,84 @@
+<!-- 📱 Mobile Navbar (Refined Layout) -->
+<nav class="d-lg-none fixed-top bg-dark text-white shadow-lg z-1030">
+  <div class="container-fluid px-3 pt-2 pb-1">
+
+    <!-- 🔍 Search Bar Row -->
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Search -->
+      <form action="{% url 'global_search' %}" method="GET" class="d-flex w-100 gap-2">
+        <input type="text" name="q" class="form-control search-mobile" placeholder="Search..." aria-label="Search" required>
+        <button type="submit" class="btn btn-success px-3"><i class="fas fa-search"></i></button>
+      </form>
+
+
+      <!-- ☰ Toggler -->
+      <button class="btn text-white p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+
+    <!-- 👤 Profile + 🛒 Cart Row -->
+    <div class="d-flex align-items-center justify-content-start gap-4 mt-3 ms-1">
+
+      <!-- 👤 Profile -->
+      {% if user.is_authenticated %}
+      <div class="dropdown">
+        <a class="text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user fa-lg"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a class="dropdown-item" href="{% url 'settings_view' %}">Settings</a></li>
+          <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
+        </ul>
+      </div>
+      {% else %}
+      <a href="{% url 'account_login' %}" class="text-white text-decoration-none">Login</a>
+      <a href="{% url 'account_signup' %}" class="text-white text-decoration-none ms-2">Register</a>
+      {% endif %}
+
+      <!-- 🛒 Cart -->
+      <a href="{% url 'view_cart' %}" class="text-white position-relative">
+        <i class="fas fa-shopping-cart fa-lg"></i>
+        {% if cart_items_count and cart_items_count > 0 %}
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+          {{ cart_items_count }}
+        </span>
+        {% endif %}
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 🔽 Collapsible Mobile Menu -->
+  <div class="collapse bg-dark text-white px-3 py-3" id="mobileMenu">
+    <ul class="nav flex-column gap-2">
+      <li><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
+
+      <!-- Shop Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Shop</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'all_products' %}">All Products</a></li>
+          <li><a class="dropdown-item" href="{% url 'products_by_category' 'equipment' %}">Equipment</a></li>
+          <li><a class="dropdown-item" href="{% url 'products_by_category' 'clothing' %}">Clothing</a></li>
+          <li><a class="dropdown-item" href="{% url 'products_by_category' 'supplement' %}">Supplements</a></li>
+        </ul>
+      </li>
+
+      <!-- Nutrition Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Nutrition</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'nutrition:meal_plans' %}">Meal Plans</a></li>
+          <li><a class="dropdown-item" href="{% url 'nutrition:recipes' %}">Recipes</a></li>
+        </ul>
+      </li>
+
+      <!-- Contact -->
+      <li><a class="nav-link text-white" href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+  </div>
+</nav>
