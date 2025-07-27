@@ -1,0 +1,35 @@
+/* reset.css */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--color-neutral);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+ul, ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}

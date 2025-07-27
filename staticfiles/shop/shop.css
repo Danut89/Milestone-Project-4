@@ -1,0 +1,574 @@
+/* =============================
+   🛍️ Shop Cards & Product Grid
+============================= */
+.shop-header {
+  border-radius: 1rem;
+  margin-top: 8rem; /* ⬅️ Was 5.5rem, now safely clears the sticky navbar */
+  margin-bottom: 2.5rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.shop-header h1 {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.shop-header p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   🛍️ Modern Product Card Design
+========================================= */
+
+/* 🔳 Card Container */
+.product-modern-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 520px;
+}
+
+.product-modern-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 🏷️ Badge */
+.product-modern-card .badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(to right, #a90329, #c44848, #aa2238);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* 🖼️ Image */
+.product-modern-card .img {
+  height: 250px;
+  overflow: hidden;
+}
+
+.product-modern-card .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.product-modern-card:hover .img img {
+  transform: scale(1.05);
+}
+
+/* 📄 Info Section */
+.product-modern-card .info {
+  padding: 20px;
+}
+
+.product-modern-card .cat {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #71717A;
+  margin-bottom: 5px;
+}
+
+.product-modern-card .title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #18181B;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.product-modern-card .desc {
+  font-size: 13px;
+  color: #52525B;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* 🔹 Feature Badges */
+.product-modern-card .feats {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.product-modern-card .feat {
+  font-size: 10px;
+  background: #F4F4F5;
+  color: #71717A;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* 💷 Price & Button */
+.product-modern-card .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.product-modern-card .price {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-modern-card .old {
+  font-size: 13px;
+  text-decoration: line-through;
+  color: #A1A1AA;
+  margin-bottom: 2px;
+}
+
+.product-modern-card .new {
+  font-size: 20px;
+  font-weight: 700;
+  color: #18181B;
+}
+
+.product-modern-card .btn {
+  background: linear-gradient(45deg, #18181B, #27272A);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-modern-card .btn:hover {
+  background-color: var(--accent-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+.product-modern-card .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.product-modern-card .btn:hover::before {
+  left: 100%;
+}
+
+.product-modern-card .icon {
+  transition: transform 0.3s;
+}
+
+.product-modern-card .btn:hover .icon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+/* 📊 Meta Info */
+.product-modern-card .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #F4F4F5;
+  padding-top: 12px;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ⭐ Rating Stars + Review Count */
+.product-modern-card .rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+  line-height: 1;
+}
+
+.product-modern-card .rating svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: #FFD700;
+  stroke: #FFD700;
+  display: inline-block;
+}
+
+.product-modern-card .rcount {
+  margin-left: 6px;
+  font-size: 13px;
+  color: #71717A;
+  white-space: nowrap;
+}
+
+/* ✅ Stock Label */
+.product-modern-card .stock {
+  font-size: 13px;
+  font-weight: 600;
+  color: #22C55E;
+  white-space: nowrap;
+}
+
+/* 📱 Mobile Tweaks */
+@media (max-width: 400px) {
+  .product-modern-card .meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-modern-card .rating svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .product-modern-card .rcount {
+    font-size: 12px;
+  }
+
+  .product-modern-card .stock {
+    font-size: 12px;
+  }
+}
+
+
+
+/* 📱 Responsive */
+@media (max-width: 400px) {
+  .product-modern-card {
+    width: 100%;
+  }
+
+  .product-modern-card .title {
+    font-size: 16px;
+  }
+
+  .product-modern-card .img {
+    height: 180px;
+  }
+
+  .product-modern-card .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .product-modern-card .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Pagination */
+.page-item.active .page-link {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+  color: white;
+}
+
+.page-link {
+  color: var(--primary-color);
+  transition: all 0.2s ease;
+}
+
+.page-link:hover {
+  color: white;
+  background-color: var(--primary-color);
+}
+
+/* =========================================
+   🛍 Product Detail Page Styling
+========================================= */
+
+.product-detail-wrapper {
+  margin-top: 6rem;
+  margin-bottom: 5rem;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===============================
+   🖼 Product Image Styling
+=============================== */
+.product-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid #eaeaea;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s ease;
+}
+
+.product-img:hover {
+  transform: scale(1.01);
+}
+
+/* ===============================
+   🏷 Product Title & Description
+=============================== */
+.product-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.product-description {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 90%;
+  margin: 1rem 0 2rem;
+}
+
+/* ===============================
+   📦 Product Meta Box
+=============================== */
+.product-meta {
+  background-color: var(--bg-muted);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  font-size: 1rem;
+  color: var(--text-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-meta ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-meta li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ===============================
+   💰 Price Display
+=============================== */
+.shop-price {
+  font-size: 1.6rem;
+  color: var(--color-accent-3);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* ===============================
+   🛒 Add to Cart Buttons
+=============================== */
+.shop-btn,
+.shop-btn-outline {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.shop-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.shop-btn:hover {
+  background-color: var(--color-accent);
+  color: var(--text-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.shop-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--text-dark);
+  color: var(--text-dark);
+}
+
+.shop-btn-outline:hover {
+  background-color: var(--text-dark);
+  color: white;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   🔢 Quantity Input
+=============================== */
+.quantity-input {
+  width: 70px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #ccc;
+}
+
+/* ===============================
+   🛡 Trust Badges
+=============================== */
+.checkout-badges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.checkout-badges i {
+  color: var(--color-accent-3);
+  margin-right: 0.25rem;
+}
+
+/* ===============================
+   ❤️ Related Products
+=============================== */
+.related-card {
+  background-color: white;
+  border: 1px solid var(--color-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.related-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.related-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.related-card .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.related-card .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.related-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.related-card .btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--secondary-color);
+  background-color: transparent;
+  color: var(--color-accent-2);
+  transition: all 0.2s ease;
+}
+
+.related-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===============================
+   🧭 Breadcrumb Enhancements
+=============================== */
+.breadcrumb {
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-sm);
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.breadcrumb-item.active {
+  color: #999;
+}
+
+/* ===============================
+   📱 Responsive Design
+=============================== */
+@media (max-width: 768px) {
+  .product-img {
+    max-height: 300px;
+  }
+
+  .shop-btn,
+  .shop-btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .product-meta {
+    padding: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .shop-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .breadcrumb {
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    padding: 0 0.3rem;
+  }
+}

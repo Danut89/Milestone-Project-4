@@ -1,0 +1,322 @@
+/* ===============================
+   🌿 FitZone Pro: Recipe Detail Page Styling
+=============================== */
+
+/* Global font for detail pages */
+.meal-detail-page {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-light);
+}
+
+/* ==============================
+   📸 Recipe Image Container Box
+============================== */
+
+.recipe-card {
+  background-color: var(--color-neutral);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.2), inset -2px 2px #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.recipe-detail-image {
+  background-color: var(--color-neutral);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+  min-height: 100%;
+}
+
+
+.recipe-detail-image img {
+  border-radius: var(--radius-md);
+  max-height: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recipe-detail-image:hover img {
+  transform: scale(1.02);
+}
+
+/* ================================
+   📋 Accordion & Details Container
+================================ */
+.details-box {
+  background: var(--color-neutral);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid var(--color-bg);
+}
+
+.details-box:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Accordion */
+.accordion {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background-color: #fff;
+}
+
+.accordion-item {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion-header {
+  background-color: transparent;
+}
+
+.accordion-button {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: #f9fafb;
+  color: var(--text-dark);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.accordion-button::after {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+.accordion-button:not(.collapsed)::after {
+  transform: rotate(-180deg);
+  filter: brightness(95%);
+}
+
+.accordion-body {
+  background-color: var(--bg-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  padding: 1.25rem 1.5rem;
+  color: var(--text-muted);
+}
+
+/* 📝 Description Box (About Section) */
+.plan-description-box {
+  background-color: var(--color-neutral);
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-align: left;
+  width: 100%;
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease;
+  margin-top: 2rem;
+}
+
+.plan-description-box:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.plan-description-box ul {
+  list-style-type: disc;
+  padding-left: 1.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.plan-description-box li {
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+/* Title styling inside boxes */
+.desc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.desc-title i {
+  color: var(--primary-color);
+}
+
+/* Ingredient/Instruction/Nutrition line items */
+.meal-day-list {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.meal-item-group {
+  background-color: var(--bg-muted);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.meal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  transition: background-color 0.2s ease;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.meal-item:hover {
+  background-color: #eef6f9;
+}
+
+/* 🏷️ Dynamic Category Badges */
+.badge-breakfast { background-color: #ffb703; }
+.badge-lunch { background-color: #06d6a0; }
+.badge-dinner { background-color: #118ab2; }
+.badge-dessert { background-color: #ef476f; }
+.badge-snack { background-color: #ffca3a; }
+.badge-vegan { background-color: #38b000; }
+.badge-default { background-color: var(--color-accent); }
+
+.recipe-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+
+/* ================================
+   🍱 Meal Plan Card Enhancements
+================================ */
+
+/* Adjust layout consistency for reused .recipe-card */
+.recipe-card .card-body {
+  padding: 1.5rem;
+}
+
+.recipe-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-card .card-title {
+  word-break: break-word;
+}
+
+
+.recipe-card .card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Compact features under title */
+.recipe-card .feats span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Align bottom button cleanly */
+.recipe-card .btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.recipe-card .btn:hover {
+  background-color: var(--color-accent);
+  border: none;
+}
+.plan-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
+
+.badge-icon {
+  background-color: var(--bg-muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.badge-icon i {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+}
+
+
+/* ==================================
+   🧠 "You Might Also Like" Suggestions
+=================================== */
+.suggestion-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-bg);
+}
+
+.suggestion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.suggestion-title {
+  border-bottom: 1px solid var(--color-accent);
+
+}
