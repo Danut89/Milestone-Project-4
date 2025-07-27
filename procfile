@@ -1,1 +1,1 @@
-web: gunicorn fitzone.wsgi
+web: gunicorn fitzone.wsgi:application
