@@ -929,7 +929,6 @@ textarea:focus {
 }
 
 
-
 /* ============================
    📱 Mobile Navbar Styling
 ============================ */
@@ -1005,7 +1004,6 @@ textarea:focus {
    📱 Responsive Spacing Fix for .shop-header
 ============================================= */
 
-
 /* Mobile (<576px) */
 @media (max-width: 575.98px) {
   .shop-header {
@@ -1025,3 +1023,4 @@ textarea:focus {
 }
 
 /* Large Screens (Desktop ≥1024px) — Keep default spacing */
+
