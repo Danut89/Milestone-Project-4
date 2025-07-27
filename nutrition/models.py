@@ -10,7 +10,7 @@ class MealPlan(models.Model):
     calories = models.IntegerField()
     duration_days = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='mealplan_images/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
 
     created_by = models.ForeignKey(
         User,

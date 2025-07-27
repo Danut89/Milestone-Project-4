@@ -223,3 +223,37 @@ FitZone Pro was manually tested across multiple browsers and devices to ensure c
 ---
 
 > 🧠 No layout-breaking bugs or functional inconsistencies were found. Minor visual shifts on very small screens were resolved via media queries.
+
+---
+
+### ♿ Accessibility Testing
+
+Accessibility was considered throughout the design and development of FitZone Pro to ensure usability for all users, including those using assistive technologies.
+
+---
+
+#### ✅ Automated Accessibility Checks
+
+| Tool Used             | Pages Tested                | Result Summary                      |
+|-----------------------|-----------------------------|--------------------------------------|
+| [WAVE](https://wave.webaim.org/) | Homepage, Recipes, Dashboard     | ✅ No contrast or structural errors |
+| Chrome Lighthouse     | Multiple (Home, Shop, Profile) | ✅ Accessibility scores: 90+      |
+| axe DevTools          | Meal Plan and Cart pages     | ✅ No critical issues found         |
+
+---
+
+#### ✅ Manual Accessibility Checks
+
+| Check                            | Notes                                                                 | Result   |
+|----------------------------------|-----------------------------------------------------------------------|----------|
+| Alt text for all images          | Descriptive alt text used or images marked as decorative where needed | ✅ Pass  |
+| Form label accessibility         | All forms use `<label>` linked to input fields                        | ✅ Pass  |
+| Heading hierarchy (H1–H6)        | Proper semantic structure followed                                    | ✅ Pass  |
+| Color contrast                   | Tested using WAVE & devtools; contrast ratios meet WCAG AA             | ✅ Pass  |
+| Keyboard navigation              | Full navigation using `Tab`, `Enter`, `Space`, `Esc` tested           | ✅ Pass  |
+| Focus indicators                 | All interactive elements show focus outline                           | ✅ Pass  |
+| ARIA roles and landmarks         | Navigation bar, modals, and toasts use appropriate ARIA roles         | ✅ Pass  |
+
+---
+
+> 🎯 Accessibility features improve usability for all users and help ensure the site is inclusive and professional. Testing was done using both tools and manual inspection.

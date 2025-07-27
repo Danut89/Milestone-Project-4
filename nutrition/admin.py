@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import MealPlan, MealPlanDay, Recipe, Wishlist
 
 # ✅ Register Wishlist
@@ -22,20 +23,21 @@ class MealPlanAdmin(admin.ModelAdmin):
 # ✅ Recipe Admin with Category Support
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'prep_time_minutes', 'calories', 'category', 'author', 'created_at')
+    list_display = ('title', 'prep_time_minutes', 'calories', 'category', 'author', 'created_at', 'image_preview')
     search_fields = ('title', 'ingredients', 'instructions')
     list_filter = ('category', 'created_at', 'author')
+
     fieldsets = (
         (None, {
             'fields': (
                 'title',
-                'description',  # ✅ Added description field
-                'category',  # ✅ Added category field
+                'description',
+                'category',
                 'ingredients',
                 'instructions',
                 'prep_time_minutes',
                 'image',
-                'author'
+                'author',
             )
         }),
         ('Nutritional Info', {
@@ -44,3 +46,9 @@ class RecipeAdmin(admin.ModelAdmin):
         }),
     )
 
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height: 80px;" />', obj.image.url)
+        return "No image"
+
+    image_preview.short_description = "Preview"
