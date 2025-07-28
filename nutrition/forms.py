@@ -5,7 +5,7 @@ from .models import MealPlan, Recipe
 class MealPlanForm(forms.ModelForm):
     class Meta:
         model = MealPlan
-        fields = ['title', 'description', 'calories', 'duration_days']
+        fields = ['title', 'description', 'calories', 'goal', 'duration_days']
 
 # 🍽️ Recipe Form
 class RecipeForm(forms.ModelForm):

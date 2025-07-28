@@ -4,6 +4,13 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
+GOAL_CHOICES = [
+    ('weight_loss', 'Weight Loss'),
+    ('high_protein', 'Muscle Gain'),
+    ('balance', 'Balanced Nutrition'),
+    ('heart_healthy', 'Heart Healthy'),
+]
+
 class MealPlan(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -11,7 +18,12 @@ class MealPlan(models.Model):
     duration_days = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image', blank=True, null=True)
-
+    goal = models.CharField(
+        max_length=20,
+        choices=GOAL_CHOICES,
+        default='balance',  # ✅ FIXED typo
+        help_text="What is the main goal of this meal plan?"
+    )
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -25,6 +37,12 @@ class MealPlan(models.Model):
     @property
     def get_days(self):
         return self.days.all()
+
+    @property
+    def goal_label(self):
+        """Return the human-readable goal label."""
+        return self.get_goal_display()
+
 
 
 class MealPlanDay(models.Model):

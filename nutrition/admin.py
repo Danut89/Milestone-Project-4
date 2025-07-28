@@ -15,7 +15,7 @@ class MealPlanDayInline(admin.TabularInline):
 # ✅ MealPlan Admin with inline MealPlanDays
 @admin.register(MealPlan)
 class MealPlanAdmin(admin.ModelAdmin):
-    list_display = ('title', 'calories', 'duration_days', 'created_at', 'created_by')
+    list_display = ('title', 'goal', 'calories', 'duration_days', 'created_at', 'created_by')
     search_fields = ('title', 'description')
     list_filter = ('created_at',)
     inlines = [MealPlanDayInline]
