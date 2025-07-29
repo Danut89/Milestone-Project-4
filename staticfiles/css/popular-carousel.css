@@ -5,6 +5,8 @@
     z-index: 1;
 }
 
+
+
 .carousel {
     --items: 6;
     --carousel-duration: 40s;
