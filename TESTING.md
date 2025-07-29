@@ -196,6 +196,65 @@ This section outlines how the system handles invalid inputs, permission checks, 
 
 ---
 
+## ✅ Validation
+
+### ✅ HTML Validation
+All major HTML templates were validated using the [W3C HTML Validator](https://validator.w3.org/nu/).  
+Where Jinja template tags (`{% ... %}`, `{{ ... }}`) caused warnings, they were reviewed and confirmed safe.
+
+### ✅ CSS Validation
+All custom stylesheets (e.g. `index.css`, `nutrition.css`, `popular-carousel.css`) were validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).  
+Minor issues such as vendor prefixes were ignored, and all CSS passed validation for core syntax.
+
+### ✅ Python & Django Linting
+All Python code was linted with `flake8` and follows PEP8 guidelines.  
+The Django project structure uses clear naming and is modularly organized across apps.
+
+---
+
+### 🔧 Fixes & Accessibility Updates
+
+- ✅ **Duplicate `<main>` tags** were removed — each page has exactly one main region
+- ✅ Inline styles for hero/banner backgrounds were moved into separate CSS files (e.g. `index.css`)
+- ✅ All images use descriptive `alt` attributes
+- ✅ Semantic HTML tags (`<header>`, `<nav>`, `<section>`, `<article>`) used instead of ARIA roles
+- ✅ `{% block title %}` used in all templates to render unique page titles for screen readers and SEO
+
+---
+
+### 📸 Validation Screenshots (Click to Expand)
+
+<details>
+<summary>📷 Click here to view all HTML validation screenshots</summary>
+
+#### ✅ `base.html`
+![base.html Validated](static/images/validation/base-html-valid.png)
+
+#### ✅ `index.html`
+![index.html Validated](static/images/validation/index-html-valid.png)
+
+#### ✅ `all_products.html`
+![all_products.html Validated](static/images/validation/all_products-html-valid.png)
+
+#### ✅ `recipe.html`
+![recipe.html Validated](static/images/validation/recipe-html-valid.png)
+
+#### ✅ `meal_plan.html`
+![meal_plan.html Validated](static/images/validation/meal_plan-html-valid.png)
+
+#### ✅ `contact.html`
+![contact.html Validated](static/images/validation/contact-html-valid.png)
+
+</details>
+
+---
+
+### 🔍 Notes
+- Some templates (e.g. `navbar.html`, `toasts.html`) are partials and are not full documents — so warnings like "missing `<html>` or `<head>`" are expected.
+- No accessibility violations detected in Lighthouse or screen reader simulation testing.
+
+---
+
 ### 🌐 Browser & Device Compatibility
 
 FitZone Pro was manually tested across multiple browsers and devices to ensure consistency, responsiveness, and full feature access.
