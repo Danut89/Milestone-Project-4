@@ -157,10 +157,11 @@
 
 
 /* 🖋 Hero Title */
-.hero-title {
+.hero-heading {
   line-height: 1.2;
   color: var(--text-light);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .hero-text {
@@ -178,6 +179,7 @@
 
 /* 🧾 Hero Subtitle */
 .hero-subtitle {
+  font-family: 'Roboto', sans-serif;
   font-size: 1.25rem;
   max-width: 600px;
   margin: 0 5px;
@@ -326,6 +328,7 @@
   color: var(--text-dark);
   font-size: 2.25rem;
   margin-bottom: 0.75rem;
+  font-weight: 'Montserrat', sans-serif;
 }
 
 .why-fitzone-pro .lead {

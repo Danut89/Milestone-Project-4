@@ -146,7 +146,7 @@
 /*  Hero Banner Background */
 .hero-banner {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
-              url('../images/hero-image.png') center/cover no-repeat;
+            url('/static/images/hero-image.webp') center/cover no-repeat;
 }
 
 /* 🎨 Hero Text Styling */
@@ -627,7 +627,7 @@
 =========================== */
 .subscribe-section {
   background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)),
-              url('../images/subscribe-image.png') center/cover no-repeat;
+              url('../images/subscribe-image.webp') center/cover no-repeat;
   padding: 4rem 0;
   position: relative;
   overflow: hidden;
