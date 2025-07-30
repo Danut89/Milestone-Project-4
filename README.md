@@ -4,20 +4,19 @@
 
 # 📚 Table of Contents
 
-- [📖 About](#📖-about)
+- [📖 About](#about)
   - [ Project Overview](#project-overview)
   - [ Site Purpose](#site-purpose)
-  - [🎯 Target Audience](#🎯-target-audience)
-- [ User Experience (UX)](#user-experience-ux)
-  - [✅ User Stories](#✅-user-stories)
-  - [🎨 Design Choices](#🎨-design-choices)
+  - [🎯 Target Audience](#target-audience)
+- [🧠 User Experience (UX)](#ux-design-and-user-flow)
+  - [✅ User Stories](#user-stories)
     - [ Colour Palette](#colour-palette)
     - [ Typography](#typography)
     - [ Icons](#icons)
     - [ Animations and Interactivity](#animations-and-interactivity)
     - [ Responsive Design](#responsive-design)
-  - [🧾 Wireframes](#🧾-wireframes)
-- [💡 Features](#💡-features)
+  - [🧾 Wireframes](#wireframes)
+- [💡 Features](#features)
   - [ Navigation Bar](#navigation-bar)
   - [ Homepage](#homepage)
   - [ Authentication (Login / Signup)](#authentication-login--signup)
@@ -28,7 +27,7 @@
   - [ Orders & Order History](#orders--order-history)
   - [💚 Wishlist System](#💚-wishlist-system)
   - [ User Profiles & Dashboard](#👤-user-profiles--dashboard)
-  - [ Admin Features](#admin-features)
+  - [ Profile Settings](#profile-settings-page)
   - [ Contact Page](#contact-page)
 - [🖥️ Technologies Used](#🖥️-technologies-used)
   - [ Languages and Frameworks](#languages-and-frameworks)
@@ -45,11 +44,11 @@
   - [ Cloning and Running Locally](#cloning-and-running-locally)
 - [🔧 Future Improvements](#🔧-future-improvements)
 - [📚 Credits](#📚-credits)
-  - [ Resources and Tutorials](#-resources-and-tutorials)
-  - [🙏 Inspiration and Acknowledgements](#-inspiration-and-acknowledgements)
+  - [ Resources and Tutorials](#resources-and-tutorials)
+  - [🙏 Inspiration and Acknowledgements](#inspiration-and-acknowledgements)
 
 
-## 📖 About
+## About
 
 **Project Name**: FitZone Pro  
 **Developer**: Danut Grigore  
@@ -105,7 +104,7 @@ The platform supports both anonymous browsing and rich personalized features for
 
 ---
 
-### 🎯 Target Audience
+###  Target Audience
 
 FitZone Pro is designed for the following user groups:
 
@@ -120,7 +119,7 @@ FitZone Pro is designed for the following user groups:
 
 ## User Experience UX
 
-### ✅ User Stories
+###  User Stories
 
 The following user stories were considered during the design and development of FitZone Pro:
 
@@ -145,7 +144,7 @@ Each user type was considered in the platform's navigation, available features, 
 
 ---
 
-## 🧠 UX Design & User Flow
+## UX Design and User Flow
 
 FitZone Pro was designed with a focus on **clarity, accessibility, and mobile-first usability**.
 
@@ -174,7 +173,7 @@ Key UX Principles:
 
 This section will outline the visual and interaction design decisions made for FitZone Pro.
 
-#### Colour Palette
+### Colour Palette
 
 FitZone Pro uses a modern and fresh color palette to reflect health, energy, and clarity. The colors were chosen to provide strong contrast, accessibility, and a calming visual tone.
 
@@ -194,7 +193,7 @@ All colors follow WCAG contrast guidelines and were tested against both white an
 A soft radial and linear gradient system is also used for hero backgrounds and section transitions.
 
 
-#### Typography
+### Typography
 
 FitZone Pro uses a carefully selected combination of Google Fonts to support readability, hierarchy, and a modern aesthetic.
 
@@ -214,7 +213,7 @@ Font pairing was chosen to:
 All font files are loaded via Google Fonts CDN for performance and reliability.
 
 
-#### Icons
+### Icons
 
 FitZone Pro uses a mix of **Font Awesome** and **Bootstrap Icons** to enhance user interaction, improve scannability, and add visual meaning to buttons, cards, and navigation.
 
@@ -235,7 +234,7 @@ Accessibility Considerations:
 > All icons are loaded from CDN and tested for mobile compatibility and legibility at smaller sizes.
 
 
-#### ⚙️ Animations and Interactivity
+### Animations and Interactivity
 
 FitZone Pro uses subtle animations and interactive feedback to enhance user experience and provide visual clarity during interactions.
 
@@ -261,7 +260,7 @@ Technologies used:
 > These animations aim to create a delightful experience while maintaining control and usability for all users.
 
 
-#### 📱 Responsive Design
+### Responsive Design
 
 FitZone Pro was built with a **mobile-first approach**, ensuring full usability across phones, tablets, and desktop devices.
 
@@ -305,13 +304,13 @@ Accessibility considerations:
 
 ---
 
-### 🧾 Wireframes
+###  Wireframes
 
 > Placeholder: Initial low-fidelity wireframes were created to define structure and layout before development began. Screenshots or links to mockups will be added here.
 
 ---
 
-## 💡 Features
+## Features
 
 FitZone Pro is a wellness-focused web application that includes personalized dashboards, CRUD features, e-commerce integration, and a modular layout. This section outlines each major feature along with preview images.
 
@@ -496,7 +495,6 @@ Key Features:
 ![Settings](static/readme-screenshoots/settings-preview.png)
 
 </details>
-
 
 ---
 
@@ -906,21 +904,31 @@ This section acknowledges all resources, tools, tutorials, and individuals that 
 
 ---
 
-### 📘 Resources and Tutorials
+###  Resources and Tutorials
 
 - [Code Institute](https://codeinstitute.net/) — Full Stack Web Development curriculum and project rubric  
-- [Django Documentation](https://docs.djangoproject.com/en/stable/) — Official docs used throughout backend development  
-- [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.3/) — Frontend components, utilities, and layout  
-- [Stripe Docs](https://stripe.com/docs) — Payment integration guidance  
-- [dbdiagram.io](https://dbdiagram.io/) — Used to design and export the ERD  
-- [Font Awesome](https://fontawesome.com/) — Icon set for enhanced UI clarity  
-- [W3C Validators](https://validator.w3.org/) — HTML and CSS validation tools  
-- [Flake8](https://flake8.pycqa.org/) — Python code linting  
-- [GitHub Readme Styling Guide](https://github.com/matiassingers/awesome-readme) — Markdown formatting inspiration
+- [Django Documentation](https://docs.djangoproject.com/en/stable/) — Backend framework reference  
+- [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.3/) — CSS and grid layout utilities  
+- [Stripe Docs](https://stripe.com/docs) — Secure payment integration guidance  
+- [Flake8](https://flake8.pycqa.org/) — Python code linter for style and quality  
+- [dbdiagram.io](https://dbdiagram.io/) — Created the ERD (Entity Relationship Diagram)  
+- [Figma](https://www.figma.com/) — Wireframing and visual planning  
+- [Font Awesome](https://fontawesome.com/) — Icon set for UI clarity and interaction  
+- [Bootstrap Icons](https://icons.getbootstrap.com/) — Additional inline icon set  
+- [W3C Validators](https://validator.w3.org/) — HTML validation  
+- [Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) — CSS syntax validation  
+- [GitHub Markdown Guide](https://www.markdownguide.org/basic-syntax/) — For formatting the README and Testing files  
+- [EatingWell](https://www.eatingwell.com/) — Inspiration and guidance for recipes and meal plan data structure  
+- [Unsplash](https://unsplash.com/) — Free, high-quality images for product and page visuals  
+- [Pexels](https://www.pexels.com/) — Free image source used in shop/product cards  
+- [WAVE Accessibility Tool](https://wave.webaim.org/) — Automated accessibility checker used during testing  
+- [AOS.js](https://michalsnik.github.io/aos/) — Animate on Scroll library for homepage transitions  
+- [Placehold.co](https://placehold.co/) — Used temporarily to create placeholder images during development
+
 
 ---
 
-### 🙏 Inspiration and Acknowledgements
+###  Inspiration and Acknowledgements
 
 - 💻 **My mentor and Code Institute tutors** — for feedback, guidance, and support throughout the project  
 - 🧠 **Code Institute Slack community** — for sharing insights, troubleshooting, and motivation  

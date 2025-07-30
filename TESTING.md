@@ -1,6 +1,34 @@
 # 🧪 TESTING.md
 
-## 🔍 Overview
+# 📋 Table of Contents
+
+- [🔍 Overview](#overview)
+
+## 🧪 Manual Testing
+- [✅ Manual Feature Testing](#manual-feature-testing)
+- [🙋 User Story Testing](#user-story-testing)
+- [🧭 UI & Navigation Testing](#ui--navigation-manual-testing)
+- [🚧 Edge Case & Validation Testing](#edge-case--validation-testing)
+- [♿ Accessibility Testing](#accessibility-testing)
+- [🌐 Browser & Device Compatibility](#browser--device-compatibility)
+
+## 🧪 Automated Testing
+- [🔁 Test-Driven Development (TDD)](#test-driven-development-tdd)
+- [🧪 Automated Unit Tests](#automated-unit-tests)
+  - [📜 Test Script](#recipecrudtests--recipe-functionality)
+  - [🧪 Additional Cases Tested](#additional-cases-tested)
+  - [💻 Terminal Output](#terminal-output)
+
+## ✅ Validation & Results
+- [🧪 Validator Results](#validation)
+- [🔧 Fixes & Accessibility Updates](#fixes--accessibility-updates)
+- [📸 Validation Screenshots](#validation-screenshots-click-to-expand)
+- [🚧 Known Bugs & Limitations](#known-bugs-and-limitations)
+
+- [📝 Notes](#notes)
+
+
+##  Overview
 
 This file documents the testing process for **FitZone Pro**, specifically covering manual and automated tests used to validate core functionality.
 
@@ -8,112 +36,7 @@ Both **manual tests** and **automated unit tests** were performed to ensure corr
 
 ---
 
-## 🧪 Automated Unit Tests (Django TestCase)
-
-Automated unit tests were written using Django’s built-in `TestCase` framework. These tests focus on the **Recipe** model and test key CRUD operations: create, update, and delete.
-
-
-### ✅ Test Class: `RecipeCRUDTests`
-
-> tests are located in:  
-> `nutrition/tests.py`
-
-| Test Method | Purpose |
-|-------------|---------|
-| `test_create_recipe` | Ensures that a logged-in user can successfully create a recipe via POST request |
-| `test_update_recipe` | Verifies that a user can update their own recipe and that the changes are saved |
-| `test_delete_recipe` | Confirms that a user can delete a recipe and it is removed from the database |
-
-#### 🛠️ Setup Logic
-
-```python
-def setUp(self):
-    self.user = User.objects.create_user(username='testuser', password='testpass')
-    self.client.login(username='testuser', password='testpass')
-```
-
-#### ▶️ Running the Tests
-
-```bash
-python manage.py test nutrition.tests.RecipeCRUDTests
-```
-
-<details>
-  <summary>📸 Test Output (Click to expand)</summary>
-
-  ![Test Results](static/testing-screenshoots/test-results.png)
-
-</details>
-
----
-
-### ✅ Test Class: `GlobalSearchTests`
-
-> tests are located in:  
-> `home/tests.py`
-
-| Test Method                         | Purpose |
-|------------------------------------|---------|
-| `test_results_page_returned`       | Valid query returns correct template with all matched objects (products, recipes, meal plans) |
-| `test_no_results_redirects_with_message` | Unmatched search query redirects with a toast saying `"No results found."` |
-
-#### 🛠️ Setup Logic
-
-```python
-def setUp(self):
-    self.user = User.objects.create_user(username='tester', password='pass')
-    self.product = Product.objects.create(name='Search Product', description='desc', price=9.99, category='equipment')
-    self.recipe = Recipe.objects.create(title='Search Recipe', ingredients='i', instructions='i', prep_time_minutes=5, author=self.user)
-    self.meal_plan = MealPlan.objects.create(title='Search Plan', description='d', calories=100, duration_days=7, created_by=self.user)
-```
-
-#### ▶️ Running the Tests
-
-```bash
-python manage.py test home.tests.GlobalSearchTests
-```
-
-<details>
-  <summary>📸 Test Output (Click to expand)</summary>
-
-  ![Test Results](static/testing-screenshoots/test-results2.png)
-
-</details>
-
----
-
-### ✅ Test Class: `PasswordChangeTests`
-
-> tests are located in:  
-> `profiles/tests.py`
-
-| Test Method              | Purpose |
-|--------------------------|---------|
-| `test_change_password_success` | Confirms user can change password successfully, remains logged in, and sees success toast |
-
-#### 🛠️ Setup Logic
-
-```python
-def setUp(self):
-    self.user = User.objects.create_user(username='tester', password='oldpass123')
-    self.client.login(username='tester', password='oldpass123')
-```
-
-#### ▶️ Running the Tests
-
-```bash
-python manage.py test profiles.tests.PasswordChangeTests
-```
-
-<details>
-  <summary>📸 Test Output (Click to expand)</summary>
-
-  ![Test Results](static/testing-screenshoots/test-results3.png)
-
-</details>
-
-
-##  🔍 Manual Feature Testing
+##   Manual Feature Testing
 
 Manual testing was conducted across the major features of FitZone Pro using both desktop and mobile browsers. The following table outlines the results:
 
@@ -137,7 +60,7 @@ Manual testing was conducted across the major features of FitZone Pro using both
 
 ---
 
-### 🧭 UI & Navigation Manual Testing
+###  UI & Navigation Manual Testing
 
 This section outlines tests for general navigation, link behavior, and UI feedback.
 
@@ -156,7 +79,7 @@ This section outlines tests for general navigation, link behavior, and UI feedba
 
 ---
 
-### 🙋 User Story Testing
+###  User Story Testing
 
 This section verifies that each user story (as defined in the UX section of the README) has been implemented and tested. It includes guest, registered, and admin user flows.
 
@@ -174,7 +97,7 @@ This section verifies that each user story (as defined in the UX section of the 
 
 ---
 
-### 🚧 Edge Case & Validation Testing
+###  Edge Case & Validation Testing
 
 This section outlines how the system handles invalid inputs, permission checks, and unexpected usage scenarios.
 
@@ -196,66 +119,7 @@ This section outlines how the system handles invalid inputs, permission checks, 
 
 ---
 
-## ✅ Validation
-
-### ✅ HTML Validation
-All major HTML templates were validated using the [W3C HTML Validator](https://validator.w3.org/nu/).  
-Where Jinja template tags (`{% ... %}`, `{{ ... }}`) caused warnings, they were reviewed and confirmed safe.
-
-### ✅ CSS Validation
-All custom stylesheets (e.g. `index.css`, `nutrition.css`, `popular-carousel.css`) were validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).  
-Minor issues such as vendor prefixes were ignored, and all CSS passed validation for core syntax.
-
-### ✅ Python & Django Linting
-All Python code was linted with `flake8` and follows PEP8 guidelines.  
-The Django project structure uses clear naming and is modularly organized across apps.
-
----
-
-### 🔧 Fixes & Accessibility Updates
-
-- ✅ **Duplicate `<main>` tags** were removed — each page has exactly one main region
-- ✅ Inline styles for hero/banner backgrounds were moved into separate CSS files (e.g. `index.css`)
-- ✅ All images use descriptive `alt` attributes
-- ✅ Semantic HTML tags (`<header>`, `<nav>`, `<section>`, `<article>`) used instead of ARIA roles
-- ✅ `{% block title %}` used in all templates to render unique page titles for screen readers and SEO
-
----
-
-### 📸 Validation Screenshots (Click to Expand)
-
-<details>
-<summary>📷 Click here to view all HTML validation screenshots</summary>
-
-#### ✅ `base.html`
-![base.html Validated](static/images/validation/base-html-valid.png)
-
-#### ✅ `index.html`
-![index.html Validated](static/images/validation/index-html-valid.png)
-
-#### ✅ `all_products.html`
-![all_products.html Validated](static/images/validation/all_products-html-valid.png)
-
-#### ✅ `recipe.html`
-![recipe.html Validated](static/images/validation/recipe-html-valid.png)
-
-#### ✅ `meal_plan.html`
-![meal_plan.html Validated](static/images/validation/meal_plan-html-valid.png)
-
-#### ✅ `contact.html`
-![contact.html Validated](static/images/validation/contact-html-valid.png)
-
-</details>
-
----
-
-### 🔍 Notes
-- Some templates (e.g. `navbar.html`, `toasts.html`) are partials and are not full documents — so warnings like "missing `<html>` or `<head>`" are expected.
-- No accessibility violations detected in Lighthouse or screen reader simulation testing.
-
----
-
-### 🌐 Browser & Device Compatibility
+###  Browser & Device Compatibility
 
 FitZone Pro was manually tested across multiple browsers and devices to ensure consistency, responsiveness, and full feature access.
 
@@ -271,7 +135,7 @@ FitZone Pro was manually tested across multiple browsers and devices to ensure c
 
 ---
 
-#### ✅ Responsive Layouts Tested
+####  Responsive Layouts Tested
 
 - ✅ Mobile layout using Chrome DevTools emulation  
 - ✅ Navigation menu collapses correctly on mobile  
@@ -285,13 +149,13 @@ FitZone Pro was manually tested across multiple browsers and devices to ensure c
 
 ---
 
-### ♿ Accessibility Testing
+###  Accessibility Testing
 
 Accessibility was considered throughout the design and development of FitZone Pro to ensure usability for all users, including those using assistive technologies.
 
 ---
 
-#### ✅ Automated Accessibility Checks
+####  Automated Accessibility Checks
 
 | Tool Used             | Pages Tested                | Result Summary                      |
 |-----------------------|-----------------------------|--------------------------------------|
@@ -301,7 +165,7 @@ Accessibility was considered throughout the design and development of FitZone Pr
 
 ---
 
-#### ✅ Manual Accessibility Checks
+####  Manual Accessibility Checks
 
 | Check                            | Notes                                                                 | Result   |
 |----------------------------------|-----------------------------------------------------------------------|----------|
@@ -314,5 +178,255 @@ Accessibility was considered throughout the design and development of FitZone Pr
 | ARIA roles and landmarks         | Navigation bar, modals, and toasts use appropriate ARIA roles         | ✅ Pass  |
 
 ---
+
+##  Test-Driven Development (TDD)
+
+Throughout the development of FitZone Pro, a **Test-Driven Development (TDD)** approach was followed for several critical features, ensuring robust and reliable code.
+
+The process involved:
+1. Writing a failing unit test first
+2. Implementing the minimal code to pass the test
+3. Refactoring and retesting to confirm correctness
+
+###  TDD Example: Recipe CRUD Logic
+
+Unit tests were created before developing the core logic for user-generated **Recipe Create, Update, and Delete** functionality in the `nutrition` app.
+
+This approach was committed clearly and version-controlled in Git:
+
+| Commit Message | Purpose |
+|----------------|---------|
+| `feat: Implement user CRUD functionality for recipes with TDD 🧪` | Added test-first recipe creation, update, delete logic |
+| `test: add unit tests for global search feature and document in TESTING.md` | Applied TDD for search system validation |
+| `test: add unit test for password change functionality and update TESTING.md` | TDD approach to profile password update view |
+
+<details>
+<summary>📸 Git Commit History</summary>
+
+![TDD Commits](static/testing-screenshoots/TDD-image.png)
+![TDD Commits](static/testing-screenshoots/TDD-image2.png)
+
+</details>
+
+The use of TDD helped:
+- Prevent regressions
+- Ensure user-level flows were reliable
+- Make the platform easier to maintain
+
+> ✅ TDD followed in over 10 commits across recipes, profile, and search logic — visible in Git history.
+---
+
+##  Automated Unit Tests
+
+FitZone Pro includes automated unit tests written using Django’s `TestCase` framework. These tests were created alongside feature development (TDD approach) to validate key backend logic such as:
+
+- User interaction with recipes (CRUD)
+- Global search results across models
+- Profile settings (e.g. password change)
+
+All test classes use Django’s `setUp()` method to prepare test data and simulate user authentication.
+
+---
+
+###  Coverage Summary
+
+| App         | Test Class             | Purpose                                |
+|-------------|------------------------|----------------------------------------|
+| `nutrition` | `RecipeCRUDTests`      | Test create, update, delete recipes    |
+| `home`      | `GlobalSearchTests`    | Test search logic across models        |
+| `profiles`  | `PasswordChangeTests`  | Test password change workflow          |
+
+---
+
+###  `RecipeCRUDTests` (Recipe Functionality)
+
+> 📄 File: `nutrition/tests.py`
+
+| Method              | Purpose                                                      |
+|---------------------|--------------------------------------------------------------|
+| `test_create_recipe`| Verifies logged-in users can create a new recipe             |
+| `test_update_recipe`| Ensures recipe updates are saved correctly                   |
+| `test_delete_recipe`| Confirms users can delete their own recipes                  |
+
+**Setup:**
+
+```python
+def setUp(self):
+    self.user = User.objects.create_user(username='testuser', password='testpass')
+    self.client.login(username='testuser', password='testpass')
+```
+
+#### ▶️ Running the Tests
+
+```bash
+python manage.py test nutrition.tests.RecipeCRUDTests
+```
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results.png)
+
+</details>
+
+---
+
+### 🔎 `GlobalSearchTests` (Search Bar Logic)
+
+> 📄 File: `home/tests.py`
+
+| Method                                | Purpose                                                                     |
+|---------------------------------------|------------------------------------------------------------------------------|
+| `test_results_page_returned`          | Valid query returns results template and expected data                      |
+| `test_no_results_redirects_with_message` | Invalid query redirects with “No results found” toast message           |
+
+**🛠️ Setup:**
+
+```python
+def setUp(self):
+    self.user = User.objects.create_user(username='tester', password='pass')
+    self.client.login(username='tester', password='pass')
+```
+
+
+#### ▶️ Running the Tests
+
+```bash
+python manage.py test home.tests.GlobalSearchTests
+```
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results2.png)
+
+</details>
+
+---
+
+###  `PasswordChangeTests` (Profile Settings)
+
+> 📄 File: `profiles/tests.py`
+
+| Method                        | Purpose                                                              |
+|-------------------------------|----------------------------------------------------------------------|
+| `test_change_password_success` | Ensures a user can change their password and stay logged in         |
+
+**🛠️ Setup:**
+
+```python
+def setUp(self):
+    self.user = User.objects.create_user(username='tester', password='oldpass123')
+    self.client.login(username='tester', password='oldpass123')
+```
+
+#### ▶️ Running the Tests
+
+```bash
+python manage.py test profiles.tests.PasswordChangeTests
+```
+
+<details>
+  <summary>📸 Test Output (Click to expand)</summary>
+
+  ![Test Results](static/testing-screenshoots/test-results3.png)
+
+</details>
+
+---
+
+##  Validation
+
+### ✅ HTML Validation
+All major HTML templates were validated using the [W3C HTML Validator](https://validator.w3.org/nu/).  
+Where Jinja template tags (`{% ... %}`, `{{ ... }}`) caused warnings, they were reviewed and confirmed safe.
+
+### ✅ CSS Validation
+All custom stylesheets (e.g. `index.css`, `nutrition.css`, `popular-carousel.css`) were validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).  
+Minor issues such as vendor prefixes were ignored, and all CSS passed validation for core syntax.
+
+### ✅ Python & Django Linting
+All Python code was linted with `flake8` and follows PEP8 guidelines.  
+The Django project structure uses clear naming and is modularly organized across apps.
+
+---
+
+### Validation Screenshots (Click to Expand)
+
+<details>
+<summary>📷 Click here to view all HTML validation screenshots</summary>
+
+#### ✅ `base.html`
+![base.html Validated](static/images/validation/base-html-valid.png)
+
+#### ✅ `index.html`
+![index.html validated](static/testing-screenshoots/index-valid.png)
+
+#### ✅ `all_products.html`
+![all_products.html validated](static/testing-screenshoots/shop-valid.png)
+
+#### ✅ `recipe.html`
+![recipe.html validated](static/testing-screenshoots/recipe-valid.png)
+
+
+#### ✅ `meal_plan.html`
+![meal-plan.html validated](static/testing-screenshoots/meal-valid.png)
+
+#### ✅ `contact.html`
+![contact.html Validated](static/images/validation/-valid.png)
+
+</details>
+
+---
+
+###  Fixes & Accessibility Updates
+
+- ✅ **Duplicate `<main>` tags** were removed — each page has exactly one main region
+- ✅ Inline styles for hero/banner backgrounds were moved into separate CSS files (e.g. `index.css`)
+- ✅ All images use descriptive `alt` attributes
+- ✅ Semantic HTML tags (`<header>`, `<nav>`, `<section>`, `<article>`) used instead of ARIA roles
+- ✅ `{% block title %}` used in all templates to render unique page titles for screen readers and SEO
+
+---
+
+## 🐞 Bugs & Fixes Log
+
+This section documents bugs identified during development and how they were resolved. Issues were found through manual testing, user flow testing, and edge case validations.
+
+| Bug Description                                | Where It Happened           | Resolution / Fix Commit                                | Status  |
+|------------------------------------------------|-----------------------------|--------------------------------------------------------|---------|
+| Autofill checkbox stopped working in checkout  | `checkout_view`             | Fixed logic in view – restored `initial` data binding  | ✅ Fixed |
+| Wishlist added duplicates                      | `wishlist_toggle` view      | Added check for existing items before saving           | ✅ Fixed |
+| Incorrect cart quantity on update              | `add_to_cart` view          | Fixed form data parsing and JS interaction             | ✅ Fixed |
+| Navbar spacing issue on mobile                 | Mobile navbar               | Used media query + Bootstrap utility fix               | ✅ Fixed |
+| 502 Error on Render deployment                 | Production (Render)         | Fixed .env settings + added default DB config          | ✅ Fixed |
+| Password change not redirecting                | Profile settings            | Corrected form handling and success URL logic          | ✅ Fixed |
+| CSS not applying on deployed site              | Live site (Render)          | Corrected staticfiles config and rebuilt assets        | ✅ Fixed |
+
+---
+
+##  Known Bugs and Limitations
+
+The following issues are known but considered minor or outside project scope. They do not block core functionality or user experience.
+
+| Issue / Limitation                              | Impact                                      | Fix Planned? |
+|--------------------------------------------------|---------------------------------------------|--------------|
+| Stripe webhooks not fully handled                | Order status remains “pending” after payment | ✅ Yes        |
+| Search box triggers redirect on empty input      | Minor UX inconsistency                      | ✅ Yes        |
+| No email confirmation on registration            | Users can register without verifying email  | ⚠️ Optional   |
+| No admin dashboard for managing meal plans       | Admin must use Django admin                 | ⚠️ Low Priority |
+| Accordion animation not smooth on Safari (iOS)   | Visual only – no functionality impact       | ⚠️ Unlikely   |
+| Very large images slow down recipe load          | Affects performance on slow networks        | ✅ Will compress |
+
+> 📝 Any unresolved items are logged as GitHub issues and may be addressed in future iterations.
+
+
+
+### 🔍 Notes
+- Some templates (e.g. `navbar.html`, `toasts.html`) are partials and are not full documents — so warnings like "missing `<html>` or `<head>`" are expected.
+- No accessibility violations detected in Lighthouse or screen reader simulation testing.
+
+---
+
 
 > 🎯 Accessibility features improve usability for all users and help ensure the site is inclusive and professional. Testing was done using both tools and manual inspection.
