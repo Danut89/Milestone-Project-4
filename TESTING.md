@@ -5,23 +5,23 @@
 - [🔍 Overview](#overview)
 
 ## 🧪 Manual Testing
-- [✅ Manual Feature Testing](#manual-feature-testing)
+- [ Manual Feature Testing](#manual-feature-testing)
 - [🙋 User Story Testing](#user-story-testing)
-- [🧭 UI & Navigation Testing](#ui--navigation-manual-testing)
-- [🚧 Edge Case & Validation Testing](#edge-case--validation-testing)
-- [♿ Accessibility Testing](#accessibility-testing)
+- [ UI & Navigation Testing](#ui--navigation-manual-testing)
+- [ Edge Case & Validation Testing](#edge-case--validation-testing)
+- [ Accessibility Testing](#accessibility-testing)
 - [🌐 Browser & Device Compatibility](#browser--device-compatibility)
 
-## 🧪 Automated Testing
+##  Automated Testing
 - [🔁 Test-Driven Development (TDD)](#test-driven-development-tdd)
-- [🧪 Automated Unit Tests](#automated-unit-tests)
-  - [📜 Coverage Summary](#coverage-summary)
+- [ Automated Unit Tests](#automated-unit-tests)
+  - [ Coverage Summary](#coverage-summary)
 
-## ✅ Validation & Results
-- [🧪 Validator Results](#validation)
+##  Validation & Results
+- [ Validator Results](#validation)
 - [📸 Validation Screenshots](#validation-screenshots-click-to-expand)
 - [🔧 Fixes & Accessibility Updates](#fixes--accessibility-updates)
-- [🚧 Known Bugs & Limitations](#known-bugs-and-limitations)
+- [ Known Bugs & Limitations](#known-bugs-and-limitations)
 
 - [📝 Notes](#notes)
 

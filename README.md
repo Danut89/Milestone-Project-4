@@ -25,25 +25,25 @@
   - [ Product Catalog & Shop](#product-catalog--shop)
   - [ Cart & Checkout](#cart--checkout)
   - [ Orders & Order History](#orders--order-history)
-  - [💚 Wishlist System](#💚-wishlist-system)
-  - [ User Profiles & Dashboard](#👤-user-profiles--dashboard)
+  - [💚 Wishlist System](#wishlist-system)
+  - [ User Profiles & Dashboard](#user-profiles--dashboard)
   - [ Profile Settings](#profile-settings-page)
   - [ Contact Page](#contact-page)
-- [🖥️ Technologies Used](#🖥️-technologies-used)
+- [🖥️ Technologies Used](#technologies-used)
   - [ Languages and Frameworks](#languages-and-frameworks)
   - [ Libraries and Packages](#libraries-and-packages)
   - [ Development Tools](#development-tools)
-- [📐 Code Quality](#📐-code-quality)
+- [📐 Code Quality](#code-quality)
 - [ Database](#database)
   - [ Model Relationships](#model-relationships)
   - [ Schema Diagram](#schema-diagram)
-- [🧪 Testing](#🧪-testing)
-- [🔐 Security](#🔐-security)
-- [🚀 Deployment](#🚀-deployment)
+- [🧪 Testing](#testing)
+- [🔐 Security](#security)
+- [🚀 Deployment](#deployment)
   - [ Deployment Process](#deployment-process)
   - [ Cloning and Running Locally](#cloning-and-running-locally)
-- [🔧 Future Improvements](#🔧-future-improvements)
-- [📚 Credits](#📚-credits)
+- [🔧 Future Improvements](#future-improvements)
+- [📚 Credits](#credits)
   - [ Resources and Tutorials](#resources-and-tutorials)
   - [🙏 Inspiration and Acknowledgements](#inspiration-and-acknowledgements)
 
@@ -443,7 +443,7 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 
 ---
 
-### 💚 Wishlist System
+### Wishlist System
 
 - Save any recipe or meal plan with a single button
 - Toggle between saved/unsaved state using icon
@@ -459,7 +459,7 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 
 ---
 
-### 👤 User Profiles & Dashboard
+### User Profiles & Dashboard
 
 - Dashboard shows saved items, recent activity, and account links
 - Profile page allows updating delivery info and password
@@ -514,7 +514,7 @@ Key Features:
 
 ---
 
-## 🖥️ Technologies Used
+##  Technologies Used
 
 The FitZone Pro application was built using modern full-stack technologies, combining frontend and backend tools for an interactive, secure, and scalable experience.
 
@@ -563,7 +563,7 @@ The FitZone Pro application was built using modern full-stack technologies, comb
 
 ---
 
-## 📐 Code Quality
+##  Code Quality
 
 Maintaining clean, consistent, and maintainable code was a priority throughout the development of FitZone Pro. The project adheres to best practices and standards in both frontend and backend development.
 
@@ -736,7 +736,7 @@ Below is the full Entity Relationship Diagram (ERD) showing how the models in Fi
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 Testing was conducted throughout the development of FitZone Pro to ensure functionality, data integrity, responsiveness, and user experience.
 
@@ -746,7 +746,7 @@ A detailed breakdown of all test cases, tools, methods, and results is available
 
 ---
 
-## 🔐 Security
+##  Security
 
 Security best practices were followed throughout the development and deployment of FitZone Pro to protect user data, prevent unauthorized access, and ensure secure payment processing.
 
@@ -801,7 +801,7 @@ Security best practices were followed throughout the development and deployment 
 
 ---
 
-## 🚀 Deployment
+##  Deployment
 
 FitZone Pro is deployed to [Render](https://render.com/) — a cloud-based hosting platform suitable for full-stack Django applications.
 
@@ -809,10 +809,10 @@ All production configurations, environment variables, and build steps are handle
 
 ---
 
-### 🧷 Render Deployment Setup
+###  Render Deployment Setup
 
 The live application is accessible at:  
-🔗 [https://fitzone-pro.onrender.com](https://fitzone-pro.onrender.com) *(update if needed)*
+🔗 [https://fitzone-pro.onrender.com](https://milestone-project-4.onrender.com) *(update if needed)*
 
 ---
 
@@ -853,7 +853,7 @@ git clone https://github.com/your-username/fitzone-pro.git
 cd fitzone-pro
 ```
 
- ## 🔧 Future Improvements
+ ##  Future Improvements
 
 While FitZone Pro is fully functional and tested, several enhancements are planned for future iterations to enrich the user experience and improve scalability:
 
@@ -875,7 +875,7 @@ While FitZone Pro is fully functional and tested, several enhancements are plann
 
 ---
 
-### 🧠 UX & UI Enhancements
+###  UX & UI Enhancements
 
 - **Dark Mode Toggle**  
   - Allow users to switch between light and dark themes.
@@ -898,7 +898,7 @@ While FitZone Pro is fully functional and tested, several enhancements are plann
 
 ---
 
-## 📚 Credits
+## Credits
 
 This section acknowledges all resources, tools, tutorials, and individuals that contributed to the development of FitZone Pro.
 

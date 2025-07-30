@@ -2,24 +2,8 @@
 <nav class="d-lg-none fixed-top bg-dark text-white shadow-lg z-1030">
   <div class="container-fluid px-3 pt-2 pb-1">
 
-    <!-- 🔍 Search Bar Row -->
-    <div class="d-flex align-items-center justify-content-between">
-      <!-- Search -->
-      <form action="{% url 'global_search' %}" method="GET" class="d-flex w-100 gap-2">
-        <input type="text" name="q" class="form-control search-mobile" placeholder="Search..." aria-label="Search" required>
-        <button type="submit" class="btn btn-success px-3"><i class="fas fa-search"></i></button>
-      </form>
-
-
-      <!-- ☰ Toggler -->
-      <button class="btn text-white p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
-        <i class="fas fa-bars fa-lg"></i>
-      </button>
-    </div>
-
-    <!-- 👤 Profile + 🛒 Cart Row -->
-    <div class="d-flex align-items-center justify-content-start gap-4 mt-3 ms-1">
-
+    <!-- 👤 Profile + 🛒 Cart Row (Top) -->
+    <div class="d-flex justify-content-end align-items-center gap-3 pb-2 px-1">
       <!-- 👤 Profile -->
       {% if user.is_authenticated %}
       <div class="dropdown">
@@ -48,7 +32,20 @@
         </span>
         {% endif %}
       </a>
+    </div>
 
+    <!-- 🔍 Search Bar + ☰ Toggler Row (Bottom) -->
+    <div class="d-flex align-items-center justify-content-between gap-2 pt-2">
+      <!-- Search -->
+      <form action="{% url 'global_search' %}" method="GET" class="d-flex w-100 gap-2 pb-2">
+        <input type="text" name="q" class="form-control search-mobile" placeholder="Search..." aria-label="Search" required>
+        <button type="submit" class="btn btn-success px-3"><i class="fas fa-search"></i></button>
+      </form>
+
+      <!-- ☰ Toggler -->
+      <button class="btn text-white p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
     </div>
   </div>
 
