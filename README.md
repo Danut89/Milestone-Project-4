@@ -41,7 +41,7 @@
 - [🧪 Testing](#🧪-testing)
 - [🔐 Security](#🔐-security)
 - [🚀 Deployment](#🚀-deployment)
-  - [ Deployment](#deployment-process)
+  - [ Deployment Process](#deployment-process)
   - [ Cloning and Running Locally](#cloning-and-running-locally)
 - [🔧 Future Improvements](#🔧-future-improvements)
 - [📚 Credits](#📚-credits)
@@ -145,29 +145,163 @@ Each user type was considered in the platform's navigation, available features, 
 
 ---
 
-### 🎨 Design Choices
+## 🧠 UX Design & User Flow
+
+FitZone Pro was designed with a focus on **clarity, accessibility, and mobile-first usability**.
+
+Key UX Principles:
+
+- **Clear Navigation**  
+  The main navbar gives direct access to all key areas: Recipes, Meal Plans, Shop, Contact, and Dashboard. Menu links adjust based on authentication state (e.g. Login vs. Dashboard).
+
+- **Guided User Flow**  
+  Homepage sections introduce the platform with CTAs leading to key actions: start a meal plan, browse products, or save recipes. Each user type (guest, logged-in, admin) sees relevant UI only.
+
+- **Consistent Layout**  
+  Pages use a card-based layout with shared styles for spacing, font sizes, and headings. This supports scanning and reduces cognitive load.
+
+- **Feedback Everywhere**  
+  Users get real-time toasts for login, wishlist toggles, profile changes, and checkout status. Forms include validation and placeholder guidance.
+
+- **Accessibility Considerations**  
+  - All templates use semantic HTML5
+  - Color contrast passes WCAG AA where applicable
+  - Buttons and toggles are keyboard-accessible
+  - Aria-labels added to form fields and icons where needed
+
+> The app was tested extensively on mobile and desktop to ensure a **seamless, responsive user experience**, supporting both first-time visitors and power users managing their profile and activity.
+
 
 This section will outline the visual and interaction design decisions made for FitZone Pro.
 
-####  Colour Palette
+#### Colour Palette
 
-> Placeholder: A clean and modern color palette was chosen to align with the brand identity and health/fitness focus. (Details to be added)
+FitZone Pro uses a modern and fresh color palette to reflect health, energy, and clarity. The colors were chosen to provide strong contrast, accessibility, and a calming visual tone.
 
-####  Typography
+| Color Variable        | Hex Code   | Purpose                        |
+|-----------------------|------------|--------------------------------|
+| `--primary-color`     | `#198754`  | Brand highlight (green)       |
+| `--secondary-color`   | `#2F80ED`  | Accent elements (blue)        |
+| `--color-accent`      | `#FFA726`  | Call-to-action (orange)       |
+| `--color-accent-2`    | `#3D5AFE`  | Badges and interactive items  |
+| `--color-accent-3`    | `#aadcaf`  | Borders, details               |
+| `--bg-muted`          | `#F2F5EC`  | Card backgrounds               |
+| `--color-dark`        | `#2C3E50`  | Navbar & dark text             |
+| `--text-muted`        | `#666666`  | Secondary content              |
 
-> Placeholder: The chosen fonts aim for readability, modern appeal, and consistency across devices. (Details to be added)
+All colors follow WCAG contrast guidelines and were tested against both white and dark backgrounds for readability.
 
-####  Icons
+A soft radial and linear gradient system is also used for hero backgrounds and section transitions.
 
-> Placeholder: Iconography enhances scannability and helps users identify sections intuitively. (Details to be added)
 
-####  Animations and Interactivity
+#### Typography
 
-> Placeholder: Subtle animations, hover effects, and transitions were used to provide feedback and improve user experience. (Details to be added)
+FitZone Pro uses a carefully selected combination of Google Fonts to support readability, hierarchy, and a modern aesthetic.
 
-####  Responsive Design
+| Font Family      | Usage                          | Style & Weight          |
+|------------------|--------------------------------|--------------------------|
+| `Montserrat`     | Headings & Titles              | 600–700 (bold)          |
+| `Roboto`         | Body text, labels, descriptions| 400–500 (regular/medium)|
 
-> Placeholder: All templates were built mobile-first and thoroughly tested for responsiveness across device sizes. (Details to be added)
+- **Montserrat** is a geometric sans-serif font used for headings. It creates a strong brand identity while remaining highly legible.
+- **Roboto** complements Montserrat with excellent readability on all screen sizes, making it ideal for body text and form inputs.
+
+Font pairing was chosen to:
+- Maintain consistency across all devices
+- Provide excellent vertical rhythm and contrast
+- Follow modern web design best practices for accessibility
+
+All font files are loaded via Google Fonts CDN for performance and reliability.
+
+
+#### Icons
+
+FitZone Pro uses a mix of **Font Awesome** and **Bootstrap Icons** to enhance user interaction, improve scannability, and add visual meaning to buttons, cards, and navigation.
+
+| Icon Library       | Usage Examples                        |
+|--------------------|----------------------------------------|
+| **Font Awesome 6** | Navigation (Login, Logout, Cart), Buttons (Sign In, Add to Wishlist), Feature Cards |
+| **Bootstrap Icons**| Checkout steps, Dashboard sections, Status indicators, and Validation UI |
+
+Icons help users:
+- Instantly recognize functionality (e.g. 🔒 for Login, 🛒 for Cart)
+- Improve button clarity and mobile usability
+- Maintain a modern, visually engaging layout
+
+Accessibility Considerations:
+- Icons used with `<i>` tags always include `aria-hidden="true"` when decorative
+- Buttons using icons also include visually hidden text where needed (`sr-only`) for screen readers
+
+> All icons are loaded from CDN and tested for mobile compatibility and legibility at smaller sizes.
+
+
+#### ⚙️ Animations and Interactivity
+
+FitZone Pro uses subtle animations and interactive feedback to enhance user experience and provide visual clarity during interactions.
+
+| Interaction Type       | Usage Area                                | Purpose                                    |
+|------------------------|--------------------------------------------|--------------------------------------------|
+| **Fade & Slide Animations** | Homepage hero section, meal cards         | Improve page transitions and flow          |
+| **Button Hover Effects**   | CTA buttons, navigation links             | Give feedback, encourage interaction       |
+| **Accordion Toggles**      | Recipe instructions & meal plan breakdown | Show/hide details without page reload      |
+| **Toast Messages**         | Save/remove wishlist, form actions        | Instant feedback on user actions           |
+| **AOS (Animate on Scroll)**| Homepage benefit cards, testimonials      | Enhance flow without overwhelming motion   |
+
+Technologies used:
+- **Bootstrap utilities** (`fade`, `collapse`, `modal`)
+- **AOS.js** for scroll-based effects
+- **Custom CSS transitions** for cards and buttons
+
+✅ All animations:
+- Use accessible durations (under 400ms)
+- Respect reduced motion settings (where applicable)
+- Avoid auto-playing media or aggressive movement
+- Reinforce, rather than distract from, the content
+
+> These animations aim to create a delightful experience while maintaining control and usability for all users.
+
+
+#### 📱 Responsive Design
+
+FitZone Pro was built with a **mobile-first approach**, ensuring full usability across phones, tablets, and desktop devices.
+
+Key responsive features:
+- **Flexible grid system** using Bootstrap 5 and custom media queries
+- **Fluid layouts** for recipe cards, shop grid, dashboard panels, and forms
+- **Mobile navigation drawer** for compact and accessible menu access
+- **Text, icons, and buttons** scaled for small screen readability
+- **Media and images** resize automatically without cropping important content
+
+✅ The entire site was tested on:
+- Chrome DevTools (mobile presets)
+- Android device (Pixel 6)
+- iPhone 13 via responsive emulator
+- Firefox and Safari screen resizes
+
+<details>
+  <summary>📸 See ERD (Click to expand)</summary>
+
+![Mobile Homepage](static/readme-screenshoots/mobile-home.png)
+
+
+</details>
+
+<details>
+   <summary>📸 See ERD (Click to expand)</summary>
+
+![Mobile Recipe Detail](static/readme-screenshoots/recipe-mobile.png)
+
+</details>
+
+
+
+Accessibility considerations:
+- Font size minimums respected (WCAG AA)
+- No fixed-width containers that cause horizontal scroll
+- Interactive elements spaced for tap accessibility
+
+> FitZone Pro delivers a consistent and intuitive experience on all devices, empowering users to browse, shop, and plan wellness goals from anywhere.
+
 
 ---
 
@@ -191,9 +325,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Includes site logo, search bar, and cart icon with item count
 
 <details>
-  <summary>📸 View Navigation Bar</summary>
+  <summary>📸 See navbar (Click to expand)</summary>
 
-![Navigation Bar](static/readme-screenshots/navbar-preview.png)
+![Navigation](static/readme-screenshoots/navbar-preview.png)
 
 </details>
 
@@ -207,9 +341,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Built fully responsive for all screen sizes
 
 <details>
-  <summary>📸 View Homepage</summary>
+  <summary>📸 See homepage (Click to expand)</summary>
 
-![Homepage Preview](static/readme-screenshots/homepage-preview.png)
+![Homepage preview](static/readme-screenshoots/homepage-preview.png)
 
 </details>
 
@@ -223,9 +357,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Secure access to private pages and personalized data
 
 <details>
-  <summary>📸 View Auth Pages</summary>
+  <summary>📸 See login page (Click to expand)</summary>
 
-![Login](static/readme-screenshots/login-preview.png)
+![Login](static/readme-screenshoots/login.png)
 
 </details>
 
@@ -239,9 +373,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Recipes can be saved to the wishlist
 
 <details>
-  <summary>📸 View Recipe Detail</summary>
+   <summary>📸 See Recipe page (Click to expand)</summary>
 
-![Recipe](static/readme-screenshots/recipe-detail-preview.png)
+![Reicpe page](static/readme-screenshoots/recipe-preview.png)
 
 </details>
 
@@ -255,9 +389,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Save plans to wishlist
 
 <details>
-  <summary>📸 View Meal Plan</summary>
+   <summary>📸 See Meal Plan page (Click to expand)</summary>
 
-![Meal Plan](static/readme-screenshots/mealplan-preview.png)
+![Meal Plan](static/readme-screenshoots/meal-plan.png)
 
 </details>
 
@@ -271,9 +405,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Fully responsive product grid
 
 <details>
-  <summary>📸 View Shop</summary>
+  <summary>📸 View Shop (Click to expand)</summary>
 
-![Shop](static/readme-screenshots/shop-preview.png)
+![Shop](static/readme-screenshoots/shop-preview.png)
 
 </details>
 
@@ -287,9 +421,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - On success, order is saved and confirmation is shown
 
 <details>
-  <summary>📸 View Cart & Checkout</summary>
+  <summary>📸 See Cart page (Click to expand)</summary>
 
-![Checkout](static/readme-screenshots/checkout-preview.png)
+![Cart](static/readme-screenshoots/cart-preview.png)
 
 </details>
 
@@ -302,9 +436,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Admins can view all orders in Django Admin panel
 
 <details>
-  <summary>📸 View Order History</summary>
+  <summary>📸 See Order History page (Click to expand)</summary>
 
-![Order History](static/readme-screenshots/order-history-preview.png)
+![Order History](static/readme-screenshoots/order-history.png)
 
 </details>
 
@@ -318,9 +452,9 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Only one entry allowed per item per user (no duplicates)
 
 <details>
-  <summary>📸 View Wishlist</summary>
+  <summary>📸 See Wishlist (Click to expand)</summary>
 
-![Wishlist](static/readme-screenshots/wishlist-preview.png)
+![Wishlist](static/readme-screenshoots/wishlist.png)
 
 </details>
 
@@ -334,26 +468,35 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Personalized and responsive layout
 
 <details>
-  <summary>📸 View Dashboard</summary>
+  <summary>📸 See Dashboard (Click to expand)</summary>
 
-![Dashboard](static/readme-screenshots/dashboard-preview.png)
+![Dashboard](static/readme-screenshoots/dashboard.png)
 
 </details>
 
 ---
 
-###  Admin Features
+### Profile Settings Page
 
-- Admins can manage products, orders, and optionally recipes
-- All CRUD functionality available via Django Admin interface
-- Restricted by Django’s built-in permission system
+The Settings page allows logged-in users to manage their account preferences securely and intuitively.
+
+Key Features:
+- Edit Personal Information
+- Users can update their name, email, and delivery address via a secure form with validation.
+- Change Password
+= Integrated with Django's built-in password update system, styled using custom forms. Feedback toasts confirm success or error.
+- Toggle Recent Activity Feed
+- Users can choose to show or hide their dashboard activity log using a single click toggle with color feedback and toast messages.
+- FAQ Accordion Section  
+- Helpful answers to common user questions about account management, privacy, and checkout. Built using Bootstrap accordion component.
 
 <details>
-  <summary>📸 View Admin Panel</summary>
+ <summary>📸 See Settings page (Click to expand)</summary>
 
-![Admin](static/readme-screenshots/admin-preview.png)
+![Settings](static/readme-screenshoots/settings-preview.png)
 
 </details>
+
 
 ---
 
@@ -364,9 +507,10 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 - Can be extended later to integrate with email API
 
 <details>
-  <summary>📸 View Contact Form</summary>
+  <summary>📸 See Contact Form (Click to expand)</summary>
 
-![Contact](static/readme-screenshots/contact-preview.png)
+![Contact](static/readme-screenshoots/contact.png)
+
 
 </details>
 
@@ -546,7 +690,7 @@ Below is the full Entity Relationship Diagram (ERD) showing how the models in Fi
 <details>
   <summary>📸 See ERD (Click to expand)</summary>
 
-![FitZone Pro ERD](static/readme-screenshoots/fitzone_pro_erd.png)
+![FitZone Pro ERD](static/readme-screenshoots/mobile-home.png)
 
 </details>
 
