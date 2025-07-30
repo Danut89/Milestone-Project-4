@@ -112,6 +112,10 @@
     </ul>
   </nav>
   {% endif %}
+
+  <p class="text-muted mt-2">
+  Showing {{ page_obj.start_index }}–{{ page_obj.end_index }} of {{ page_obj.paginator.count }} recipes
+</p>
 </section>
 
 {% endblock %}

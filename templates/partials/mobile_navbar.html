@@ -1,9 +1,17 @@
+{% load static %}
 <!-- 📱 Mobile Navbar (Refined Layout) -->
 <nav class="d-lg-none fixed-top bg-dark text-white shadow-lg z-1030">
   <div class="container-fluid px-3 pt-2 pb-1">
+    
+      
 
     <!-- 👤 Profile + 🛒 Cart Row (Top) -->
     <div class="d-flex justify-content-end align-items-center gap-3 pb-2 px-1">
+
+      <!-- 🔰 Logo -->
+      <a href="{% url 'home' %}" class="d-flex align-items-center text-white text-decoration-none">
+        <img src="{% static 'images/favicon.ico' %}" alt="FitZone Logo" width="28" height="28" class="me-2">
+      </a>
       <!-- 👤 Profile -->
       {% if user.is_authenticated %}
       <div class="dropdown">
@@ -27,12 +35,14 @@
       <a href="{% url 'view_cart' %}" class="text-white position-relative">
         <i class="fas fa-shopping-cart fa-lg"></i>
         {% if cart_items_count and cart_items_count > 0 %}
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
           {{ cart_items_count }}
         </span>
         {% endif %}
       </a>
     </div>
+
+    
 
     <!-- 🔍 Search Bar + ☰ Toggler Row (Bottom) -->
     <div class="d-flex align-items-center justify-content-between gap-2 pt-2">

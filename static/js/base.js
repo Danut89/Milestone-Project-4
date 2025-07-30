@@ -7,8 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
   initGlassCardAnimation();
   initBootstrapToasts();
   initWishlistToggle();
-  initContactForm();
 });
+
+if (typeof initContactForm === 'function') {
+  initContactForm();
+}
+
 
 /**
  * 🔍 Global Search Validation
