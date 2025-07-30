@@ -1,20 +1,15 @@
 from django.shortcuts import render, redirect
-from nutrition.models import Wishlist  
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm
 from django.contrib import messages
-from .forms import UserUpdateForm, UserProfileForm
-from orders.models import Order 
-from nutrition.models import Recipe, MealPlan 
-from django.utils.timezone import now
-from itertools import chain
-from operator import attrgetter
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from profiles.models import UserProfile  
-from nutrition.models import MealPlan  
+from itertools import chain
 
-# Create your views here.
+from .forms import UserUpdateForm, UserProfileForm
+from profiles.models import UserProfile
+from orders.models import Order
+from nutrition.models import Wishlist, Recipe, MealPlan
+
 
 @login_required
 def dashboard(request):
@@ -24,13 +19,12 @@ def dashboard(request):
     profile = user.profile
 
     activities = []
+
     if not profile.hide_recent_activity:
-        # Recent orders
         orders = Order.objects.filter(user=user).order_by('-created_at')[:3]
         recipes = Recipe.objects.filter(author=user).order_by('-created_at')[:3]
         meal_plans = MealPlan.objects.filter(created_by=user).order_by('-created_at')[:3]
 
-        # Combine activities
         activities = sorted(
             chain(
                 [{'type': 'order', 'item': order, 'date': order.created_at} for order in orders],
@@ -61,10 +55,9 @@ def toggle_recent_activity_visibility(request):
 
 @login_required
 def settings_view(request):
-
     return render(request, 'profiles/settings.html')
 
-   
+
 @login_required
 def edit_info_view(request):
     user = request.user
@@ -77,7 +70,10 @@ def edit_info_view(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your personal information was updated successfully!')
+            messages.success(
+                request,
+                'Your personal information was updated successfully!'
+            )
             return redirect('settings_view')
     else:
         user_form = UserUpdateForm(instance=user)
@@ -102,5 +98,5 @@ def change_password(request):
             messages.error(request, '⚠️ Please correct the errors below.')
     else:
         form = PasswordChangeForm(request.user)
-    
+
     return render(request, 'profiles/change_password.html', {'form': form})

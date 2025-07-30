@@ -3,13 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db import transaction
-from django.urls import reverse
-from .models import MealPlan, Recipe, Wishlist
-from .forms import RecipeForm  
 from django.contrib import messages
-from django.db.models import Q
-from random import sample
 
+from .models import MealPlan, Recipe, Wishlist
+from .forms import RecipeForm
 
 
 # ==============================
@@ -18,7 +15,6 @@ from random import sample
 
 def meal_plans(request):
     sort_option = request.GET.get('sort')
-
     all_plans = MealPlan.objects.all()
 
     if sort_option == 'newest':
@@ -46,8 +42,7 @@ def meal_plans(request):
 
 def recipes_list(request):
     sort_option = request.GET.get('sort', 'newest')
-    
-    # Default ordering
+
     sort_dict = {
         'newest': '-created_at',
         'title': 'title',
@@ -60,18 +55,14 @@ def recipes_list(request):
     sort_by = sort_dict.get(sort_option, '-created_at')
     recipes = Recipe.objects.all().order_by(sort_by)
 
-    # Pagination
     paginator = Paginator(recipes, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
+    return render(request, 'nutrition/recipes.html', {
         'page_obj': page_obj,
         'current_sort': sort_option,
-    }
-    return render(request, 'nutrition/recipes.html', context)
-
-
+    })
 
 
 # ==============================
@@ -83,34 +74,38 @@ def meal_plan_detail(request, pk):
     is_saved = False
 
     if request.user.is_authenticated:
-        is_saved = Wishlist.objects.filter(user=request.user, meal_plan=meal_plan).exists()
+        is_saved = Wishlist.objects.filter(
+            user=request.user, meal_plan=meal_plan).exists()
 
     days = meal_plan.get_days
-
-    # ✅ Suggest 3 random recipes with images (exclude empty)
-    suggested_recipes = Recipe.objects.exclude(image='').order_by('?')[:3]
+    suggested_recipes = Recipe.objects.exclude(
+        image='').order_by('?')[:3]
 
     return render(request, 'nutrition/meal_plan_detail.html', {
         'meal_plan': meal_plan,
         'is_saved': is_saved,
         'days': days,
-        'suggested_recipes': suggested_recipes, 
+        'suggested_recipes': suggested_recipes,
     })
+
 
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     is_saved = False
-    if request.user.is_authenticated:
-        is_saved = Wishlist.objects.filter(user=request.user, recipe=recipe).exists()
 
-    # ✅ Suggest 3 random meal plans with images
-    suggested_plans = MealPlan.objects.exclude(image='').order_by('?')[:3]
+    if request.user.is_authenticated:
+        is_saved = Wishlist.objects.filter(
+            user=request.user, recipe=recipe).exists()
+
+    suggested_plans = MealPlan.objects.exclude(
+        image='').order_by('?')[:3]
 
     return render(request, 'nutrition/recipe_detail.html', {
         'recipe': recipe,
         'is_saved': is_saved,
         'suggested_plans': suggested_plans,
     })
+
 
 # ==============================
 # 💖 Wishlist Toggle View
@@ -125,7 +120,8 @@ def toggle_wishlist(request):
         try:
             if item_type == 'recipe':
                 recipe = Recipe.objects.get(id=item_id)
-                wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, recipe=recipe)
+                wishlist_item, created = Wishlist.objects.get_or_create(
+                    user=request.user, recipe=recipe)
                 if not created:
                     wishlist_item.delete()
                     return JsonResponse({'status': 'removed'})
@@ -133,7 +129,8 @@ def toggle_wishlist(request):
 
             elif item_type == 'meal_plan':
                 plan = MealPlan.objects.get(id=item_id)
-                wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, meal_plan=plan)
+                wishlist_item, created = Wishlist.objects.get_or_create(
+                    user=request.user, meal_plan=plan)
                 if not created:
                     wishlist_item.delete()
                     return JsonResponse({'status': 'removed'})
@@ -151,10 +148,7 @@ def toggle_wishlist(request):
 
 @login_required
 def add_recipe(request):
-    """
-    Allows a logged-in user to add a new recipe.
-    On successful creation, redirects to the recipe detail view and displays a success message.
-    """
+    """Allow users to add new recipe."""
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -171,10 +165,7 @@ def add_recipe(request):
 
 @login_required
 def edit_recipe(request, pk):
-    """
-    Allows a logged-in user to edit their existing recipe.
-    On successful update, redirects to the recipe detail view and displays a success message.
-    """
+    """Allow users to edit an existing recipe."""
     recipe = get_object_or_404(Recipe, pk=pk, author=request.user)
 
     if request.method == 'POST':
@@ -189,8 +180,9 @@ def edit_recipe(request, pk):
     return render(request, 'nutrition/recipe_form.html', {'form': form})
 
 
-
+@login_required
 def delete_recipe(request, pk):
+    """Allow user or admin to delete a recipe safely."""
     recipe = get_object_or_404(Recipe, pk=pk)
 
     if request.user != recipe.author and not request.user.is_superuser:
@@ -199,15 +191,13 @@ def delete_recipe(request, pk):
 
     try:
         with transaction.atomic():
-            # ✅ Step 1: Delete related wishlist entries
             Wishlist.objects.filter(recipe=recipe).delete()
-
-            # ✅ Step 2: Delete the recipe
             recipe.delete()
 
         messages.success(request, "Recipe deleted successfully.")
         return redirect("nutrition:recipes")
-    except Exception as e:
+
+    except Exception:
         messages.error(request, "An error occurred while deleting the recipe.")
         return redirect("nutrition:recipe_detail", pk=pk)
 

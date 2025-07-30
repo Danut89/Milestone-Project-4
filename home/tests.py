@@ -5,7 +5,7 @@ from django.contrib.messages import get_messages
 from shop.models import Product
 from nutrition.models import Recipe, MealPlan
 
-# Create your tests here.
+
 class GlobalSearchTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='tester', password='pass')

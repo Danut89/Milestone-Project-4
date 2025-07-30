@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.paginator import Paginator
 from .models import Product
 from .forms import ProductForm
-from django.core.paginator import Paginator
+import random
 
 
 # ✅ Show all available products
@@ -20,7 +21,7 @@ def all_products(request):
     elif sort == 'name_desc':
         product_list = product_list.order_by('-name')
     elif sort == 'newest':
-        product_list = product_list.order_by('-created') 
+        product_list = product_list.order_by('-created')
 
     paginator = Paginator(product_list, 6)
     page = request.GET.get('page')
@@ -32,14 +33,14 @@ def all_products(request):
     })
 
 
-
-
 # ✅ Dynamic category view
 def products_by_category(request, category):
     sort_option = request.GET.get('sort', '')
-    product_list = Product.objects.filter(category__iexact=category, available=True)
+    product_list = Product.objects.filter(
+        category__iexact=category,
+        available=True
+    )
 
-    # Sorting logic (same as all_products)
     if sort_option == 'price_asc':
         product_list = product_list.order_by('price')
     elif sort_option == 'price_desc':
@@ -62,24 +63,19 @@ def products_by_category(request, category):
     })
 
 
-
-
 # ✅ Product detail page
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-
-    # Get 3 random other products to recommend
     related_products = Product.objects.exclude(id=product.id).filter(available=True)
+    related_products = random.sample(
+        list(related_products),
+        min(len(related_products), 3)
+    )
 
-    # Shuffle or slice if needed
-    import random
-    related_products = random.sample(list(related_products), min(len(related_products), 3))
-
-    context = {
+    return render(request, 'shop/product_detail.html', {
         'product': product,
         'related_products': related_products,
-    }
-    return render(request, 'shop/product_detail.html', context)
+    })
 
 
 # ✅ Superuser-only check

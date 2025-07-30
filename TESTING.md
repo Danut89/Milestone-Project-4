@@ -15,14 +15,12 @@
 ## 🧪 Automated Testing
 - [🔁 Test-Driven Development (TDD)](#test-driven-development-tdd)
 - [🧪 Automated Unit Tests](#automated-unit-tests)
-  - [📜 Test Script](#recipecrudtests--recipe-functionality)
-  - [🧪 Additional Cases Tested](#additional-cases-tested)
-  - [💻 Terminal Output](#terminal-output)
+  - [📜 Coverage Summary](#coverage-summary)
 
 ## ✅ Validation & Results
 - [🧪 Validator Results](#validation)
-- [🔧 Fixes & Accessibility Updates](#fixes--accessibility-updates)
 - [📸 Validation Screenshots](#validation-screenshots-click-to-expand)
+- [🔧 Fixes & Accessibility Updates](#fixes--accessibility-updates)
 - [🚧 Known Bugs & Limitations](#known-bugs-and-limitations)
 
 - [📝 Notes](#notes)
@@ -337,27 +335,30 @@ python manage.py test profiles.tests.PasswordChangeTests
 
 ##  Validation
 
-### ✅ HTML Validation
+### ✅ HTML Template Validation
+
 All major HTML templates were validated using the [W3C HTML Validator](https://validator.w3.org/nu/).  
-Where Jinja template tags (`{% ... %}`, `{{ ... }}`) caused warnings, they were reviewed and confirmed safe.
+Where Jinja template tags (`{% ... %}` / `{{ ... }}`) caused warnings, they were manually reviewed and confirmed safe.
 
-### ✅ CSS Validation
-All custom stylesheets (e.g. `index.css`, `nutrition.css`, `popular-carousel.css`) were validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).  
-Minor issues such as vendor prefixes were ignored, and all CSS passed validation for core syntax.
+| Template             | Validation Tool     | Notes                                        | Status     |
+|----------------------|---------------------|-----------------------------------------------|------------|
+| `base.html`          | W3C HTML Validator  | Minor Jinja tags ignored                     | ✅ Pass     |
+| `index.html`         | W3C HTML Validator  | Fully compliant                              | ✅ Pass     |
+| `all_products.html`  | W3C HTML Validator  | Validated via `/shop/` category listing      | ✅ Pass     |
+| `recipe.html`        | W3C HTML Validator  | No errors or warnings                        | ✅ Pass     |
+| `meal_plan.html`     | W3C HTML Validator  | Fully valid, including dynamic accordion data | ✅ Pass     |
+| `contact.html`       | W3C HTML Validator  | Contact form valid, inputs labeled           | ✅ Pass     |
 
-### ✅ Python & Django Linting
-All Python code was linted with `flake8` and follows PEP8 guidelines.  
-The Django project structure uses clear naming and is modularly organized across apps.
+> 💡 Additional template partials like `navbar.html` and `toasts.html` were excluded as they are not full HTML documents.
 
----
 
-### Validation Screenshots (Click to Expand)
+#### Validation Screenshots (Click to Expand)
 
 <details>
 <summary>📷 Click here to view all HTML validation screenshots</summary>
 
 #### ✅ `base.html`
-![base.html Validated](static/images/validation/base-html-valid.png)
+![base.html validated](static/testing-screenshoots/base-valid.png)
 
 #### ✅ `index.html`
 ![index.html validated](static/testing-screenshoots/index-valid.png)
@@ -373,8 +374,66 @@ The Django project structure uses clear naming and is modularly organized across
 ![meal-plan.html validated](static/testing-screenshoots/meal-valid.png)
 
 #### ✅ `contact.html`
-![contact.html Validated](static/images/validation/-valid.png)
+![contact.html validated](static/testing-screenshoots/contact-valid.png)
 
+</details>
+
+###  CSS Validation
+
+The main CSS files were checked using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/):
+
+| Stylesheet                | Validation Tool   | Notes                                 | Status     |
+|---------------------------|-------------------|----------------------------------------|------------|
+| `index.css`               | W3C CSS Validator | No critical issues, vendor prefixes ignored | ✅ Pass     |
+| `nutrition.css`           | W3C CSS Validator | All syntax valid                       | ✅ Pass     |
+
+> ✅ All custom stylesheets pass validation for syntax and structure. Minor warnings (like vendor prefixes) were reviewed and considered acceptable.
+Minor issues such as vendor prefixes were ignored, and all CSS passed validation for core syntax.
+
+#### Validation Screenshots (Click to Expand)
+
+<details>
+<summary>📷 Click here to view all CSS validation screenshots</summary>
+
+#### ✅ `index.css`
+![index.css validated](static/testing-screenshoots/index.css-valid.png)
+
+#### ✅ `nutrition.css`
+![nutrition.css validated](static/testing-screenshoots/nutrition.css-valid.png)
+
+</details>
+
+###  Python (PEP8 Style)
+
+The main logic files were reviewed using `flake8`:
+
+| File                      | Validation Tool | Notes                          | Status     |
+|---------------------------|-----------------|---------------------------------|------------|
+| `nutrition/views.py`      | flake8          | No major issues found           | ✅ Pass     |
+| `profiles/views.py`       | flake8          | No syntax or style violations   | ✅ Pass     |
+| `home/views.py`           | flake8          | All PEP8 compliant              | ✅ Pass     |
+| `shop/views.py`           | flake8          | All PEP8 compliant              | ✅ Pass     |
+
+The Django project structure uses clear naming and is modularly organized across apps.
+
+*Note:* Only key backend logic files were validated, not migrations or admin scripts.  
+
+#### Flake8 output Screenshots (Click to Expand)
+
+<details>
+<summary>📷 Click here to view all flake8 output screenshots</summary>
+
+#### ✅ `profiles/views.py`
+![flake8 output profiles/views.py](static/testing-screenshoots/profiles-validate.png)
+
+#### ✅ `nutrition/views.py`
+![flake8 output nutrition/views.py](static/testing-screenshoots/nutrition-flake8.png)
+
+#### ✅ `home/tests.py`
+![flake8 output home/tests.py](static/testing-screenshoots/search-test.png)
+
+#### ✅ `shop/views.py`
+![flake8 output shop/views.py](static/testing-screenshoots/shop-flake8.png)
 </details>
 
 ---
