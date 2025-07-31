@@ -29,6 +29,26 @@
   margin: 0 auto;
 }
 
+/* ==========================
+   📱 Tablet View Styling
+========================== */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .shop-header {
+    margin-top: 6rem !important; /* Slightly less than desktop */
+    margin-bottom: 2rem;
+    padding-inline: 1rem;
+  }
+
+  .shop-header h1 {
+    font-size: 2rem;
+  }
+
+  .shop-header p {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+}
+
 
 /* =========================================
    🛍️ Modern Product Card Design

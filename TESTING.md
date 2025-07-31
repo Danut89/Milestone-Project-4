@@ -42,7 +42,7 @@ Manual testing was conducted across the major features of FitZone Pro using both
 
 | Feature                      | Tested On        | Expected Result                                             | Outcome   |
 |-----------------------------|------------------|-------------------------------------------------------------|-----------|
-| User Registration           | Desktop / Mobile | New user created, redirected to dashboard/home             | ✅ Pass    |
+| User Registration           | Desktop / Mobile | New user created, redirected to login/home             | ✅ Pass    |
 | Login / Logout              | Desktop / Mobile | User can log in, see account info, and securely log out     | ✅ Pass    |
 | Create Recipe               | Desktop / Mobile | Recipe saved and appears in recipe list                     | ✅ Pass    |
 | Edit / Delete Recipe        | Desktop / Mobile | User can update or delete their own recipe                  | ✅ Pass    |
@@ -64,12 +64,12 @@ This section outlines tests for general navigation, link behavior, and UI feedba
 
 | Interaction Tested            | Action Performed                                | Expected Behavior                                       | Outcome   |
 |-------------------------------|--------------------------------------------------|----------------------------------------------------------|-----------|
-| Navigation Links              | Clicked: "Home", "Meal Plans", "Shop", "Dashboard" | Correct pages load and scroll to top                    | ✅ Pass    |
+| Navigation Links              | Clicked: "Home", "Meal Plans", "Recipe" "Shop", "Dashboard" | Correct pages load and scroll to top                    | ✅ Pass    |
 | Logo Click                    | Click logo from any page                         | Redirects to homepage                                   | ✅ Pass    |
-| Dashboard Button              | Clicked avatar/profile icon                      | Opens dashboard if logged in                            | ✅ Pass    |
+| Dashboard Button              | Clicked avatar/profile and select dashboard                     | Opens dashboard if logged in                            | ✅ Pass    |
 | Wishlist Tabs Toggle          | Click between Recipes / Meal Plans tabs          | Each tab shows relevant saved items                     | ✅ Pass    |
 | Cart Icon Click               | Clicked from navbar                              | Opens cart page with current items                      | ✅ Pass    |
-| Quantity Adjust Buttons       | Clicked plus/minus on cart page                  | Quantity updates and subtotal recalculates              | ✅ Pass    |
+| Quantity Adjust Buttons       | Clicked plus/minus on product page                  | Quantity updates and subtotal recalculates              | ✅ Pass    |
 | Toast Message Dismiss         | Clicked close button on success/error toast      | Toast disappears                                         | ✅ Pass    |
 | Scroll To Section             | Used nav or in-page anchor link (e.g. How It Works) | Page scrolls smoothly to anchor section                 | ✅ Pass    |
 | Accordion (Meal Plan)         | Clicked each day in meal plan detail             | Expands/collapses correctly                             | ✅ Pass    |
@@ -99,20 +99,20 @@ This section verifies that each user story (as defined in the UX section of the 
 
 This section outlines how the system handles invalid inputs, permission checks, and unexpected usage scenarios.
 
-| Scenario                                         | Expected Result                                                | Outcome   |
-|--------------------------------------------------|-----------------------------------------------------------------|-----------|
-| Submit empty registration form                   | Form shows validation errors for each required field            | ✅ Pass    |
-| Mismatched passwords on signup                   | Password mismatch warning shown                                 | ✅ Pass    |
-| Login with incorrect credentials                 | “Invalid username or password” message appears                  | ✅ Pass    |
-| Access dashboard while logged out                | Redirected to login page                                        | ✅ Pass    |
-| Try to submit blank recipe form                  | Field-level validation errors shown                             | ✅ Pass    |
-| Save same recipe or plan multiple times          | Wishlist button toggles state; duplicate not added              | ✅ Pass    |
-| Access recipe edit URL of another user           | Redirected or permission denied                                 | ✅ Pass    |
-| Try to delete a product as a regular user        | Access denied / no delete button visible                        | ✅ Pass    |
-| Checkout with empty cart                         | Redirected back to cart page with error toast                   | ✅ Pass    |
-| Submit invalid Stripe card                       | Stripe shows card declined / validation error                   | ✅ Pass    |
-| Visit a non-existent product or plan URL         | 404 error page displayed                                        | ✅ Pass    |
-| Use browser back/forward after form submission   | No errors; page loads correctly                                 | ✅ Pass    |
+| Scenario                                         | Expected Result                                                     | Outcome |
+|--------------------------------------------------|----------------------------------------------------------------------|---------|
+| Submit empty registration form                  | Form shows validation errors for each required field                | ✅ Pass |
+| Mismatched passwords on signup                  | Password mismatch warning shown                                     | ✅ Pass |
+| Login with incorrect credentials                | “Invalid username or password” message appears                      | ✅ Pass |
+| Attempt to access dashboard while logged out    | Dashboard link is hidden from unauthenticated users                 | ✅ Pass |
+| Try to submit blank recipe form                 | Field-level validation errors shown                                 | ✅ Pass |
+| Save same recipe or plan multiple times         | Wishlist button toggles state; duplicate not added                  | ✅ Pass |
+| Access recipe edit URL of another user          | Redirected or permission denied                                     | ✅ Pass |
+| Try to delete a product as a regular user       | Access denied / no delete button visible                            | ✅ Pass |
+| Checkout with empty cart                        | Redirected back to cart page with error toast                       | ✅ Pass |
+| Submit invalid Stripe card                      | Stripe shows card declined / validation error                       | ✅ Pass |
+| Visit a non-existent product or plan URL        | 404 error page displayed                                            | ✅ Pass |
+| Use browser back/forward after form submission  | No errors; page loads correctly                                     | ✅ Pass |
 
 
 ---

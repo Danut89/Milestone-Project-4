@@ -278,7 +278,7 @@ Key responsive features:
 - Firefox and Safari screen resizes
 
 <details>
-  <summary>📸 See ERD (Click to expand)</summary>
+  <summary>📸 See homepage mobile verion (Click to expand)</summary>
 
 ![Mobile Homepage](static/readme-screenshoots/mobile-home.png)
 
@@ -286,7 +286,7 @@ Key responsive features:
 </details>
 
 <details>
-   <summary>📸 See ERD (Click to expand)</summary>
+   <summary>📸 See recipe-detail page mobile version (Click to expand)</summary>
 
 ![Mobile Recipe Detail](static/readme-screenshoots/recipe-mobile.png)
 
@@ -688,7 +688,7 @@ Below is the full Entity Relationship Diagram (ERD) showing how the models in Fi
 <details>
   <summary>📸 See ERD (Click to expand)</summary>
 
-![FitZone Pro ERD](static/readme-screenshoots/mobile-home.png)
+![FitZone Pro ERD](static/readme-screenshoots/fitzone_pro_erd.png)
 
 </details>
 
@@ -742,7 +742,7 @@ Testing was conducted throughout the development of FitZone Pro to ensure functi
 
 A detailed breakdown of all test cases, tools, methods, and results is available in a separate file:
 
-📄 [**View Full Testing Documentation → `Testing.md`**](Testing.md)
+📄 [**View Full Testing Documentation**](TESTING.md)
 
 ---
 
@@ -924,6 +924,7 @@ This section acknowledges all resources, tools, tutorials, and individuals that 
 - [WAVE Accessibility Tool](https://wave.webaim.org/) — Automated accessibility checker used during testing  
 - [AOS.js](https://michalsnik.github.io/aos/) — Animate on Scroll library for homepage transitions  
 - [Placehold.co](https://placehold.co/) — Used temporarily to create placeholder images during development
+- [CSS Cards](https://freefrontend.com/css-cards/#google_vignette) — Inspiration for products,  recipes and meal plan cards
 
 
 ---
