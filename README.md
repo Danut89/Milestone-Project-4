@@ -21,12 +21,13 @@
   - [ Homepage](#homepage)
   - [ Authentication (login & signup)](#authentication-login--signup)
   - [ Password Reset and Account Recovery](#password-reset-and-account-recovery)
- 
+  - [ Cart & Checkout](#cart--checkout)
+  - [ Stripe Checkout Integration](#stripe-checkout-integration)
+    - [ How to Test the Checkout Process](#how-to-test-the-checkout-process)
+  - [ Orders & Order History](#orders--order-history)
   - [ Recipe CRUD (Create, Read, Update, Delete)](#recipe-crud-create-read-update-delete)
   - [ Meal Plan Pages](#meal-plan-pages)
   - [ Product Catalog & Shop](#product-catalog--shop)
-  - [ Cart & Checkout](#cart--checkout)
-  - [ Orders & Order History](#orders--order-history)
   - [💚 Wishlist System](#wishlist-system)
   - [ User Profiles & Dashboard](#user-profiles--dashboard)
   - [ Profile Settings](#profile-settings-page)
@@ -309,7 +310,72 @@ Accessibility considerations:
 
 ###  Wireframes
 
-> Placeholder: Initial low-fidelity wireframes were created to define structure and layout before development began. Screenshots or links to mockups will be added here.
+To plan the structure and user flow of key pages in FitZone Pro, wireframes were created during the design phase. These help visualize layout, UI hierarchy, and user interaction before development.
+
+---
+
+#### 📄 Meal Plan / Recipe Detail Page Wireframe
+
+This wireframe illustrates the layout used for both **meal plan** and **recipe** detail views. It includes:
+
+- Title and main image
+- Key info (calories, prep time, servings)
+- Ingredients list
+- Instructions or meal breakdown
+- Save/Start buttons for user interaction
+
+<details>
+  <summary>📸 View Recipe wireframe (Click to expand)</summary>
+
+![Meal-plan/Recipe Wireframe](static/readme-screenshoots/recipe.png)
+
+</details>
+
+---
+
+#### 🛍️ Shop Page Wireframe
+
+This wireframe shows the structure of the **shop listing page**, including:
+
+- Search bar
+- Product cards with images, price, rating, and description
+- Action buttons like “View Product”
+
+<details>
+  <summary>📸 View Shop wireframe (Click to expand)</summary>
+
+![Shop Wireframe](static/readme-screenshoots/shop.png)
+
+</details>
+
+---
+
+#### 🏠 Homepage Wireframe
+
+This wireframe outlines the main structure of the **FitZone Pro homepage**, designed to introduce the platform and guide users into key sections.
+
+Features include:
+
+- Header with logo, navigation, and cart
+- Hero section with CTA (Call to Action)
+- Benefits section with 3 quick visual highlights
+- Featured products area
+- Structured footer for additional navigation
+
+<details>
+  <summary>📸 View Homepage wireframe (Click to expand)</summary>
+
+![Homepage Wireframe](static/readme-screenshoots/homepage-wireframe.png)
+
+</details>
+
+This design helped establish a clear information hierarchy, guide the visual layout, and ensure responsiveness across screen sizes.
+
+
+---
+
+> 🛠️ **Note**: While these wireframes provided the initial structure and layout for each page, some elements were refined or adjusted during the development process to improve usability, responsiveness, or match visual design goals. These changes were made iteratively based on user experience considerations and mobile testing. The final implementation stays aligned with the intended purpose of each wireframe while enhancing the overall user interface.
+
 
 ---
 
@@ -389,7 +455,7 @@ Key features of the reset flow:
 Below is an example of a reset email generated in development (shown in the terminal/console):
 
 <details>
-  <summary>📸 See Login page (Click to expand)</summary>
+  <summary>📸 See Password Reset Terminal Output (Click to expand)</summary>
 
 ![Password Reset Terminal Output](static/readme-screenshoots/account-recovery.png)
 
@@ -405,6 +471,82 @@ This implementation meets the following **distinction criteria**:
 - Secure handling of credentials and tokens
 - Alignment with best UX and defensive design principles
 
+---
+
+### Cart & Checkout
+
+- Cart page shows all added items with quantity and price
+- Modify quantities, remove items, or proceed to checkout
+- Stripe-powered secure checkout form with delivery info
+- On success, order is saved and confirmation is shown
+
+<details>
+  <summary>📸 See Cart page (Click to expand)</summary>
+
+![Cart](static/readme-screenshoots/cart-preview.png)
+
+</details>
+
+---
+
+###  Stripe Checkout Integration
+
+FitZone Pro integrates Stripe to provide a **secure and smooth payment experience** during checkout.
+
+Key features:
+
+-  Stripe Elements used for client-side card input — secure, customizable, and PCI-compliant
+-  No sensitive card data is stored on our server
+-  Stripe public/secret keys are stored securely in environment variables
+-  On success, order is saved and a confirmation page is shown
+-  Failed payments show error feedback (e.g. invalid card)
+-  Tested using Stripe's provided test cards for different scenarios
+
+<details>
+  <summary>📸 View Checkout Page (Click to expand)</summary>
+
+![Stripe Checkout](static/readme-screenshoots/stripe-checkout.png)
+
+</details>
+
+> 💡 Future updates may include Stripe webhooks for marking orders as "paid" automatically and sending confirmation emails.
+
+
+####  How to Test the Checkout Process
+
+You can test the shopping and checkout experience using **Stripe’s test mode**, which is active on the deployed version of FitZone Pro.
+
+To simulate a successful payment, use the following test card details provided by Stripe:
+
+| Field            | Value                    |
+|------------------|---------------------------|
+| Card Number      | `4242 4242 4242 4242`     |
+| Expiry Date      | Any future date (e.g. `12/34`) |
+| CVC              | Any 3 digits (e.g. `123`) |
+| ZIP / Postal Code| Any 5 digits (e.g. `12345`) |
+
+🛒 Steps to test shopping:
+1. Add a product to your cart from the Shop page.
+2. Proceed to checkout via the cart icon.
+3. Fill in the checkout form and use the test card above.
+4. After successful payment, you will be redirected to an order confirmation page.
+5. Visit the Dashboard to view your saved order.
+
+> 💡 No real money is used — all payments are processed in test mode only.
+
+
+### Orders & Order History
+
+- All past orders stored and displayed in user dashboard
+- Each order includes timestamp, total, and item list
+- Admins can view all orders in Django Admin panel
+
+<details>
+  <summary>📸 See Order History page (Click to expand)</summary>
+
+![Order History](static/readme-screenshoots/order-history.png)
+
+</details>
 
 ---
 
@@ -421,6 +563,7 @@ This implementation meets the following **distinction criteria**:
 ![Reicpe page](static/readme-screenshoots/recipe-preview.png)
 
 </details>
+
 
 ---
 
@@ -451,37 +594,6 @@ This implementation meets the following **distinction criteria**:
   <summary>📸 View Shop (Click to expand)</summary>
 
 ![Shop](static/readme-screenshoots/shop-preview.png)
-
-</details>
-
----
-
-### Cart & Checkout
-
-- Cart page shows all added items with quantity and price
-- Modify quantities, remove items, or proceed to checkout
-- Stripe-powered secure checkout form with delivery info
-- On success, order is saved and confirmation is shown
-
-<details>
-  <summary>📸 See Cart page (Click to expand)</summary>
-
-![Cart](static/readme-screenshoots/cart-preview.png)
-
-</details>
-
----
-
-### Orders & Order History
-
-- All past orders stored and displayed in user dashboard
-- Each order includes timestamp, total, and item list
-- Admins can view all orders in Django Admin panel
-
-<details>
-  <summary>📸 See Order History page (Click to expand)</summary>
-
-![Order History](static/readme-screenshoots/order-history.png)
 
 </details>
 

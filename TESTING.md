@@ -8,6 +8,9 @@
 - [ Manual Feature Testing](#manual-feature-testing)
 - [🙋 User Story Testing](#user-story-testing)
 - [ UI & Navigation Testing](#ui--navigation-manual-testing)
+- [ Authentication and Account Recovery](#authentication-and-account-recovery)
+- [ Stripe Checkout Tests](#stripe-checkout-tests)
+
 - [ Edge Case & Validation Testing](#edge-case--validation-testing)
 - [ Accessibility Testing](#accessibility-testing)
 - [🌐 Browser & Device Compatibility](#browser--device-compatibility)
@@ -77,7 +80,7 @@ This section outlines tests for general navigation, link behavior, and UI feedba
 
 ---
 
-#### Authentication and Account Recovery
+### Authentication and Account Recovery
 
 | Feature                        | Test Description                                            | Result |
 |-------------------------------|-------------------------------------------------------------|--------|
@@ -86,6 +89,27 @@ This section outlines tests for general navigation, link behavior, and UI feedba
 | Password Reset Success Page   | Confirmation message appeared after reset                   | Pass ✅ |
 | Login with New Password       | Able to log in using newly set password                     | Pass ✅ |
 | Invalid/Expired Token         | Displays clear error message, can't use old reset links     | Pass ✅ |
+
+---
+
+###  Stripe Checkout Tests
+
+| Test Case                              | Expected Result                                                 | Outcome   |
+|----------------------------------------|------------------------------------------------------------------|-----------|
+| Stripe form loads on checkout page     | Stripe card input displays and script loads successfully         | ✅ Pass    |
+| Valid test card completes payment      | Order saved, redirected to success page                          | ✅ Pass    |
+| Invalid test card is rejected          | Stripe shows error message, no order created                     | ✅ Pass    |
+| Attempt to checkout with empty cart    | Redirected back to cart with error toast                         | ✅ Pass    |
+| Checkout on mobile device              | Stripe form responsive and works via touch input                 | ✅ Pass    |
+| Stripe checkout on deployed site       | Form loads and payment works on Render live version              | ✅ Pass    |
+
+- Stripe is used to securely process all payments in the FitZone Pro platform. The integration uses Stripe Elements to ensure PCI compliance, and all sensitive card data is handled on Stripe’s side via its secure JavaScript SDK. 
+
+- Throughout testing, Stripe performed reliably in both development and on the deployed Render environment. Various test card scenarios were evaluated to simulate success, failure, and validation feedback.
+
+- The payment form was responsive, accessible, and visually consistent with the rest of the site. Manual testing confirmed that orders are saved correctly on successful transactions, and users are redirected to a clear confirmation page. Errors such as invalid cards or empty carts are handled gracefully with helpful feedback messages.
+
+> 💡 Webhooks for marking orders as "paid" and sending confirmation emails may be added in a future release.
 
 ---
 
