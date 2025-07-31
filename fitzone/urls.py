@@ -19,7 +19,7 @@ from django.urls import path, include
 from home import views as home_views
 from django.conf import settings
 from django.conf.urls.static import static
-from nutrition.views import meal_plan_detail
+from home import views as home_views
 
 
 
@@ -43,3 +43,9 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    
+
+handler403 = home_views.custom_403
+handler404 = home_views.custom_404
+handler500 = home_views.custom_500

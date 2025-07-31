@@ -77,6 +77,18 @@ This section outlines tests for general navigation, link behavior, and UI feedba
 
 ---
 
+#### Authentication and Account Recovery
+
+| Feature                        | Test Description                                            | Result |
+|-------------------------------|-------------------------------------------------------------|--------|
+| Forgot Password (Reset Start) | Entered valid email, received reset link in console         | Pass ✅ |
+| Password Reset Link           | Link opened reset form with new password fields             | Pass ✅ |
+| Password Reset Success Page   | Confirmation message appeared after reset                   | Pass ✅ |
+| Login with New Password       | Able to log in using newly set password                     | Pass ✅ |
+| Invalid/Expired Token         | Displays clear error message, can't use old reset links     | Pass ✅ |
+
+---
+
 ###  User Story Testing
 
 This section verifies that each user story (as defined in the UX section of the README) has been implemented and tested. It includes guest, registered, and admin user flows.

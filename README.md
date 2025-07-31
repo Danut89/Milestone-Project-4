@@ -19,7 +19,9 @@
 - [💡 Features](#features)
   - [ Navigation Bar](#navigation-bar)
   - [ Homepage](#homepage)
-  - [ Authentication (Login / Signup)](#authentication-login--signup)
+  - [ Authentication (login & signup)](#authentication-login--signup)
+  - [ Password Reset and Account Recovery](#password-reset-and-account-recovery)
+ 
   - [ Recipe CRUD (Create, Read, Update, Delete)](#recipe-crud-create-read-update-delete)
   - [ Meal Plan Pages](#meal-plan-pages)
   - [ Product Catalog & Shop](#product-catalog--shop)
@@ -29,6 +31,7 @@
   - [ User Profiles & Dashboard](#user-profiles--dashboard)
   - [ Profile Settings](#profile-settings-page)
   - [ Contact Page](#contact-page)
+  - [ Error pages](#custom-error-pages)
 - [🖥️ Technologies Used](#technologies-used)
   - [ Languages and Frameworks](#languages-and-frameworks)
   - [ Libraries and Packages](#libraries-and-packages)
@@ -350,17 +353,58 @@ FitZone Pro is a wellness-focused web application that includes personalized das
 
 ### Authentication (Login / Signup)
 
-- Django built-in auth extended with custom login and registration forms
-- Includes success/error toasts and redirection
-- Forgot password and change password supported
-- Secure access to private pages and personalized data
+The site uses **Django Allauth** to provide secure authentication, including:
+
+Django built-in auth extended with custom login and registration forms
+Includes success/error toasts and redirection
+Forgot password and change password supported
+Secure access to private pages and personalized data
 
 <details>
-  <summary>📸 See login page (Click to expand)</summary>
+  <summary>📸 See Login page (Click to expand)</summary>
 
 ![Login](static/readme-screenshoots/login.png)
 
 </details>
+
+---
+
+###  Password Reset and Account Recovery
+
+FitZone Pro includes a secure, user-friendly password reset feature using **Django Allauth**. This allows users to recover their accounts if they forget their password, providing a complete authentication and recovery system compliant with distinction-level assessment criteria.
+
+Key features of the reset flow:
+
+- 🛡️ **Secure token-based reset links** generated via Django's built-in system.
+- 📩 **Custom email content** delivered via Django’s console backend for development.
+- 🧭 Clear and styled feedback pages for:
+  - Reset request confirmation
+  - New password form
+  - Final reset success
+- 🧱 All views use custom templates styled to match the rest of the site.
+- ✅ Fully integrated with Django Allauth routing (`/accounts/password/reset/` and related views).
+
+#### 📸 Example: Reset Email Output in Development
+
+Below is an example of a reset email generated in development (shown in the terminal/console):
+
+<details>
+  <summary>📸 See Login page (Click to expand)</summary>
+
+![Password Reset Terminal Output](static/readme-screenshoots/account-recovery.png)
+
+</details>
+
+> 💡 For production, the email backend can be switched to use SMTP with services like Gmail or SendGrid.
+
+---
+
+This implementation meets the following **distinction criteria**:
+- Full user control and clear recovery process
+- Feedback on all user actions
+- Secure handling of credentials and tokens
+- Alignment with best UX and defensive design principles
+
 
 ---
 
@@ -513,6 +557,39 @@ Key Features:
 </details>
 
 ---
+
+###  Custom Error Pages
+
+FitZone Pro includes custom templates for HTTP error handling, enhancing both **usability** and **branding consistency**. These pages ensure users receive clear, helpful feedback when something goes wrong.
+
+| Error Code | When It Occurs                                         | Template             |
+|------------|--------------------------------------------------------|----------------------|
+| `404`      | Page not found (invalid URL or deleted resource)       | `errors/404.html`    |
+| `403`      | Permission denied (unauthorized access attempt)        | `errors/403.html`    |
+| `500`      | Internal server error (uncaught exception in production) | `errors/500.html` |
+
+All pages extend the base layout and maintain consistent styling and navigation.
+
+---
+
+#### 🧪 How to Test Locally (with `DEBUG=False`)
+
+Make sure `DEBUG = False` in your `settings.py` and error handlers are defined:
+
+```python
+# urls.py
+handler404 = 'home.views.custom_404'
+handler403 = 'home.views.custom_403'
+handler500 = 'home.views.custom_500'
+```
+
+<details>
+  <summary>📸 See error page (Click to expand)</summary>
+
+![Error pages](static/readme-screenshoots/404-page.png)
+
+
+</details>
 
 ##  Technologies Used
 
