@@ -155,3 +155,10 @@
   margin-top: 1rem;
 }
 
+.card-section {
+  @media (min-width: 767px) and (max-width: 1080px) {
+    .card-section {
+      margin-top: 4rem !important;
+    }
+  }
+}

@@ -1,51 +1,59 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="container d-flex py-5 justify-content-center shop-header">
-  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 1rem;">
-    <div class="text-center mb-4">
-      <i class="fa fa-lock fa-2x text-success mb-3"></i>
-      <h2 class="fw-bold">Sign In</h2>
-      <p class="text-muted">Welcome back to FitZone Pro</p>
+<section class="py-5 shop-header">
+  <div class="container py-3 text-center mt-2 mb-4">
+     <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg p-4">
+          <div class="text-center mb-4">
+            <i class="fa fa-lock fa-2x text-success mb-3"></i>
+            <h2 class="fw-bold">Sign In</h2>
+            <p class="text-muted">Welcome back to FitZone Pro</p>
+          </div>
+
+          <form method="post" action="{% url 'account_login' %}" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+              <label for="id_login" class="form-label">Login*</label>
+              {{ form.login|add_class:"form-control" }}
+              {{ form.login.errors }}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_password" class="form-label">Password*</label>
+              {{ form.password|add_class:"form-control" }}
+              {{ form.password.errors }}
+            </div>
+
+            <div class="mb-3 text-end">
+              <a href="{% url 'account_reset_password' %}" class="text-primary small">Forgot your password?</a>
+            </div>
+
+            {% if form.remember %}
+              <div class="form-check mb-3">
+                {{ form.remember|add_class:"form-check-input" }}
+                <label for="remember" class="form-check-label">Remember Me</label>
+              </div>
+            {% endif %}
+
+            <div class="d-grid mb-3">
+              <button class="btn btn-success" type="submit">
+                <i class="fas fa-sign-in-alt me-2"></i> Sign In
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center text-muted small">
+            Don’t have an account? <a href="{% url 'account_signup' %}">Sign up here</a>
+          </p>
+        </div>
+      </div>
     </div>
-
-    <form method="post" action="{% url 'account_login' %}" novalidate>
-      {% csrf_token %}
-      {{ form.non_field_errors }}
-
-      <div class="mb-3">
-        <label for="id_login" class="form-label">Login*</label>
-        {{ form.login|add_class:"form-control" }}
-        {{ form.login.errors }}
-      </div>
-
-      <div class="mb-3">
-        <label for="id_password" class="form-label">Password*</label>
-        {{ form.password|add_class:"form-control" }}
-        {{ form.password.errors }}
-      </div>
-
-      <div class="mb-3 text-end">
-        <a href="{% url 'account_reset_password' %}" class="text-primary small">Forgot your password?</a>
-      </div>
-
-      <div class="form-check mb-3">
-        {{ form.remember|add_class:"form-check-input" }}
-        <label for="remember" class="form-check-label">Remember Me</label>
-      </div>
-
-      <div class="d-grid mb-3">
-        <button class="btn btn-success" type="submit">
-          <i class="fas fa-sign-in-alt me-2"></i> Sign In
-        </button>
-      </div>
-    </form>
-
-    <p class="text-center text-muted small">
-      Don’t have an account? <a href="{% url 'account_signup' %}">Sign up here</a>
-    </p>
   </div>
-</div>
+</section>
 {% endblock %}

@@ -188,5 +188,14 @@
   vertical-align: middle;
 }
 
+/* ===========================
+   Responsive Styles
+============================= */
+@media (min-width: 767px) and (max-width: 1080px) {
+  .dashboard-section {
+    margin-top: 9rem !important;
+  }
+}
+
 
 

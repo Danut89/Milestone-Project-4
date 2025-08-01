@@ -1,7 +1,23 @@
-from pathlib import Path
 import os
+
+# Only load .env file locally, not on production
+if os.path.exists('.env'):
+    from dotenv import load_dotenv
+    load_dotenv()
+
+
+from pathlib import Path
 from decouple import config
 import dj_database_url
+
+import cloudinary
+from decouple import config
+
+cloudinary.config( 
+  cloud_name = config('CLOUDINARY_CLOUD_NAME'), 
+  api_key = config('CLOUDINARY_API_KEY'), 
+  api_secret = config('CLOUDINARY_API_SECRET') 
+)
 
 # ========================
 # 🌍 Base Directories
@@ -174,3 +190,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': config('CLOUDINARY_API_KEY'),
     'API_SECRET': config('CLOUDINARY_API_SECRET'),
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'FitZone Pro <noreply@fitzonepro.com>'
