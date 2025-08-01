@@ -5,25 +5,27 @@
 
 {% block content %}
 <section class="container py-5 mt-5 shop-header">
-  <div class="row justify-content-center mt-5 py-5">
-    <div class="col-md-6 col-lg-5">
-      <div class="login-card card shadow-lg rounded-2 border-0 p-4 text-center">
-        <h2 class="mb-3">
-          <i class="fas fa-sign-out-alt text-danger me-2"></i>Sign Out
-        </h2>
-        <p class="mb-4">Are you sure you want to sign out?</p>
+  <div class="container py-3">
+    <div class="row justify-content-center mt-5 py-5">
+      <div class="col-md-6 col-lg-5">
+        <div class="login-card card shadow-lg rounded-2 border-0 p-4 text-center">
+          <h2 class="mb-3">
+            <i class="fas fa-sign-out-alt text-danger me-2"></i>Sign Out
+          </h2>
+          <p class="mb-4">Are you sure you want to sign out?</p>
 
-        <form method="POST" action="{% url 'account_logout' %}">
-          {% csrf_token %}
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-danger">
-              <i class="fas fa-door-open me-2"></i>Yes, log me out
-            </button>
-            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
-              <i class="fas fa-arrow-left me-2"></i>No, take me back
-            </a>
-          </div>
-        </form>
+          <form method="POST" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-danger">
+                <i class="fas fa-door-open me-2"></i>Yes, log me out
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>No, take me back
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
