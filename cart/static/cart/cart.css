@@ -76,65 +76,84 @@
 /* ===========================
    ✅ Checkout Page Styles
 =========================== */
-
-/* --- Checkout Card Wrapper --- */
+/* 🌟 Checkout Card Enhancements */
 .checkout-card {
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--color-bg);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  box-shadow: var(--shadow-md);
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+  border: none;
 }
 
-/* --- Section Headings --- */
-.section-heading {
-  font-size: 1.25rem;
-  font-weight: 600;
+/* 🎯 Headings */
+.checkout-card h1 {
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--text-heading);
-  border-bottom: 1px solid var(--color-bg);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 
-/* --- Form Labels --- */
-.form-label {
-  font-weight: 500;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+.section-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-left: 4px solid var(--color-accent-2);
+  padding-left: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-/* --- Inputs --- */
+/* 🧾 Form Controls */
 .form-control {
   border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
   box-shadow: var(--shadow-xs);
-  border: 1px solid var(--color-bg);
-  padding: 0.6rem 0.75rem;
-  font-size: 1rem;
+  border: 1px solid var(--color-muted);
 }
 
-/* --- Row Spacing --- */
-.checkout-card .row > div {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-/* --- Checkbox for saved info --- */
-#useSavedInfo {
-  transform: scale(1.15);
-  margin-top: 0.2rem;
-  cursor: pointer;
-}
-.form-check-label {
+/* 📋 Labels */
+.form-label {
+  font-size: 0.875rem;
   font-weight: 500;
-  margin-left: 0.75rem;
-}
-
-/* --- Stripe Note --- */
-.checkout-note {
-  font-size: 0.9rem;
   color: var(--text-muted);
 }
+
+/* 📦 Saved Info Checkbox */
+#useSavedInfo {
+  transform: scale(1.2);
+  margin-right: 0.75rem;
+}
+
+.saved-info-box {
+  background-color: var(--bg-muted);
+  border-left: 5px solid var(--color-accent-3);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+}
+
+/* 💳 Stripe Card Box */
+#card-element {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-muted);
+  padding: 0.75rem;
+  background: #f9f9f9;
+}
+
+/* ✅ Button */
+#checkout-btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+}
+
+/* 🔐 Stripe Note */
+.checkout-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 
 /* --- Success Confirmation Card --- */
 .confirmation-box {

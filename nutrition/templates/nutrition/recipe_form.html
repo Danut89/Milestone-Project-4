@@ -9,7 +9,7 @@
 {% block content %}
 <section class="container shop-header text-center py-5">
 
-  <div class="text-center mb-5">
+  <div class="container py-3 text-center mb-5">
     <h2 class="fw-bold display-6">{{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}</h2>
     <p class="text-muted">Please fill out all fields to {{ form.instance.pk|yesno:"update your recipe,add a new recipe" }}.</p>
   </div>

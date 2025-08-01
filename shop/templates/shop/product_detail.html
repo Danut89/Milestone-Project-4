@@ -7,7 +7,7 @@
 <section class="shop-header text-center container py-5">
 
   <!-- 🥇 Page Title -->
-  <div class="text-center mt-2 mb-4">
+  <div class="container py-3 text-center mt-2 mb-4">
     <h1 class="mb-2">
       <i class="fa-solid fa-box-open text-success me-2"></i> Product <span class="text-success">Details</span>
     </h1>
@@ -76,11 +76,12 @@
     </div>
   </div>
 
-  <!-- 💡 You may also like -->
-  <h3 class="mt-5 mb-4 text-center">
-    <i class="fa-solid fa-heart-circle-bolt me-2 text-accent"></i> You may also like
-  </h3>
-
+  <div class="container mt-5 py-5">
+    <!-- 💡 You may also like -->
+    <h3 class="mt-5 mb-4 text-center">
+      <i class="fa-solid fa-heart-circle-bolt me-2 text-accent"></i> You may also like
+    </h3>
+</div>
   <section class="container mt-5">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for item in related_products %}
