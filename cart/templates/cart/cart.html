@@ -4,63 +4,66 @@
 {% block title %}Your Cart{% endblock %}
 
 {% block content %}
-<section class="container py-5 shop-header">
-  <h1 class="hero-title mb-4 text-center"><i class="fas fa-shopping-cart text-success"></i> Your Cart</h1>
+<section class="container cart-section py-5 shop-header">
+  <div class="container py-4">
+    <h1 class="hero-title mb-4 text-center"><i class="fas fa-shopping-cart text-success"></i> Your Cart</h1>
 
-  
+    
 
-  {% if cart_items %}
-    <div class="table-wrap cart-box shadow-lg rounded-3 p-4 mb-4">
-      <table class="table align-middle cart-table w-100">
-        <thead class="table-light">
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col" class="text-end">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in cart_items %}
+    {% if cart_items %}
+      <div class="table-wrap cart-box shadow-lg rounded-3 p-4 mb-4">
+        <table class="table align-middle cart-table w-100">
+          <thead class="table-light">
             <tr>
-              <td data-label="Product" class="d-flex align-items-center gap-3">
-                {% if item.product.image %}
-                  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail rounded-3" style="width: 60px; height: 60px;">
-                {% endif %}
-                <strong>{{ item.product.name }}</strong>
-              </td>
-              <td data-label="Price">£{{ item.product.price }}</td>
-              <td data-label="Quantity">
-                <span class="badge bg-secondary">{{ item.quantity }}</span>
-              </td>
-              <td data-label="Subtotal">£{{ item.subtotal|floatformat:2 }}</td>
-              <td data-label="Actions" class="text-end">
-                <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
-                  {% csrf_token %}
-                  <button class="btn btn-outline-danger btn-sm">Remove</button>
-                </form>
-              </td>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col" class="text-end">Actions</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+              <tr>
+                <td data-label="Product" class="d-flex align-items-center gap-3">
+                  {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail rounded-3" style="width: 60px; height: 60px;">
+                  {% endif %}
+                  <strong>{{ item.product.name }}</strong>
+                </td>
+                <td data-label="Price">£{{ item.product.price }}</td>
+                <td data-label="Quantity">
+                  <span class="badge bg-secondary">{{ item.quantity }}</span>
+                </td>
+                <td data-label="Subtotal">£{{ item.subtotal|floatformat:2 }}</td>
+                <td data-label="Actions" class="text-end">
+                  <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger btn-sm">Remove</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
-    <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
-      <p class="fs-5 mb-0"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
-      <a href="{% url 'checkout' %}" class="btn btn-outline-success">
-        Proceed to Checkout
-      </a>
-      <a href="{% url 'all_products' %}" class="btn btn-outline-dark px-4 py-2 fw-bold rounded-3 border">← Continue Shopping</a>
-    </div>
+       <p class="fs-5 mb-0"><strong>Total:</strong> £{{ cart_total|floatformat:2 }}</p>
 
-  {% else %}
-    <div class="alert alert-info bg-white shadow-sm rounded-3 p-3 mt-4 text-center" role="alert">
-      <p class="mb-2">Your cart is currently empty.</p>
-      <a href="{% url 'all_products' %}" class="btn btn-primary mt-2">Browse Products</a>
-    </div>
-  {% endif %}
+      <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <a href="{% url 'all_products' %}" class="btn btn-outline-dark  py-2">Continue Shopping</a>
+         <a href="{% url 'checkout' %}" class="btn btn-outline-success">
+          Proceed to Checkout
+        </a>
+      </div>
+
+    {% else %}
+      <div class="alert alert-info bg-white shadow-sm rounded-3 p-3 mt-4 text-center" role="alert">
+        <p class="mb-2">Your cart is currently empty.</p>
+        <a href="{% url 'all_products' %}" class="btn btn-primary mt-2">Browse Products</a>
+      </div>
+    {% endif %}
+  </div>
 </section>
 {% endblock %}
 
