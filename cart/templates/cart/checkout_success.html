@@ -18,7 +18,7 @@
     <!-- 📦 Order Summary -->
     <div class="order-summary-box mx-auto px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle text-start" style="max-width: 600px;">
       <h5 class="fw-bold mb-3">📦 Items Ordered:</h5>
-      {% for item in order.orderitem_set.all %}
+      {% for item in order.items.all %}
         <div class="d-flex justify-content-between border-bottom py-1 small">
           <span>{{ item.product.name }} × {{ item.quantity }}</span>
           <span>£{{ item.price|floatformat:2 }}</span>

@@ -122,7 +122,7 @@
 }
 
 .saved-info-box {
-  background: var(--gradient-hero);
+  background-color: lavender;
   border-left: 5px solid var(--color-accent-2);
   padding: 1rem;
   border-radius: var(--radius-md);
