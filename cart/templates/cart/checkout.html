@@ -5,106 +5,82 @@
 {% block title %}Checkout{% endblock %}
 
 {% block content %}
-<section class="container py-5 section-highlight shop-header">
 
-  {% if order %}
-  <!-- ✅ Order Confirmation Section -->
-  <div class="confirmation-box bg-white p-5 rounded-4 shadow-sm border">
 
-    <h1 class="display-6 fw-bold text-success mb-3">
-      🎉 Thank You, {{ order.user.username }}!
-    </h1>
 
-    <p class="fs-5 mb-4">
-      Your order <strong>#{{ order.id }}</strong> has been placed successfully.
-    </p>
+<section class="shop-header text-center container py-5">
+    {% if order %}
+    <!-- ✅ Order Confirmation Section -->
+    <div class="container py-3 text-center mt-2 mb-4 confirmation-box p-5 shadow-lg">
 
-    <div class="order-summary-box mx-auto px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle text-start" style="max-width: 500px;">
-      <p class="mb-2">📦 <strong>Order Summary:</strong></p>
-      {% for item in order.orderitem_set.all %}
-        <div class="d-flex justify-content-between border-bottom py-1 small">
-          <span>{{ item.product.name }} × {{ item.quantity }}</span>
-          <span>£{{ item.price|floatformat:2 }}</span>
+      <h1 class="display-6 fw-bold text-success mb-3">
+        🎉 Thank You, {{ order.user.username }}!
+      </h1>
+
+      <p class="fs-5 mb-4">
+        Your order <strong>#{{ order.id }}</strong> has been placed successfully.
+      </p>
+
+      <div class="order-summary-box mx-auto px-4 py-3 rounded-3 shadow-sm mb-4 bg-light-subtle text-start" style="max-width: 500px;">
+        <p class="mb-2">📦 <strong>Order Summary:</strong></p>
+        {% for item in order.orderitem_set.all %}
+          <div class="d-flex justify-content-between border-bottom py-1 small">
+            <span>{{ item.product.name }} × {{ item.quantity }}</span>
+            <span>£{{ item.price|floatformat:2 }}</span>
+          </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-3 fw-semibold">
+          <span>💰 Total Paid:</span>
+          <span>£{{ order.total_price|floatformat:2 }}</span>
         </div>
-      {% endfor %}
-      <div class="d-flex justify-content-between mt-3 fw-semibold">
-        <span>💰 Total Paid:</span>
-        <span>£{{ order.total_price|floatformat:2 }}</span>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'order_history' %}" class="btn btn-outline-primary">
+          📋 View Order History
+        </a>
+        <a href="{% url 'all_products' %}" class="btn btn-success">
+          🛍 Continue Shopping
+        </a>
       </div>
     </div>
-
-    <div class="d-flex justify-content-center gap-3">
-      <a href="{% url 'order_history' %}" class="btn btn-outline-primary">
-        📋 View Order History
-      </a>
-      <a href="{% url 'all_products' %}" class="btn btn-success">
-        🛍 Continue Shopping
-      </a>
-    </div>
-
-  </div>
+</section>
 {% else %}
-    <!-- ✅ Checkout Form -->
-    <div class="row justify-content-start">
-      <div class="col-lg-8 col-xl-6">
-        <div class="checkout-card card p-4 p-md-5 rounded-4 shadow-sm border-0">
 
-          <h1 class="text-center mb-4 fw-bold">💳 Checkout</h1>
-          <p class="text-center mb-4 text-muted">
-            Complete your details to place the order and pay securely.
-          </p>
+<section class="container  py-3">
 
-          <!-- ✅ Toggle Saved Info -->
-          <form method="get" class="mb-4">
-            <div class="p-3 bg-light rounded-3 border d-flex align-items-start">
-              <input
-                class="form-check-input mt-1"
-                type="checkbox"
-                name="use_saved_info"
-                id="useSavedInfo"
-                onchange="this.form.submit();"
-                value="on"
-                {% if request.GET.use_saved_info == 'on' %}checked{% endif %}
-              >
-              <label for="useSavedInfo" class="form-check-label fw-semibold ms-2">
-                📝 Use my saved delivery information
-                <br>
-                <span class="small text-muted">
-                  Auto-fill your saved name, email, and address.
-                </span>
-              </label>
-            </div>
-          </form>
+        <!-- ✅ Saved Info Toggle -->
+        <form method="get" class="mb-2">
+           <h2 class="fw-bold mb-2">
+              <i class="fa-solid fa-credit-card text-success me-2 mb-3"></i> Checkout
+           </h2>
+          <div class="saved-info-box d-flex align-items-start gap-3 mb-3">
+            <input type="checkbox" name="use_saved_info" id="useSavedInfo" onchange="this.form.submit();"
+                  class="form-check-input mt-1"
+                  {% if request.GET.use_saved_info == 'on' %}checked{% endif %}>
+            <label for="useSavedInfo" class="form-check-label fw-semibold ms-2">
+              <small class="text-muted">Auto-fill your saved name, email, and address.</small>
+            </label>
+          </div>
+        </form>
 
-          
-            <!-- ✅ Main Checkout Form -->
-            <form method="post" action="{% url 'checkout' %}" id="checkout-form">
-              {% csrf_token %}
+        
+       
+        
+        <!-- ✅ Checkout Form -->
+        <form method="post" action="{% url 'checkout' %}" id="checkout-form">
+          {% csrf_token %}
 
-              <!-- 📧 Contact Information -->
-              <div class="mb-4">
-                <h5 class="section-heading">📧 Contact Information</h5>
-                <div class="row text-start">
-                  <div class="col-md-6 mb-3">
-                    <label for="{{ form.full_name.id_for_label }}" class="form-label">Full Name</label>
-                    {{ form.full_name|add_class:"form-control" }}
-                    {% if form.full_name.errors %}
-                      <div class="invalid-feedback d-block">{{ form.full_name.errors.0 }}</div>
-                    {% endif %}
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
-                    {{ form.email|add_class:"form-control" }}
-                    {% if form.email.errors %}
-                      <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
+          <div class="row g-4">
+            <!-- 📝 Left Column: User Details -->
+            <div class="col-md-6">
+              <div class="card checkout-card p-4 shadow-sm rounded-4 border-0">
+                
 
-              <!-- 🏠 Shipping Address -->
-              <div class="mb-4">
-                <h5 class="section-heading">🏠 Shipping Address</h5>
+              
+
+                <!--  Shipping Address -->
+                <h5 class="section-heading mt-2"><i class="fa-solid fa-house me-2 text-primary"></i>Shipping Address</h5>
                 <div class="row text-start">
                   <div class="col-md-6 mb-3">
                     <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
@@ -120,7 +96,7 @@
                       <div class="invalid-feedback d-block">{{ form.address_line1.errors.0 }}</div>
                     {% endif %}
                   </div>
-                
+                </div>
                 <div class="mb-3">
                   <label for="{{ form.address_line2.id_for_label }}" class="form-label">Address Line 2 (optional)</label>
                   {{ form.address_line2|add_class:"form-control" }}
@@ -151,33 +127,74 @@
                     {% endif %}
                   </div>
                 </div>
+
+                <!-- 💳 Card Input -->
+                <h5 class="section-heading mt-2">💳 Card Details</h5>
+                <div class="mb-4">
+                  <div id="card-element" class="form-control"></div>
+                </div>
               </div>
+            </div>
 
-              <!-- 💳 Card Input -->
-              <div class="mb-4">
-                <label for="card-element" class="form-label">💳 Card Details</label>
-                <div id="card-element" class="form-control"></div>
+            <!--  Right Column: Order Summary + Pay -->
+            <div class="col-lg-6">
+              <div class="card p-4 shadow-sm checkout-card border-0 rounded-4 d-flex flex-column justify-content-between">
+
+                <!-- Contact Information -->
+                <h5 class="section-heading">Contact Information</h5>
+                <div class="row text-start checkout">
+                  <div class="col-md-6 mb-3">
+                    <label for="{{ form.full_name.id_for_label }}" class="form-label">Full Name</label>
+                    {{ form.full_name|add_class:"form-control" }}
+                    {% if form.full_name.errors %}
+                      <div class="invalid-feedback d-block">{{ form.full_name.errors.0 }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                    {{ form.email|add_class:"form-control" }}
+                    {% if form.email.errors %}
+                      <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div>
+                  <h5 class="fw-semibold py-3">
+                    <i class="fa-solid fa-receipt me-2 text-success"></i> Order Summary
+                  </h5>
+                  <ul class="list-group mb-4">
+                    {% for item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between small">
+                      {{ item.product.name }} × {{ item.quantity }}
+                      <span>£{{ item.get_total_price|floatformat:2 }}</span>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between fw-bold">
+                      Total
+                      <span>£{{ cart_total|floatformat:2 }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <p class="checkout-note mb-2">🔒 Secure checkout powered by Stripe</p>
+                  <button type="submit" class="shop-btn py-2" id="checkout-btn"
+                          data-total="{{ cart_total|floatformat:2 }}">
+                    <span id="checkout-btn-text">Pay Now (£{{ cart_total|floatformat:2 }})</span>
+                    <div class="spinner-border spinner-border-sm d-none ms-2" id="checkout-spinner" role="status"></div>
+                  </button>
+                </div>
               </div>
-
-              <!-- 🔒 Submit Button -->
-              <div class="text-center mt-4">
-                <p class="checkout-note mb-3">🔒 Secure checkout powered by Stripe</p>
-                <button id="checkout-btn" class="btn btn-success d-flex align-items-center justify-content-center"
-                        type="submit" data-total="{{ cart_total|floatformat:2 }}">
-                  <span id="checkout-btn-text">Pay Now (£{{ cart_total|floatformat:2 }})</span>
-                  <div id="checkout-spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></div>
-                </button>
-
-              </div>
-            </form>
-
-        </div>
-      </div>
-    </div>
-
+            </div>
+          </div>
+        </form>
+      </section>
   {% endif %}
 
-</section>
+
+
+
 
 {% block extra_js %}
 <script src="https://js.stripe.com/v3/"></script>
@@ -187,9 +204,9 @@
   const CREATE_PAYMENT_INTENT_URL = "{% url 'create_payment_intent' %}";
 </script>
 <script src="{% static 'cart/cart.js' %}"></script>
-{% endblock %}
 
 
 {% endblock %}
 
 
+{% endblock %}
