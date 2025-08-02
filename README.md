@@ -2,6 +2,8 @@
 
 - [Live Website](https://milestone-project-4.onrender.com)
 
+![Fitzone-Pro](static/readme-screenshoots/Fitzone-pro.png)
+
 # 📚 Table of Contents
 
 - [📖 About](#about)
@@ -1021,13 +1023,40 @@ The live application is accessible at:
 
 ###  Deployment Process
 
-1. Create new web service in Render and connect to GitHub repo
-2. Add required **environment variables**
-3. Define:
-   - **Start command**: `gunicorn fitzone_pro.wsgi:application`
-   - **Build command** (if using `build.sh`): `./build.sh`
-4. Add PostgreSQL database via Render’s service panel
-5. Wait for automatic build + deploy (on every commit)
+The site was deployed to [Render](https://render.com/) using the following process:
+
+1. Created a new GitHub repository and pushed the project code.
+2. Created a new **Web Service** on [Render.com](https://render.com/):
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn fitzone.wsgi:application`
+3. Connected the repository to the Render service.
+4. Set the following **Environment Variables** in the Render Dashboard:
+
+| Key | Value |
+|-----|-------|
+| `SECRET_KEY` | your-django-secret-key |
+| `DEBUG` | False |
+| `ALLOWED_HOSTS` | your-render-url.onrender.com |
+| `DATABASE_URL` | your-database-url |
+| `CLOUDINARY_CLOUD_NAME` | your-cloud-name |
+| `CLOUDINARY_API_KEY` | your-api-key |
+| `CLOUDINARY_API_SECRET` | your-api-secret |
+| `STRIPE_PUBLIC_KEY` | your-stripe-public-key |
+| `STRIPE_SECRET_KEY` | your-stripe-secret-key |
+| `STRIPE_WEBHOOK_SECRET` | your-stripe-webhook-secret |
+| `EMAIL_HOST_USER` | your-email@example.com |
+| `EMAIL_HOST_PASSWORD` | your-email-password |
+
+5. Enabled automatic deploys from the main branch.
+6. Applied database migrations and created a superuser from the Render shell.
+
+---
+
+> ⚠️ During initial deployment, a **502 Gateway Error** was encountered.  
+> This was caused by:
+> - Using the wrong Gunicorn entry point (`fitzone_pro.wsgi` instead of `fitzone.wsgi`)
+> - Missing database and Cloudinary environment variables  
+> The issue was resolved by correcting the `.env` values and WSGI configuration.
 
 ---
 
