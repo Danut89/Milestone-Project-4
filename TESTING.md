@@ -497,6 +497,8 @@ This section documents bugs identified during development and how they were reso
 | 502 Error on Render deployment                 | Production (Render)         | Fixed .env settings + added default DB config          | ✅ Fixed |
 | Password change not redirecting                | Profile settings            | Corrected form handling and success URL logic          | ✅ Fixed |
 | CSS not applying on deployed site              | Live site (Render)          | Corrected staticfiles config and rebuilt assets        | ✅ Fixed |
+| Ordered items not showing on confirmation page | `checkout.html` template | Replaced `order.orderitem_set.all` with `order.items.all` to match related name in model | ✅ Fixed |
+| Autofill checkbox stopped working after layout update | `checkout.html` layout | Removed nested form structure and moved GET checkbox outside the main `<form>` | ✅ Fixed |
 
 ---
 
@@ -506,8 +508,6 @@ The following issues are known but considered minor or outside project scope. Th
 
 | Issue / Limitation                              | Impact                                      | Fix Planned? |
 |--------------------------------------------------|---------------------------------------------|--------------|
-| Stripe webhooks not fully handled                | Order status remains “pending” after payment | ✅ Yes        |
-| Search box triggers redirect on empty input      | Minor UX inconsistency                      | ✅ Yes        |
 | No email confirmation on registration            | Users can register without verifying email  | ⚠️ Optional   |
 | No admin dashboard for managing meal plans       | Admin must use Django admin                 | ⚠️ Low Priority |
 | Accordion animation not smooth on Safari (iOS)   | Visual only – no functionality impact       | ⚠️ Unlikely   |
