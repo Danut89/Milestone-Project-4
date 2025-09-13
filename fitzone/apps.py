@@ -10,6 +10,7 @@ class FitzoneConfig(AppConfig):
         from django.contrib.auth import get_user_model
 
         def create_admin(sender, **kwargs):
+            """Create a default superuser if CREATE_SUPERUSER=1 is set."""
             if os.environ.get("CREATE_SUPERUSER") == "1":
                 User = get_user_model()
                 if not User.objects.filter(username="admin").exists():
@@ -22,5 +23,5 @@ class FitzoneConfig(AppConfig):
                 else:
                     print("⚠️ Superuser already exists")
 
+        # Connect to post_migrate so it runs after migrations are applied
         post_migrate.connect(create_admin, sender=self)
-
