@@ -154,3 +154,17 @@ def custom_500(request):
 def custom_403(request, exception):
     return render(request, 'errors/403.html', status=403)
 
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def create_superuser_view(request):
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
+            password='Password123'
+        )
+        return HttpResponse("Superuser 'admin' created with password 'Password123'")
+    else:
+        return HttpResponse("Superuser already exists")
