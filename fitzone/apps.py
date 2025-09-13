@@ -6,7 +6,6 @@ class FitzoneConfig(AppConfig):
     name = "fitzone"
 
     def ready(self):
-        # Run after migrations if CREATE_SUPERUSER is set
         from django.db.models.signals import post_migrate
         from django.contrib.auth import get_user_model
 
@@ -24,3 +23,4 @@ class FitzoneConfig(AppConfig):
                     print("⚠️ Superuser already exists")
 
         post_migrate.connect(create_admin, sender=self)
+
