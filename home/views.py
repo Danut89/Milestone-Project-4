@@ -154,3 +154,15 @@ def custom_500(request):
 def custom_403(request, exception):
     return render(request, 'errors/403.html', status=403)
 
+
+
+from django.http import HttpResponse
+from django.core.management import call_command
+
+def run_migrations_view(request):
+    call_command('migrate')
+    return HttpResponse("Migrations applied successfully!")
+
+def collect_static_view(request):
+    call_command('collectstatic', interactive=False)
+    return HttpResponse("Static files collected!")
