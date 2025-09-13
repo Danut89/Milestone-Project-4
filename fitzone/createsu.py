@@ -1,13 +1,14 @@
-from django.contrib.auth import get_user_model
+from django.core.management import call_command
 
 def run():
-    User = get_user_model()
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
+    try:
+        call_command(
+            "createsuperuser",
+            interactive=False,
             username="admin",
             email="admin@example.com",
-            password="Password123"
+            skip_checks=True
         )
-        print("✅ Superuser created: admin / Password123")
-    else:
-        print("⚠️ Superuser already exists")
+    except Exception as e:
+        print(f"⚠️ Could not auto-create superuser: {e}")
+
