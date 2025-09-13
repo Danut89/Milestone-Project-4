@@ -193,3 +193,12 @@ CLOUDINARY_STORAGE = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'FitZone Pro <noreply@fitzonepro.com>'
+
+
+import os
+if os.environ.get('CREATE_SUPERUSER') == '1':
+    try:
+        from .createsu import run
+        run()
+    except Exception as e:
+        print(f"❌ Error creating superuser: {e}")
